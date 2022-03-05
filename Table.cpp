@@ -1,9 +1,14 @@
-#include "DataHolder.h"
+#include "Table.h"
 using std::vector;
 using std::string;
 
-DataHolder::DataHolder():table(new vector<vector<double>>), rowsNames(new vector<string>), columnsNames(new vector<string>), rowsCount(0),columnsCount(0){}
-DataHolder::~DataHolder(){
+Table::Table():table(new vector<vector<double>>), rowsNames(new vector<string>), columnsNames(new vector<string>), rowsCount(0),columnsCount(0){}
+Table::Table(vector<vector<double>> &table, vector<string> &rowsNames, vector<string> &columnsNames):rowsCount(rowsNames.size()),columnsCount(columnsNames.size()){
+    this->table=&table;
+    this->rowsNames=&rowsNames;
+    this->columnsNames=&columnsNames;
+}
+Table::~Table(){
     vector<vector<double>>().swap(*table);//deallocate all the table cells memory
     vector<string>().swap(*rowsNames);
     vector<string>().swap(*columnsNames);
@@ -11,16 +16,16 @@ DataHolder::~DataHolder(){
     delete rowsNames;
     delete columnsNames;
 }
-u_int DataHolder::GetRowCount(){
-    return table->size();
+u_int Table::getRowCount() const{
+    return rowsCount;
 }
-u_int DataHolder::GetColumnCount(){
-    if(GetRowCount()>0)
-           return (*table)[0].size();
-       else
-           return 0;
+u_int Table::getColumnCount() const{
+    return columnsCount;
 }
-void DataHolder::addRow(const vector<double> &row,u_int index, const string &rowName){
+vector<vector<double>>* Table::getTable() const{
+    return table;
+}
+void Table::addRow(const vector<double> &row,u_int index, const string &rowName){
     if(rowsCount==0 && columnsCount==0){
         table->push_back(row);
         rowsNames->insert(rowsNames->begin()+index,rowName);
@@ -38,7 +43,7 @@ void DataHolder::addRow(const vector<double> &row,u_int index, const string &row
         std::cout <<"Add row out of range";
     rowsCount+=1;
 }
-void DataHolder::addColumn(const vector<double> &column,u_int index, const string &columnName){
+void Table::addColumn(const vector<double> &column,u_int index, const string &columnName){
     if(rowsCount==0 && columnsCount==0 ){
         rowsCount+=1;
         rowsNames->insert(rowsNames->begin()+index,columnName);
@@ -58,7 +63,19 @@ void DataHolder::addColumn(const vector<double> &column,u_int index, const strin
             std::cout <<"Add column out of range ";
      columnsCount+=1;
 }
-void DataHolder::PrintModel() const
+vector<string>* Table::getRowsNames() const{
+    return rowsNames;
+}
+vector<string>* Table::getColumnsNames() const{
+    return columnsNames;
+}
+
+
+
+
+
+
+void Table::printModel() const
 {
     for(auto data: *table){
         for(auto d: data)
@@ -68,7 +85,7 @@ void DataHolder::PrintModel() const
     std::cout << "Columns:"<< columnsCount<<" ";
     std::cout << "Rows:"<< rowsCount<<" ";
 }
-void DataHolder::LoadModelRandom(const u_int columns,const u_int rows){
+void Table::loadModelRandom(const u_int columns,const u_int rows){
     for(u_int j=0;columns>j;j++){
         vector<double> d= vector<double>();
         for(u_int i=0;rows>i;i++){

@@ -1,8 +1,8 @@
-#include <DataHolder.h>
+#include <Tabel.h>
 
 int main(int argc, char *argv[])
 {
-    DataHolder* d=new  DataHolder();
+    Tabel* d=new  Tabel();
     d->LoadModelRandom(5,5);
     vector<double> temp= vector<double>{1,1,1,1,1};
     d->addRow(temp,0);

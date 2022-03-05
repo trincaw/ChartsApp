@@ -1,10 +1,10 @@
 QT += charts
 
 SOURCES += \
-    DataHolder.cpp \
-    main.cpp \
-    model.cpp
+    Model.cpp \
+    Table.cpp \
+    main.cpp
 
 HEADERS += \
-    DataHolder.h \
-    model.h
+    Model.h \
+    Table.h
