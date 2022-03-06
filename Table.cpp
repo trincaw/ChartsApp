@@ -69,8 +69,12 @@ vector<string>* Table::getRowsNames() const{
 vector<string>* Table::getColumnsNames() const{
     return columnsNames;
 }
+void Table::deleteColumn(const u_int index){
 
+}
+void Table::deleteRow(const u_int index){
 
+}
 
 
 
