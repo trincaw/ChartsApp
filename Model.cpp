@@ -6,7 +6,7 @@ Model::Model(QObject *parent) : QAbstractTableModel(parent){
     std::vector<std::vector<double>> mat{{1}};
     std::vector<std::string> matRow{"row"};
     std::vector<std::string> matCol{"col"};
-    Table x(mat, matRow, matCol);
+    TableData x(mat, matRow, matCol);
     table = x;
     //Da definire costruttore matrice
 }
@@ -24,7 +24,7 @@ QVariant Model::data(const QModelIndex &index, int role) const{
         return temp;
     }
 }
-Table Model::getTable() const{
+TableData Model::getTable() const{
     return table;
 }
 
@@ -50,16 +50,16 @@ bool Model::setData(const QModelIndex &index, const QVariant &value, int role){
     }
     return true;
 }
-void Model::addRow(unsigned int i, std::string label){
+void Model::addRow(u_int i, std::string label){
     vector<double> v(table.getColumnCount(),0);
     table.addRow(v,i,label);
 }
-void Model::addColumn(unsigned int i, std::string label){
+void Model::addColumn(u_int i, std::string label){
     vector<double> v(table.getRowCount(),0);
     table.addColumn(v,i,label);
 }
-void Model::removeColumn(unsigned int i){table.deleteColumn(i);}
-void Model::removeRow(unsigned int i){table.deleteRow(i);}
+void Model::removeColumn(u_int i){table.deleteColumn(i);}
+void Model::removeRow(u_int i){table.deleteRow(i);}
 void Model::newModel(string rowLabel, string columnLabel){
     if (table.getTable()){
         vector<vector<double>>().swap(*table.getTable());

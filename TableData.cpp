@@ -1,14 +1,14 @@
-#include "Table.h"
+#include "TableData.h"
 using std::vector;
 using std::string;
 
-Table::Table():table(new vector<vector<double>>), rowsNames(new vector<string>), columnsNames(new vector<string>), rowsCount(0),columnsCount(0){}
-Table::Table(vector<vector<double>> &table, vector<string> &rowsNames, vector<string> &columnsNames):rowsCount(rowsNames.size()),columnsCount(columnsNames.size()){
+TableData::TableData():table(new vector<vector<double>>), rowsNames(new vector<string>), columnsNames(new vector<string>), rowsCount(0),columnsCount(0){}
+TableData::TableData(vector<vector<double>> &table, vector<string> &rowsNames, vector<string> &columnsNames):rowsCount(rowsNames.size()),columnsCount(columnsNames.size()){
     this->table=&table;
     this->rowsNames=&rowsNames;
     this->columnsNames=&columnsNames;
 }
-Table::~Table(){
+TableData::~TableData(){
     vector<vector<double>>().swap(*table);//deallocate all the table cells memory
     vector<string>().swap(*rowsNames);
     vector<string>().swap(*columnsNames);
@@ -16,16 +16,16 @@ Table::~Table(){
     delete rowsNames;
     delete columnsNames;
 }
-u_int Table::getRowCount() const{
+u_int TableData::getRowCount() const{
     return rowsCount;
 }
-u_int Table::getColumnCount() const{
+u_int TableData::getColumnCount() const{
     return columnsCount;
 }
-vector<vector<double>>* Table::getTable() const{
+vector<vector<double>>* TableData::getTable() const{
     return table;
 }
-void Table::addRow(const vector<double> &row,u_int index, const string &rowName){
+void TableData::addRow(const vector<double> &row,u_int index, const string &rowName){
     if(rowsCount==0 && columnsCount==0){
         table->push_back(row);
         rowsNames->insert(rowsNames->begin()+index,rowName);
@@ -43,7 +43,7 @@ void Table::addRow(const vector<double> &row,u_int index, const string &rowName)
         std::cout <<"Add row out of range";
     rowsCount+=1;
 }
-void Table::addColumn(const vector<double> &column,u_int index, const string &columnName){
+void TableData::addColumn(const vector<double> &column,u_int index, const string &columnName){
     if(rowsCount==0 && columnsCount==0 ){
         rowsCount+=1;
         rowsNames->insert(rowsNames->begin()+index,columnName);
@@ -63,23 +63,23 @@ void Table::addColumn(const vector<double> &column,u_int index, const string &co
             std::cout <<"Add column out of range ";
      columnsCount+=1;
 }
-vector<string>* Table::getRowsNames() const{
+vector<string>* TableData::getRowsNames() const{
     return rowsNames;
 }
-vector<string>* Table::getColumnsNames() const{
+vector<string>* TableData::getColumnsNames() const{
     return columnsNames;
 }
-void Table::deleteColumn(const u_int index){
+void TableData::deleteColumn(const u_int index){
 
 }
-void Table::deleteRow(const u_int index){
+void TableData::deleteRow(const u_int index){
 
 }
 
 
 
 
-void Table::printModel() const
+void TableData::printModel() const
 {
     for(auto data: *table){
         for(auto d: data)
@@ -89,7 +89,7 @@ void Table::printModel() const
     std::cout << "Columns:"<< columnsCount<<" ";
     std::cout << "Rows:"<< rowsCount<<" ";
 }
-void Table::loadModelRandom(const u_int columns,const u_int rows){
+void TableData::loadModelRandom(const u_int columns,const u_int rows){
     for(u_int j=0;columns>j;j++){
         vector<double> d= vector<double>();
         for(u_int i=0;rows>i;i++){

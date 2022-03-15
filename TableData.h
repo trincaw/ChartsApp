@@ -1,5 +1,5 @@
-#ifndef TABLE_H
-#define TABLE_H
+#ifndef TABLEDATA_H
+#define TABLEDATA_H
 
 #include <vector>
 #include <string>
@@ -10,7 +10,7 @@ typedef unsigned int u_int;
 using std::vector;
 using std::string;
 
-class Table
+class TableData
 {
 private:
     vector<vector<double>>* table;
@@ -20,9 +20,9 @@ private:
     u_int columnsCount;
 
 public:
-    Table();
-    Table(vector<vector<double>>& table, vector<string>& rowsNames, vector<string>& columnsNames);
-    ~Table();
+    TableData();
+    TableData(vector<vector<double>>& table, vector<string>& rowsNames, vector<string>& columnsNames);
+    ~TableData();
 
     u_int getRowCount() const;
     u_int getColumnCount() const;
@@ -43,4 +43,4 @@ public:
     void loadModelRandom(const u_int columns,const u_int rows);
 };
 
-#endif // TABLE_H
+#endif // TABLEDATA_H
