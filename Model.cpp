@@ -24,10 +24,6 @@ QVariant Model::data(const QModelIndex &index, int role) const{
         return temp;
     }
 }
-TableData Model::getTable() const{
-    return table;
-}
-
 QVariant Model::headerData(int section, Qt::Orientation orientation, int role) const{
     if (role == Qt::DisplayRole){
         if (Qt::Orientation::Vertical == orientation){
@@ -49,6 +45,9 @@ bool Model::setData(const QModelIndex &index, const QVariant &value, int role){
         emit dataChanged(index, index);
     }
     return true;
+}
+TableData Model::getTable() const{
+    return table;
 }
 void Model::addRow(u_int i, std::string label){
     vector<double> v(table.getColumnCount(),0);
