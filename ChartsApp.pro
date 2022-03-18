@@ -1,10 +1,12 @@
 QT += charts
 
 SOURCES += \
+    MainWindow.cpp \
     Model.cpp \
-    Table.cpp \
+    TableData.cpp \
     main.cpp
 
 HEADERS += \
+    MainWindow.h \
     Model.h \
-    Table.h
+    TableData.h

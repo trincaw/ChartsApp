@@ -1,10 +1,10 @@
-#include <Table.h>
+#include <TableData.h>
 
 int main(int argc, char *argv[])
 {
-    Table* d=new  Table();
-    d->loadModelRandom(5,5);
+    TableData* d=new  TableData();
+    d->loadModelRandom(3,5);
     vector<double> temp= vector<double>{1,1,1,1,1};
-    d->addRow(temp,0);
+    d->addRow(temp,5);
     d->printModel();
 }
