@@ -3,7 +3,7 @@
 
 #include <iostream>
 
-MainWindow::MainWindow(QWidget* parent):QWidget(parent){
+MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent){
     QHBoxLayout* mainLayout=new QHBoxLayout(this);
     mainLayout->setAlignment(Qt::AlignTop);
     mainLayout->setContentsMargins(0,0,0,0);
@@ -11,13 +11,21 @@ MainWindow::MainWindow(QWidget* parent):QWidget(parent){
 
     resize(1500,750);
 
-    QRect screenSize= QApplication::desktop()->screenGeometry();
+    QRect screenSize= QGuiApplication::screens().first()->geometry();
     const QRect wr{{},frameSize().boundedTo(screenSize.size())};
     move(screenSize.center()-wr.center());
 
     //setWindowIcon(QIcon(":/images/icon.png"));
 
     setBar();
+
+    tableView = new QTableView(this);
+    setCentralWidget(tableView);
+    QAbstractTableModel *myModel = new Model(this);
+    tableView->setModel(myModel);
+
+    //transfer changes to the model to the window title
+    connect(myModel, SIGNAL(editCompleted(const QString &)), this, SLOT(setWindowTitle(const QString &)));
 }
 void MainWindow::setBar(){
     menu=new QMenuBar();

@@ -20,7 +20,7 @@
 
 typedef unsigned int u_int;
 class Controller;
-class MainWindow : public QWidget
+class MainWindow : public QMainWindow
 {
     Q_OBJECT
 private:

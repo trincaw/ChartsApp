@@ -22,7 +22,6 @@ private:
 public:
     TableData();
     TableData(vector<vector<double>>& table, vector<string>& rowsNames, vector<string>& columnsNames);
-    ~TableData();
 
     u_int getRowCount() const;
     u_int getColumnCount() const;
