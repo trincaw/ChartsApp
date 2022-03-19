@@ -9,15 +9,6 @@ TableData::TableData(vector<vector<double>> &table, vector<string> &rowsNames, v
     this->rowsNames = &rowsNames;
     this->columnsNames = &columnsNames;
 }
-TableData::~TableData()
-{
-    vector<vector<double>>().swap(*table); // deallocate all the table cells memory
-    vector<string>().swap(*rowsNames);
-    vector<string>().swap(*columnsNames);
-    delete table;
-    delete rowsNames;
-    delete columnsNames;
-}
 u_int TableData::getRowCount() const
 {
     return rowsCount;

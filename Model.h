@@ -7,7 +7,10 @@
 #include <QVariant>
 
 #include "TableData.h"
+
 typedef unsigned int u_int;
+using std::vector;
+
 class Model : public QAbstractTableModel
 {
     Q_OBJECT
@@ -20,9 +23,11 @@ public:
     int rowCount(const QModelIndex &parent = QModelIndex()) const;
     int columnCount(const QModelIndex &parent = QModelIndex()) const;
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const;
-    virtual QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const;
-    virtual Qt::ItemFlags flags(const QModelIndex &index) const;
     virtual bool setData(const QModelIndex &index, const QVariant &value, int role = Qt::EditRole);
+    virtual Qt::ItemFlags flags(const QModelIndex &index) const;
+    virtual QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const;
+
+
 
     void readJson(std::string path);
     void writeJson(std::string path);
