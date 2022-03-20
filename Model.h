@@ -10,6 +10,7 @@
 
 typedef unsigned int u_int;
 using std::vector;
+using std::string;
 
 class Model : public QAbstractTableModel
 {
@@ -29,15 +30,15 @@ public:
 
 
 
-    void readJson(std::string path);
-    void writeJson(std::string path);
+    void readJson(string path);
+    void writeJson(string path);
 
 
-    void addRow(u_int i, std::string label);
-    void addColumn(u_int i, std::string label);
-    void removeRow(u_int i);
-    void removeColumn(u_int i);
-    void newModel(std::string rowLabel, std::string columnLabel);
+    void addRow(u_int index, string label);
+    void addColumn(u_int index, string label);
+    void removeRow(u_int index);
+    void removeColumn(u_int index);
+    void newModel(string rowLabel, string columnLabel);
 };
 
 #endif // MODEL_H
