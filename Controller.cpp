@@ -8,15 +8,21 @@ void Controller::setView(MainWindow* v) { view = v; }
 
 Model* Controller::getModel(){ return model; }
 
-void Controller::addRow(u_int index, string label){
+void Controller::showViewTable() const{
+   view->showTable(model->getTable());
+}
+
+void Controller::insertRow(u_int index, string label){
     if(view!=nullptr && model!=nullptr){
         model->addRow(index,label);
+        showViewTable();
     }
     throw ;
 }
-void Controller::addColumn(u_int index, string label){
+void Controller::insertColumn(){
     if(view!=nullptr && model!=nullptr){
-        model->addColumn(index,label);
+        u_int i= view->getSelectedColumn();
+        model->addColumn(i,"");
     }
     throw ;
 }
@@ -32,3 +38,4 @@ void Controller::removeColumn(u_int index){
     }
     throw ;
 }
+

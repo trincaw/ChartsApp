@@ -15,7 +15,7 @@ class Controller : public QObject
 private:
     MainWindow* view;
     Model* model;
-    void showTable() const;
+    void showViewTable() const;
 
 public:
     explicit Controller(QObject *parent = nullptr);
@@ -26,8 +26,8 @@ public:
     Model* getModel();
 
 public slots:
-    void addRow(u_int index, string label);
-    void addColumn(u_int index, string label);
+    void insertRow(unsigned int index, std::string label);
+    void insertColumn();
     void removeRow(u_int index);
     void removeColumn(u_int index);
 };

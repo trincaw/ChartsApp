@@ -1,15 +1,29 @@
 #include <MainWindow.h>
-//#include <Controller.h>
+#include <Controller.h>
 
 #include <iostream>
 
-MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent){
-    QHBoxLayout* mainLayout=new QHBoxLayout(this);
+MainWindow::MainWindow(QWidget *parent) : QWidget(parent){
+
+
+    mainLayout= new QVBoxLayout;
+    addMenuBar();
+    chartsLayout= new QHBoxLayout();
+    mainLayout->addLayout(chartsLayout);
+    addTableView();
+
+    //addControls(mainLayout);
+
+    chartsLayout->setSpacing(0);
+    chartsLayout->setAlignment(Qt::AlignCenter);
+    chartsLayout->setContentsMargins(0,0,0,0);
+
+    mainLayout->setSpacing(0);
     mainLayout->setAlignment(Qt::AlignTop);
     mainLayout->setContentsMargins(0,0,0,0);
-    mainLayout->setSpacing(0);
 
-    resize(1500,750);
+    setLayout(mainLayout);
+    resize(QSize(1024, 720));
 
     QRect screenSize= QGuiApplication::screens().first()->geometry();
     const QRect wr{{},frameSize().boundedTo(screenSize.size())};
@@ -17,17 +31,16 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent){
 
     //setWindowIcon(QIcon(":/images/icon.png"));
 
-    setBar();
-
+}
+void MainWindow::addTableView(){
     tableView = new QTableView(this);
-    setCentralWidget(tableView);
     QAbstractTableModel *myModel = new Model(this);
     tableView->setModel(myModel);
-
+    chartsLayout->addWidget(tableView);
     //transfer changes to the model to the window title
     connect(myModel, SIGNAL(editCompleted(const QString &)), this, SLOT(setWindowTitle(const QString &)));
 }
-void MainWindow::setBar(){
+void MainWindow::addMenuBar(){
     menu=new QMenuBar();
     //File
     file=new QMenu("&File");
@@ -44,10 +57,10 @@ void MainWindow::setBar(){
     edit=new QMenu("&Edit",menu);
     menu->addMenu(edit);
 
-    edit->addAction(new QAction("Add column before",menu));
-    edit->addAction(new QAction("Add column after",menu));
     edit->addAction(new QAction("Add row before",menu));
     edit->addAction(new QAction("Add row after",menu));
+    edit->addAction(new QAction("Add column before",menu));
+    edit->addAction(new QAction("Add column after",menu));
     edit->addSeparator();
     edit->addAction(new QAction("Delete selected column",menu));
     edit->addAction(new QAction("Delete selected row",menu));
@@ -85,7 +98,7 @@ void MainWindow::setBar(){
     menu->addMenu(help);
 
     edit->addAction(new QAction("About",menu));
-    this->layout()->setMenuBar(menu);
+    mainLayout->addWidget(menu);
 }
 void MainWindow::setTableView()
 {
@@ -102,11 +115,14 @@ void MainWindow::setTableView()
     tableView->verticalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     layout()->addWidget(tableView);
 }
-void MainWindow::setController(Controller* controller){
-    this->controller=controller;
+void MainWindow::setController(Controller* c){
+    controller=c;
     //file
     //connect(file->actions().at(0),SIGNAL(triggered()),controller,SLOT(newChart()));
+    connect(file->actions().at(4),SIGNAL(triggered()),this,SLOT(close()));
     //+altre
+    //edit
+    connect(edit->actions().at(0),SIGNAL(triggered()),controller,SLOT(insertColumn()));
     //view
 //    connect(view->actions().at(0),&QAction::triggered, [&](){
 //        auto tabella= controller->getModel()->getTable();
@@ -128,6 +144,15 @@ u_int MainWindow::getSelectedRow() const{
 }
 QWidget* MainWindow::getChartView() const{
     return chartView;
+}
+u_int MainWindow::getSelectedColumn(){
+    return tableView->selectionModel()->currentIndex().column();
+}
+void MainWindow::showTable(TableData* table) {
+    this->tableView = new QTableView(this);
+    Model* m=new Model(this);m->setTable(table);
+    QAbstractTableModel *myModel = m;
+    tableView->setModel(myModel);
 }
 //Chart* MainWindow::getChart() const{
 //    return chart;

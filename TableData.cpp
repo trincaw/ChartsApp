@@ -21,7 +21,7 @@ vector<vector<double>> *TableData::getTable() const
 {
     return table;
 }
-void TableData::addRow(const vector<double> &row, u_int index, const string &rowName)
+void TableData::addRow(vector<double> &row, u_int index, const string &rowName)
 {
     if (row.size() == rowsCount)
     {
@@ -46,8 +46,9 @@ void TableData::addRow(const vector<double> &row, u_int index, const string &row
     else
         std::cout << "Add row out of range or overflow" << std::endl;
 }
-void TableData::addColumn(const vector<double> &column, u_int index, const string &columnName)
+void TableData::addColumn( u_int index, const string columnName)
 {
+    vector<double> column(columnsCount,0);//default column
     if (column.size() == columnsCount)
     {
         if (rowsCount == 0 && columnsCount == 0)

@@ -16,10 +16,11 @@ class Model : public QAbstractTableModel
 {
     Q_OBJECT
 private:
-    TableData table;
+    TableData* table;
 public:
     Model(QObject *parent = 0);
-    TableData getTable() const;
+    TableData* getTable() const;
+    void setTable(TableData* table);
 
     int rowCount(const QModelIndex &parent = QModelIndex()) const;
     int columnCount(const QModelIndex &parent = QModelIndex()) const;
@@ -28,11 +29,8 @@ public:
     virtual Qt::ItemFlags flags(const QModelIndex &index) const;
     virtual QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const;
 
-
-
     void readJson(string path);
     void writeJson(string path);
-
 
     void addRow(u_int index, string label);
     void addColumn(u_int index, string label);
