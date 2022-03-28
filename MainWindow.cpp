@@ -148,7 +148,7 @@ QWidget* MainWindow::getChartView() const{
 u_int MainWindow::getSelectedColumn(){
     return tableView->selectionModel()->currentIndex().column();
 }
-void MainWindow::showTable(TableData* table) {
+void MainWindow::showTable(TableData table) {
     this->tableView = new QTableView(this);
     Model* m=new Model(this);m->setTable(table);
     QAbstractTableModel *myModel = m;

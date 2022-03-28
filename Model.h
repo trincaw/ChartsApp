@@ -16,11 +16,11 @@ class Model : public QAbstractTableModel
 {
     Q_OBJECT
 private:
-    TableData* table;
+    TableData table;
 public:
     Model(QObject *parent = 0);
-    TableData* getTable() const;
-    void setTable(TableData* table);
+    TableData getTable() const;
+    void setTable(TableData table);
 
     int rowCount(const QModelIndex &parent = QModelIndex()) const;
     int columnCount(const QModelIndex &parent = QModelIndex()) const;

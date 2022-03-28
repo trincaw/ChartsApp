@@ -37,6 +37,8 @@ public:
     vector<string>* getColumnsNames() const;
     vector<vector<double>>* getTable() const;
 
+     void inizialize();
+
     //Deboug
     void printModel() const;
     void loadModelRandom(const u_int columns,const u_int rows);

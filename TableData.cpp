@@ -5,9 +5,9 @@ using std::vector;
 TableData::TableData() : table(new vector<vector<double>>), rowsNames(new vector<string>), columnsNames(new vector<string>), rowsCount(0), columnsCount(0) {}
 TableData::TableData(vector<vector<double>> &table, vector<string> &rowsNames, vector<string> &columnsNames) : rowsCount(rowsNames.size()), columnsCount(columnsNames.size())
 {
-    this->table = &table;
-    this->rowsNames = &rowsNames;
-    this->columnsNames = &columnsNames;
+    this->table = new auto(table);
+    this->rowsNames = new auto(rowsNames);
+    this->columnsNames = new auto(columnsNames);
 }
 u_int TableData::getRowCount() const
 {
@@ -25,13 +25,7 @@ void TableData::addRow(vector<double> &row, u_int index, const string &rowName)
 {
     if (row.size() == rowsCount)
     {
-        if (rowsCount == 0 && columnsCount == 0)
-        {
-            table->push_back(row);
-            rowsNames->insert(rowsNames->begin() + index, rowName);
-            columnsCount += 1;
-        }
-        else if (rowsCount > index)
+        if (rowsCount > index)
         {
             rowsNames->insert(rowsNames->begin() + index, rowName);
             table->insert(table->begin() + index, row);
@@ -51,13 +45,7 @@ void TableData::addColumn( u_int index, const string columnName)
     vector<double> column(columnsCount,0);//default column
     if (column.size() == columnsCount)
     {
-        if (rowsCount == 0 && columnsCount == 0)
-        {
-            rowsNames->insert(rowsNames->begin() + index, columnName);
-            table->push_back(column);
-            rowsCount += 1;
-        }
-        else if (columnsCount > index)
+        if (columnsCount > index)
         {
             for (u_int i = 0; columnsCount > i; ++i)
                 (*table)[i].insert((*table)[i].begin() + index, column[i]);
@@ -108,14 +96,43 @@ void TableData::deleteRow(const u_int index)
 
 void TableData::printModel() const
 {
+    std::cout << std::endl;
+    std::cout << "Names:";
+    std::cout << std::endl;
+    for (auto c : *columnsNames)
+    {
+        std::cout << c << " ";
+    }
+    for (auto r : *rowsNames)
+    {
+        std::cout << r << " ";
+        std::cout << std::endl;
+    }
+    std::cout << std::endl;
+    std::cout << "Table:";
+    std::cout << std::endl;
     for (auto data : *table)
     {
         for (auto d : data)
             std::cout << d << " ";
         std::cout << std::endl;
     }
+    std::cout << std::endl;
+    std::cout << "Size:";
+    std::cout << std::endl;
+
     std::cout << "Columns:" << columnsCount << " ";
     std::cout << "Rows:" << rowsCount << " ";
+}
+void TableData::inizialize(){
+    if (rowsCount == 0 && columnsCount == 0)
+    {
+        table->push_back(*new vector<double>{0});
+        rowsNames->push_back("y");
+         columnsNames->push_back("x");
+        columnsCount += 1;
+        rowsCount +=1;
+    }
 }
 void TableData::loadModelRandom(const u_int columns, const u_int rows)
 {
@@ -126,8 +143,9 @@ void TableData::loadModelRandom(const u_int columns, const u_int rows)
         {
             d.push_back(i + j);
         }
-        table->push_back(d);
         columnsNames->push_back("");
+        table->push_back(d);
+
     }
     for (u_int i = 0; rows > i; i++)
     {
@@ -135,4 +153,5 @@ void TableData::loadModelRandom(const u_int columns, const u_int rows)
     }
     columnsCount = columns;
     rowsCount = rows;
+    printModel();
 }

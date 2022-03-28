@@ -21,9 +21,10 @@ void Controller::insertRow(u_int index, string label){
 }
 void Controller::insertColumn(){
     if(view!=nullptr && model!=nullptr){
-        u_int i= view->getSelectedColumn();
+        u_int i= view->getSelectedColumn()+1;
         model->addColumn(i,"");
     }
+    else
     throw ;
 }
 void Controller::removeRow(u_int index){
