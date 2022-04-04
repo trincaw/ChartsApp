@@ -15,7 +15,9 @@ void Controller::showViewTable() const{
 void Controller::insertRow(u_int index, string label){
     if(view!=nullptr && model!=nullptr){
         model->addRow(index,label);
-        showViewTable();
+        //showViewTable();
+
+
     }
     throw ;
 }
@@ -23,6 +25,7 @@ void Controller::insertColumn(){
     if(view!=nullptr && model!=nullptr){
         u_int i= view->getSelectedColumn()+1;
         model->addColumn(i,"");
+        view->addTableView();
     }
     else
     throw ;

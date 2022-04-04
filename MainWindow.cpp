@@ -7,10 +7,9 @@ MainWindow::MainWindow(QWidget *parent) : QWidget(parent){
 
 
     mainLayout= new QVBoxLayout;
-    addMenuBar();
     chartsLayout= new QHBoxLayout();
-    mainLayout->addLayout(chartsLayout);
-    addTableView();
+
+
 
     //addControls(mainLayout);
 
@@ -22,6 +21,7 @@ MainWindow::MainWindow(QWidget *parent) : QWidget(parent){
     mainLayout->setAlignment(Qt::AlignTop);
     mainLayout->setContentsMargins(0,0,0,0);
 
+
     setLayout(mainLayout);
     resize(QSize(1024, 720));
 
@@ -31,14 +31,32 @@ MainWindow::MainWindow(QWidget *parent) : QWidget(parent){
 
     //setWindowIcon(QIcon(":/images/icon.png"));
 
+ addMenuBar();
+    mainLayout->addLayout(chartsLayout);
+
+
+
+
 }
 void MainWindow::addTableView(){
+    chartsLayout->removeWidget(tableView);
     tableView = new QTableView(this);
-    QAbstractTableModel *myModel = new Model(this);
-    tableView->setModel(myModel);
+    //QAbstractTableModel *myModel = new Model(this);
+
+    tableView->setModel(model);
+
+    QLineSeries *series = new QLineSeries;
+    series->setName("Line 1");
+    QVXYModelMapper *mapper = new QVXYModelMapper(this);
+    mapper->setXColumn(0);
+    mapper->setYColumn(1);
+    mapper->setSeries(series);
+    mapper->setModel(model);
+
+
     chartsLayout->addWidget(tableView);
     //transfer changes to the model to the window title
-    connect(myModel, SIGNAL(editCompleted(const QString &)), this, SLOT(setWindowTitle(const QString &)));
+    connect(model, SIGNAL(editCompleted(const QString &)), this, SLOT(setWindowTitle(const QString &)));
 }
 void MainWindow::addMenuBar(){
     menu=new QMenuBar();
@@ -106,7 +124,7 @@ void MainWindow::setTableView()
         layout()->removeWidget(tableView);
     else
         tableView= new QTableView();
-    //tableView->setModel(controller->getModel())
+    tableView->setModel(controller->getModel());
     tableView->resizeColumnsToContents();
     tableView->resizeRowsToContents();
     tableView->setGeometry(0,30,300,300);
@@ -117,6 +135,9 @@ void MainWindow::setTableView()
 }
 void MainWindow::setController(Controller* c){
     controller=c;
+    model=c->getModel();
+
+    addTableView();
     //file
     //connect(file->actions().at(0),SIGNAL(triggered()),controller,SLOT(newChart()));
     connect(file->actions().at(4),SIGNAL(triggered()),this,SLOT(close()));

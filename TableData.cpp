@@ -47,9 +47,9 @@ void TableData::addColumn( u_int index, const string columnName)
     {
         if (columnsCount > index)
         {
-            for (u_int i = 0; columnsCount > i; ++i)
+            for (u_int i = 0; rowsCount > i; ++i)
                 (*table)[i].insert((*table)[i].begin() + index, column[i]);
-            columnsNames->insert(rowsNames->begin() + index, columnName);
+            columnsNames->insert(columnsNames->begin() + index, columnName);
         }
         else if (columnsCount == index)
         {
@@ -61,6 +61,7 @@ void TableData::addColumn( u_int index, const string columnName)
     }
     else
         std::cout << "Add column out of range or overflow" << std::endl;
+    printModel();
 }
 vector<string> *TableData::getRowsNames() const
 {
@@ -108,7 +109,6 @@ void TableData::printModel() const
         std::cout << r << " ";
         std::cout << std::endl;
     }
-    std::cout << std::endl;
     std::cout << "Table:";
     std::cout << std::endl;
     for (auto data : *table)
@@ -117,12 +117,12 @@ void TableData::printModel() const
             std::cout << d << " ";
         std::cout << std::endl;
     }
-    std::cout << std::endl;
     std::cout << "Size:";
     std::cout << std::endl;
 
     std::cout << "Columns:" << columnsCount << " ";
     std::cout << "Rows:" << rowsCount << " ";
+    std::cout << std::endl;
 }
 void TableData::inizialize(){
     if (rowsCount == 0 && columnsCount == 0)
