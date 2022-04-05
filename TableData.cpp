@@ -44,14 +44,9 @@ void TableData::addRow(vector<double> &row, u_int index, const string &rowName)
     else
         std::cout << "Add row out of range or overflow" << std::endl;
 }
-void TableData::addColumn( u_int index, const string columnName)
+void TableData::addColumn(vector<double> &column, u_int index, const string columnName)
 {
-    vector<double> column(columnsCount,0);//default column
-//    vector<double> column;
-//    for(u_int i=0;i < columnsCount;++i ){
-//        column.push_back(0);
-//    }
-    if (column.size() == columnsCount)
+    if (column.size() == rowsCount)
     {
         if (columnsCount > index)
         {
@@ -132,16 +127,7 @@ void TableData::printTable() const
     std::cout << "Rows:" << rowsCount << " ";
     std::cout << std::endl;
 }
-void TableData::inizialize(){
-    if (rowsCount == 0 && columnsCount == 0)
-    {
-        table->push_back(*new vector<double>{0});
-        rowsNames->push_back("y");
-         columnsNames->push_back("x");
-        columnsCount += 1;
-        rowsCount +=1;
-    }
-}
+
 void TableData::loadModelRandom(const u_int columns, const u_int rows)
 {
     for (u_int j = 0; columns > j; j++)

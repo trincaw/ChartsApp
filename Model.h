@@ -36,6 +36,7 @@ public:
     void addColumn(u_int index, string label);
     void removeRow(u_int index);
     void removeColumn(u_int index);
+    void clearTable();
     void newModel(string rowLabel, string columnLabel);
 };
 

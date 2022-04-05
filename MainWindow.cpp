@@ -82,6 +82,8 @@ void MainWindow::addMenuBar(){
     edit->addSeparator();
     edit->addAction(new QAction("Delete selected column",menu));
     edit->addAction(new QAction("Delete selected row",menu));
+    edit->addSeparator();
+    edit->addAction(new QAction("Clear table",menu));
     //View
     view=new QMenu("&View",menu);
     menu->addMenu(view);
@@ -113,9 +115,10 @@ void MainWindow::addMenuBar(){
 
 //help
     help=new QMenu("&help",menu);
+    help->addAction(new QAction("About",menu));
+
     menu->addMenu(help);
 
-    edit->addAction(new QAction("About",menu));
     mainLayout->addWidget(menu);
 }
 void MainWindow::setTableView()
@@ -145,6 +148,7 @@ void MainWindow::setController(Controller* c){
     //edit
     connect(edit->actions().at(1),SIGNAL(triggered()),controller,SLOT(insertRow()));
     connect(edit->actions().at(2),SIGNAL(triggered()),controller,SLOT(insertColumn()));
+    connect(edit->actions().at(6),SIGNAL(triggered()),controller,SLOT(clearTable()));
     //view
 //    connect(view->actions().at(0),&QAction::triggered, [&](){
 //        auto tabella= controller->getModel()->getTable();

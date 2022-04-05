@@ -61,8 +61,15 @@ void Model::addRow(u_int i, std::string label){
     table.addRow(v,i,label);
 }
 void Model::addColumn(u_int i, std::string label){
-    //vector<double> v(table->getRowCount(),0);
-    table.addColumn(i,label);
+    vector<double> v(table.getRowCount(),0);
+    table.addColumn(v,i,label);
 }
 void Model::removeColumn(u_int i){table.deleteColumn(i);}
 void Model::removeRow(u_int i){table.deleteRow(i);}
+void Model::clearTable(){
+    vector<vector<double>> tab={{0}};
+    vector<string> rowsNames{"y"};
+    vector<string> columnsNames{"x"};
+    TableData t(tab,rowsNames,columnsNames);
+    table=t;
+}

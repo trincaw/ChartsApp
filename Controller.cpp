@@ -42,4 +42,8 @@ void Controller::removeColumn(){
     }
     throw ;
 }
+void Controller::clearTable(){
+    model->clearTable();
+     view->addTableView();
+}
 

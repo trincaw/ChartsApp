@@ -30,6 +30,7 @@ public slots:
     void insertColumn();
     void removeRow();
     void removeColumn();
+    void clearTable();
 
     //void addMapping(QString color, QRect area);
 };

@@ -27,9 +27,10 @@ public:
     u_int getColumnCount() const;
 
     void addRow( vector<double> &row,const u_int index=0, const string &rowName="");
-    void addColumn(const u_int index=0, const string columnName="");
+    void addColumn(vector<double> &column,const u_int index=0, const string columnName="");
     void deleteRow(const u_int index);
     void deleteColumn(const u_int index);
+    void clear();
 
     vector<double> getColumn(const u_int index) const;
     vector<double> getRow(const u_int index) const;
