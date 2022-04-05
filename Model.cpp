@@ -83,8 +83,10 @@ void Model::SaveXML(QString path){
     }
     QTextStream xmlContent(&xmlFile);
     QDomDocument document;
+
     QDomElement root = document.createElement("Graph");
     document.appendChild(root);
+    // SAVE COLS HEADER
     QDomElement Cols = document.createElement("Cols");
     Cols.setAttribute("CollumnCount",QString::number(table.getColumnCount()));
     for (auto c : *table.getColumnsNames())
@@ -94,6 +96,7 @@ void Model::SaveXML(QString path){
         Cols.appendChild(child);
     }
     root.appendChild(Cols);
+    // SAVE ROW TITLE
     QDomElement Rows = document.createElement("Rows");
     Rows.setAttribute("RowCount",QString::number(table.getRowCount()));
     for (auto c : *table.getColumnsNames())
@@ -103,6 +106,7 @@ void Model::SaveXML(QString path){
         Rows.appendChild(child);
     }
     root.appendChild(Rows);
+    // SAVE TABLE DATA
     QDomElement Data = document.createElement("Data");
     for (auto data : *table.getTable())
     {
@@ -138,7 +142,7 @@ void Model::LoadXML(QString path){
     QDomElement Row = Cols.nextSiblingElement();
     QDomElement Table = Row.nextSiblingElement();
 
-
+    // LOAD COLS HEADER
     if (!Cols.isNull()){
         QDomElement ColsChild = Cols.firstChildElement();
         while(ColsChild.isNull() == false){
@@ -148,7 +152,7 @@ void Model::LoadXML(QString path){
         }
     } else {
     }
-
+    // LOAD ROWS TITLE
     if (!Row.isNull()){
         QDomElement RowChild = Row.firstChildElement();
         while(!RowChild.isNull()){
@@ -158,7 +162,7 @@ void Model::LoadXML(QString path){
         }
     } else {
     }
-
+    // LOAD TABLE DATA
     if (!Table.isNull()){
         qDebug() << Table.tagName();
         QDomElement Row = Table.firstChildElement();

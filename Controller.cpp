@@ -48,14 +48,14 @@ void Controller::clearTable(){
 }
 void Controller::saveXML(){
     if(view!=nullptr && model!=nullptr){
-        model->SaveXML(QFileDialog::getSaveFileName(view, "Save File"));
+        model->SaveXML(QFileDialog::getSaveFileName(view, "Save File","", "XML (*.xml)"));
     }
     else
     throw ;
 }
 void Controller::loadXML(){
     if(view!=nullptr && model!=nullptr){
-        model->LoadXML(QFileDialog::getOpenFileName(view, "Get Any File"));
+        model->LoadXML(QFileDialog::getOpenFileName(view, "Load File","", "XML (*.xml)"));
         view->addTableView();
     }
     else
