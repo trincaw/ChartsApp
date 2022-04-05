@@ -144,12 +144,17 @@ void MainWindow::setController(Controller* c){
     //file
     //connect(file->actions().at(0),SIGNAL(triggered()),controller,SLOT(newChart()));
     connect(file->actions().at(4),SIGNAL(triggered()),this,SLOT(close()));
+    connect(file->actions().at(1),SIGNAL(triggered()),controller,SLOT(loadXML()));
+    connect(file->actions().at(2),SIGNAL(triggered()),controller,SLOT(saveXML()));
+
     //+altre
     //edit
     connect(edit->actions().at(1),SIGNAL(triggered()),controller,SLOT(insertRow()));
     connect(edit->actions().at(2),SIGNAL(triggered()),controller,SLOT(insertColumn()));
     connect(edit->actions().at(6),SIGNAL(triggered()),controller,SLOT(clearTable()));
-    //view
+
+
+    //views
 //    connect(view->actions().at(0),&QAction::triggered, [&](){
 //        auto tabella= controller->getModel()->getTable();
 //        chart= new PieChart(tabella);

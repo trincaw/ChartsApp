@@ -5,6 +5,10 @@
 #include <QAbstractItemModel>
 #include <QModelIndex>
 #include <QVariant>
+#include <QTextStream>
+#include <QtXml>
+#include <iostream>
+
 
 #include "TableData.h"
 
@@ -38,6 +42,8 @@ public:
     void removeColumn(u_int index);
     void clearTable();
     void newModel(string rowLabel, string columnLabel);
+    void SaveXML(QString path);
+    void LoadXML(QString path);
 };
 
 #endif // MODEL_H

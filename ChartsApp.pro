@@ -1,4 +1,5 @@
 QT += charts
+QT += xml
 
 SOURCES += \
     Controller.cpp \

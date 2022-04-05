@@ -46,4 +46,18 @@ void Controller::clearTable(){
     model->clearTable();
      view->addTableView();
 }
+void Controller::saveXML(){
+    if(view!=nullptr && model!=nullptr){
+        model->SaveXML(QFileDialog::getSaveFileName(view, "Save File"));
+    }
+    else
+    throw ;
+}
+void Controller::loadXML(){
+    if(view!=nullptr && model!=nullptr){
+        model->LoadXML(QFileDialog::getOpenFileName(view, "Get Any File"));
+    }
+    else
+    throw ;
+}
 
