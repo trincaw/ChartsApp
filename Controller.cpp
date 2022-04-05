@@ -56,6 +56,7 @@ void Controller::saveXML(){
 void Controller::loadXML(){
     if(view!=nullptr && model!=nullptr){
         model->LoadXML(QFileDialog::getOpenFileName(view, "Get Any File"));
+        view->addTableView();
     }
     else
     throw ;

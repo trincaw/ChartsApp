@@ -85,15 +85,17 @@ void Model::SaveXML(QString path){
     QDomDocument document;
     QDomElement root = document.createElement("Graph");
     document.appendChild(root);
-    QDomElement Header = document.createElement("Cols");
+    QDomElement Cols = document.createElement("Cols");
+    Cols.setAttribute("CollumnCount",QString::number(table.getColumnCount()));
     for (auto c : *table.getColumnsNames())
     {
         QDomElement child = document.createElement("Col");
         child.setAttribute("value", QString::fromStdString(c));
-        Header.appendChild(child);
+        Cols.appendChild(child);
     }
-    root.appendChild(Header);
+    root.appendChild(Cols);
     QDomElement Rows = document.createElement("Rows");
+    Rows.setAttribute("RowCount",QString::number(table.getRowCount()));
     for (auto c : *table.getColumnsNames())
     {
         QDomElement child = document.createElement("Row");
@@ -106,7 +108,8 @@ void Model::SaveXML(QString path){
     {
         QDomElement test = document.createElement("Row");
         for (auto d : data){
-            QDomElement child = document.createElement(QString::number(d));
+            QDomElement child = document.createElement("Num");
+            child.setAttribute("value", QString::number(d));
             test.appendChild(child);
         }
         Data.appendChild(test);
@@ -117,6 +120,11 @@ void Model::SaveXML(QString path){
 }
 
 void Model::LoadXML(QString path){
+    vector<vector<double>> tab;
+    vector<string> rowsNames;
+    vector<string> columnsNames;
+
+
     QDomDocument tableXML;
     QFile xmlFile(path);
     if (!xmlFile.open(QIODevice::ReadOnly ))
@@ -126,16 +134,17 @@ void Model::LoadXML(QString path){
     tableXML.setContent(&xmlFile);
     xmlFile.close();
     QDomElement root = tableXML.documentElement();
-    QDomElement Header = root.firstChildElement();
-    QDomElement Row = Header.nextSiblingElement();
+    QDomElement Cols = root.firstChildElement();
+    QDomElement Row = Cols.nextSiblingElement();
     QDomElement Table = Row.nextSiblingElement();
 
 
-    if (!Header.isNull()){
-        QDomElement HeaderChild = Header.firstChildElement();
-        while(HeaderChild.isNull() == false){
-            qDebug() << HeaderChild.attribute("value","x") << " ";
-            HeaderChild = HeaderChild.nextSiblingElement();
+    if (!Cols.isNull()){
+        QDomElement ColsChild = Cols.firstChildElement();
+        while(ColsChild.isNull() == false){
+            columnsNames.push_back(ColsChild.attribute("value","x").toStdString());
+            qDebug() << ColsChild.attribute("value","x") << " ";
+            ColsChild = ColsChild.nextSiblingElement();
         }
     } else {
     }
@@ -143,27 +152,33 @@ void Model::LoadXML(QString path){
     if (!Row.isNull()){
         QDomElement RowChild = Row.firstChildElement();
         while(!RowChild.isNull()){
+            rowsNames.push_back(RowChild.attribute("value","x").toStdString());
             qDebug() << RowChild.attribute("value","x") << " ";
             RowChild = RowChild.nextSiblingElement();
         }
     } else {
     }
+
     if (!Table.isNull()){
         qDebug() << Table.tagName();
         QDomElement Row = Table.firstChildElement();
         while (!Row.isNull()){
-            qDebug() << Row.tagName();
-
+            vector<double> riga;
             QDomElement RowElement = Row.firstChildElement();
             while (!RowElement.isNull()){
-                qDebug() << RowElement.tagName() << " ";
+                riga.push_back(RowElement.attribute("value","0").toDouble());
+                qDebug() << RowElement.attribute("value","0") << " ";
                 RowElement = RowElement.nextSiblingElement();
             }
+            tab.push_back(riga);
             Row = Row.nextSiblingElement();
         }
     } else {
-        qDebug() << "è null" << "";
+        qDebug() << "è null DC" << "";
     }
+
+    TableData t(tab,rowsNames,columnsNames);
+    table = t;
 
 
 }
