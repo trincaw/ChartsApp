@@ -25,7 +25,9 @@ QVariant Model::data(const QModelIndex &index, int role) const{
 }
 bool Model::setData(const QModelIndex &index, const QVariant &value, int role){
     if (role == Qt::EditRole){
+        table.printTable();
         table.getTable()->at(index.row()).at(index.column()) = value.toDouble();
+        table.printTable();
         emit dataChanged(index, index);
     }
     return true;

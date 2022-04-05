@@ -50,7 +50,7 @@ void MainWindow::addTableView(){
     QVXYModelMapper *mapper = new QVXYModelMapper(this);
     mapper->setXColumn(0);
     mapper->setYColumn(1);
-    mapper->setSeries(series);
+    //mapper->setSeries(series);
     mapper->setModel(model);
 
 
@@ -143,7 +143,8 @@ void MainWindow::setController(Controller* c){
     connect(file->actions().at(4),SIGNAL(triggered()),this,SLOT(close()));
     //+altre
     //edit
-    connect(edit->actions().at(0),SIGNAL(triggered()),controller,SLOT(insertColumn()));
+    connect(edit->actions().at(1),SIGNAL(triggered()),controller,SLOT(insertRow()));
+    connect(edit->actions().at(2),SIGNAL(triggered()),controller,SLOT(insertColumn()));
     //view
 //    connect(view->actions().at(0),&QAction::triggered, [&](){
 //        auto tabella= controller->getModel()->getTable();

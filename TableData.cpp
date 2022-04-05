@@ -21,9 +21,13 @@ vector<vector<double>> *TableData::getTable() const
 {
     return table;
 }
+vector<vector<double>> *TableData::getTable()
+{
+    return table;
+}
 void TableData::addRow(vector<double> &row, u_int index, const string &rowName)
 {
-    if (row.size() == rowsCount)
+    if (row.size() == columnsCount)
     {
         if (rowsCount > index)
         {
@@ -43,6 +47,10 @@ void TableData::addRow(vector<double> &row, u_int index, const string &rowName)
 void TableData::addColumn( u_int index, const string columnName)
 {
     vector<double> column(columnsCount,0);//default column
+//    vector<double> column;
+//    for(u_int i=0;i < columnsCount;++i ){
+//        column.push_back(0);
+//    }
     if (column.size() == columnsCount)
     {
         if (columnsCount > index)
@@ -61,7 +69,7 @@ void TableData::addColumn( u_int index, const string columnName)
     }
     else
         std::cout << "Add column out of range or overflow" << std::endl;
-    printModel();
+
 }
 vector<string> *TableData::getRowsNames() const
 {
@@ -95,7 +103,7 @@ void TableData::deleteRow(const u_int index)
         std::cout << "Remove row out of range or overflow" << std::endl;
 }
 
-void TableData::printModel() const
+void TableData::printTable() const
 {
     std::cout << std::endl;
     std::cout << "Names:";
@@ -153,5 +161,5 @@ void TableData::loadModelRandom(const u_int columns, const u_int rows)
     }
     columnsCount = columns;
     rowsCount = rows;
-    printModel();
+    printTable();
 }

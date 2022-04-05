@@ -36,11 +36,12 @@ public:
     vector<string>* getRowsNames() const;
     vector<string>* getColumnsNames() const;
     vector<vector<double>>* getTable() const;
+    vector<vector<double>>* getTable();
 
      void inizialize();
 
     //Deboug
-    void printModel() const;
+    void printTable() const;
     void loadModelRandom(const u_int columns,const u_int rows);
 };
 

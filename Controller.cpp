@@ -12,13 +12,13 @@ void Controller::showViewTable() const{
    view->showTable(model->getTable());
 }
 
-void Controller::insertRow(u_int index, string label){
+void Controller::insertRow(){
     if(view!=nullptr && model!=nullptr){
-        model->addRow(index,label);
-        //showViewTable();
-
-
+        u_int i= view->getSelectedColumn()+1;
+        model->addRow(i,"");
+        view->addTableView();
     }
+    else
     throw ;
 }
 void Controller::insertColumn(){
@@ -30,15 +30,15 @@ void Controller::insertColumn(){
     else
     throw ;
 }
-void Controller::removeRow(u_int index){
+void Controller::removeRow(){
     if(view!=nullptr && model!=nullptr){
-        model->removeRow(index);
+        //model->removeRow(index);
     }
     throw ;
 }
-void Controller::removeColumn(u_int index){
+void Controller::removeColumn(){
     if(view!=nullptr && model!=nullptr){
-        model->removeColumn(index);
+        //model->removeColumn(index);
     }
     throw ;
 }
