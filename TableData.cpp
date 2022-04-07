@@ -5,9 +5,9 @@ using std::vector;
 TableData::TableData() : table(new vector<vector<double>>), rowsNames(new vector<string>), columnsNames(new vector<string>), rowsCount(0), columnsCount(0) {}
 TableData::TableData(vector<vector<double>> &table, vector<string> &rowsNames, vector<string> &columnsNames) : rowsCount(rowsNames.size()), columnsCount(columnsNames.size())
 {
-    this->table = &table;
-    this->rowsNames = &rowsNames;
-    this->columnsNames = &columnsNames;
+    this->table = new auto(table);
+    this->rowsNames = new auto(rowsNames);
+    this->columnsNames = new auto(columnsNames);
 }
 u_int TableData::getRowCount() const
 {
@@ -21,17 +21,22 @@ vector<vector<double>> *TableData::getTable() const
 {
     return table;
 }
-void TableData::addRow(const vector<double> &row, u_int index, const string &rowName)
+vector<vector<double>> *TableData::getTable()
 {
-    if (row.size() == rowsCount)
+    return table;
+}
+void TableData::clearTable(){
+    table->clear();
+    columnsNames->clear();
+    rowsNames->clear();
+    columnsCount=0;
+    rowsCount=0;
+}
+void TableData::addRow(vector<double> &row, u_int index, const string &rowName)
+{
+    if (row.size() == columnsCount)
     {
-        if (rowsCount == 0 && columnsCount == 0)
-        {
-            table->push_back(row);
-            rowsNames->insert(rowsNames->begin() + index, rowName);
-            columnsCount += 1;
-        }
-        else if (rowsCount > index)
+        if (rowsCount >= index)
         {
             rowsNames->insert(rowsNames->begin() + index, rowName);
             table->insert(table->begin() + index, row);
@@ -45,26 +50,21 @@ void TableData::addRow(const vector<double> &row, u_int index, const string &row
     }
     else
         std::cout << "Add row out of range or overflow" << std::endl;
+    printTable();
 }
-void TableData::addColumn(const vector<double> &column, u_int index, const string &columnName)
+void TableData::addColumn(vector<double> &column, u_int index, const string columnName)
 {
-    if (column.size() == columnsCount)
+    if (column.size() == rowsCount)
     {
-        if (rowsCount == 0 && columnsCount == 0)
+        if (columnsCount > index)
         {
-            rowsNames->insert(rowsNames->begin() + index, columnName);
-            table->push_back(column);
-            rowsCount += 1;
-        }
-        else if (columnsCount > index)
-        {
-            for (u_int i = 0; columnsCount > i; ++i)
+            for (u_int i = 0; rowsCount > i; ++i)
                 (*table)[i].insert((*table)[i].begin() + index, column[i]);
-            columnsNames->insert(rowsNames->begin() + index, columnName);
+            columnsNames->insert(columnsNames->begin() + index, columnName);
         }
         else if (columnsCount == index)
         {
-            for (u_int i = 0; columnsCount > i; ++i)
+            for (u_int i = 0; rowsCount > i; ++i)
                 (*table)[i].push_back(column[i]);
             columnsNames->push_back(columnName);
         }
@@ -72,6 +72,8 @@ void TableData::addColumn(const vector<double> &column, u_int index, const strin
     }
     else
         std::cout << "Add column out of range or overflow" << std::endl;
+    printTable();
+
 }
 vector<string> *TableData::getRowsNames() const
 {
@@ -85,37 +87,66 @@ void TableData::deleteColumn(const u_int index)
 {
     if (columnsCount > index)
     {
+        if(columnsCount==1){
+            clearTable();
+        }
+        else{
         columnsNames->erase(columnsNames->begin() + index);
         for (u_int i = 0; rowsCount > i; ++i)
             (*table)[i].erase((*table)[i].begin() + index);
         columnsCount -= 1;
+        }
     }
     else
         std::cout << "Remove column out of range or overflow" << std::endl;
+    printTable();
 }
 void TableData::deleteRow(const u_int index)
 {
     if (rowsCount > index)
     {
+        if(rowsCount==1){
+            clearTable();
+        }
+        else{
         rowsNames->erase(rowsNames->begin() + index);
         table->erase(table->begin() + index);
         rowsCount -= 1;
+        }
     }
     else
         std::cout << "Remove row out of range or overflow" << std::endl;
+    printTable();
 }
 
-void TableData::printModel() const
+void TableData::printTable() const
 {
+    std::cout << std::endl;
+    std::cout << "Names:";
+    std::cout << std::endl;
+    for (auto c : *columnsNames)
+    {
+        std::cout << c << " ";
+    }
+    for (auto r : *rowsNames)
+    {
+        std::cout << r << " ";
+        std::cout << std::endl;
+    }
+    std::cout << "Table:";
+    std::cout << std::endl;
     for (auto data : *table)
     {
         for (auto d : data)
             std::cout << d << " ";
         std::cout << std::endl;
     }
+
     std::cout << "Columns:" << columnsCount << " ";
     std::cout << "Rows:" << rowsCount << " ";
+    std::cout << std::endl;
 }
+
 void TableData::loadModelRandom(const u_int columns, const u_int rows)
 {
     for (u_int j = 0; columns > j; j++)
@@ -125,8 +156,9 @@ void TableData::loadModelRandom(const u_int columns, const u_int rows)
         {
             d.push_back(i + j);
         }
-        table->push_back(d);
         columnsNames->push_back("");
+        table->push_back(d);
+
     }
     for (u_int i = 0; rows > i; i++)
     {
@@ -134,4 +166,5 @@ void TableData::loadModelRandom(const u_int columns, const u_int rows)
     }
     columnsCount = columns;
     rowsCount = rows;
+    printTable();
 }
