@@ -48,9 +48,6 @@ public:
 
     u_int getSelectedRow() const;
     u_int getSelectedColumn() const;
-    u_int getSelectedColumn();
-
-    QWidget* getChartView() const;
     //Chart* getChart() const;
 public slots:
     //void drawChart(Chart* chart)

@@ -20,11 +20,7 @@ void Controller::insert_Row(u_int index){
     throw ;
 }
 void Controller::insert_Row_Before_Selected(){
-    if(view->getSelectedRow()==0)
-         insert_Row(0);
-    else
-         insert_Row(view->getSelectedRow()-1);
-
+    insert_Row(view->getSelectedRow());
 }
 void Controller::insert_Row_After_Selected(){
     insert_Row(view->getSelectedRow()+1);
@@ -38,10 +34,7 @@ void Controller::insert_Column(u_int index){
     throw ;
 }
 void Controller::insert_Column_Before_Selected(){
-    if(view->getSelectedColumn()==0)
-         insert_Column(0);
-    else
-    insert_Column(view->getSelectedColumn()-1);
+    insert_Column(view->getSelectedColumn());
 }
 
 void Controller::insert_Column_After_Selected(){

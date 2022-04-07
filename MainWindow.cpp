@@ -184,13 +184,6 @@ u_int MainWindow::getSelectedColumn() const{
 u_int MainWindow::getSelectedRow() const{
     return tableView->selectionModel()->currentIndex().row();
 }
-QWidget* MainWindow::getChartView() const{
-    return chartView;
-}
-u_int MainWindow::getSelectedColumn(){
-    return tableView->selectionModel()->currentIndex().column();
-}
-
 //Chart* MainWindow::getChart() const{
 //    return chart;
 //}

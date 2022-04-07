@@ -36,12 +36,12 @@ void TableData::addRow(vector<double> &row, u_int index, const string &rowName)
 {
     if (row.size() == columnsCount)
     {
-        if (rowsCount >= index)
+        if (rowsCount > index)
         {
             rowsNames->insert(rowsNames->begin() + index, rowName);
             table->insert(table->begin() + index, row);
         }
-        else if (rowsCount == index)
+        else //if (rowsCount == index)
         {
             rowsNames->push_back(rowName);
             table->push_back(row);
@@ -62,7 +62,7 @@ void TableData::addColumn(vector<double> &column, u_int index, const string colu
                 (*table)[i].insert((*table)[i].begin() + index, column[i]);
             columnsNames->insert(columnsNames->begin() + index, columnName);
         }
-        else if (columnsCount == index)
+        else //if (columnsCount == index)
         {
             for (u_int i = 0; rowsCount > i; ++i)
                 (*table)[i].push_back(column[i]);
