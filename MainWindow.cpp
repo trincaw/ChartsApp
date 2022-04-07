@@ -55,8 +55,11 @@ void MainWindow::addTableView(){
 
 
     chartsLayout->addWidget(tableView);
+
     //transfer changes to the model to the window title
     connect(model, SIGNAL(editCompleted(const QString &)), this, SLOT(setWindowTitle(const QString &)));
+
+
 }
 void MainWindow::addMenuBar(){
     menu=new QMenuBar();
@@ -77,6 +80,7 @@ void MainWindow::addMenuBar(){
 
     edit->addAction(new QAction("Add row before",menu));
     edit->addAction(new QAction("Add row after",menu));
+    edit->addSeparator();
     edit->addAction(new QAction("Add column before",menu));
     edit->addAction(new QAction("Add column after",menu));
     edit->addSeparator();
@@ -143,16 +147,23 @@ void MainWindow::setController(Controller* c){
     addTableView();
     //file
     //connect(file->actions().at(0),SIGNAL(triggered()),controller,SLOT(newChart()));
-    connect(file->actions().at(4),SIGNAL(triggered()),this,SLOT(close()));
+
     connect(file->actions().at(1),SIGNAL(triggered()),controller,SLOT(loadXML()));
     connect(file->actions().at(2),SIGNAL(triggered()),controller,SLOT(saveXML()));
+    connect(file->actions().at(4),SIGNAL(triggered()),this,SLOT(close()));
 
     //+altre
     //edit
-    connect(edit->actions().at(1),SIGNAL(triggered()),controller,SLOT(insertRow()));
-    connect(edit->actions().at(2),SIGNAL(triggered()),controller,SLOT(insertColumn()));
-    connect(edit->actions().at(6),SIGNAL(triggered()),controller,SLOT(clearTable()));
+    connect(edit->actions().at(0),SIGNAL(triggered()),controller,SLOT(insert_Row_Before_Selected()));//before
+    connect(edit->actions().at(1),SIGNAL(triggered()),controller,SLOT(insert_Row_After_Selected()));//after
 
+    connect(edit->actions().at(3),SIGNAL(triggered()),controller,SLOT(insert_Column_Before_Selected()));//before
+    connect(edit->actions().at(4),SIGNAL(triggered()),controller,SLOT(insert_Column_After_Selected()));//after
+
+    connect(edit->actions().at(6),SIGNAL(triggered()),controller,SLOT(remove_Selected_Column()));
+    connect(edit->actions().at(7),SIGNAL(triggered()),controller,SLOT(remove_Selected_Row()));
+
+    connect(edit->actions().at(9),SIGNAL(triggered()),controller,SLOT(clearTable()));
 
     //views
 //    connect(view->actions().at(0),&QAction::triggered, [&](){
@@ -179,12 +190,7 @@ QWidget* MainWindow::getChartView() const{
 u_int MainWindow::getSelectedColumn(){
     return tableView->selectionModel()->currentIndex().column();
 }
-void MainWindow::showTable(TableData table) {
-    this->tableView = new QTableView(this);
-    Model* m=new Model(this);m->setTable(table);
-    QAbstractTableModel *myModel = m;
-    tableView->setModel(myModel);
-}
+
 //Chart* MainWindow::getChart() const{
 //    return chart;
 //}

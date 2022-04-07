@@ -8,6 +8,7 @@ Model::Model(QObject *parent) : QAbstractTableModel(parent){
     vector<string> columnsNames{"x"};
     TableData t(tab,rowsNames,columnsNames);
     table=t;
+
 }
 
 int Model::rowCount(const QModelIndex & /*parent*/) const{
@@ -46,15 +47,6 @@ QVariant Model::headerData(int section, Qt::Orientation orientation, int role) c
         }
     }
     return QString();//??
-}
-
-
-
-TableData Model::getTable() const{
-    return table;
-}
-void Model::setTable(TableData table){
-    this->table=table;
 }
 void Model::addRow(u_int i, std::string label){
     vector<double> v(table.getColumnCount(),0);
@@ -183,6 +175,6 @@ void Model::LoadXML(QString path){
 
     TableData t(tab,rowsNames,columnsNames);
     table = t;
-
+    table.printTable();
 
 }

@@ -19,13 +19,14 @@ private:
     u_int rowsCount;
     u_int columnsCount;
 
+    void clearTable();
+
 public:
     TableData();
     TableData(vector<vector<double>>& table, vector<string>& rowsNames, vector<string>& columnsNames);
 
     u_int getRowCount() const;
     u_int getColumnCount() const;
-
 
     void addRow( vector<double> &row,const u_int index=0, const string &rowName="");
     void addColumn(vector<double> &column,const u_int index=0, const string columnName="");
@@ -39,8 +40,6 @@ public:
     vector<string>* getColumnsNames() const;
     vector<vector<double>>* getTable() const;
     vector<vector<double>>* getTable();
-
-     void inizialize();
 
     //Deboug
     void printTable() const;

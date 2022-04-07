@@ -50,8 +50,6 @@ public:
     u_int getSelectedColumn() const;
     u_int getSelectedColumn();
 
-    void showTable(TableData table);
-
     QWidget* getChartView() const;
     //Chart* getChart() const;
 public slots:

@@ -1,29 +1,40 @@
 <Graph>
- <Cols CollumnCount="3">
+ <Cols CollumnCount="4">
   <Col value=""/>
   <Col value=""/>
   <Col value="x"/>
+  <Col value=""/>
  </Cols>
- <Rows RowCount="3">
+ <Rows RowCount="4">
   <Row value=""/>
   <Row value=""/>
   <Row value="x"/>
+  <Row value=""/>
  </Rows>
  <Data>
   <Row>
    <Num value="1"/>
    <Num value="2"/>
+   <Num value="3"/>
+   <Num value="4"/>
+  </Row>
+  <Row>
    <Num value="2"/>
+   <Num value="3"/>
+   <Num value="4"/>
+   <Num value="5"/>
+  </Row>
+  <Row>
+   <Num value="3"/>
+   <Num value="4"/>
+   <Num value="5"/>
+   <Num value="6"/>
   </Row>
   <Row>
    <Num value="4"/>
-   <Num value="3"/>
-   <Num value="1"/>
-  </Row>
-  <Row>
    <Num value="5"/>
    <Num value="6"/>
-   <Num value="1"
+   <Num value="7"/>
   </Row>
  </Data>
 </Graph>

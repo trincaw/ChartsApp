@@ -25,11 +25,18 @@ vector<vector<double>> *TableData::getTable()
 {
     return table;
 }
+void TableData::clearTable(){
+    table->clear();
+    columnsNames->clear();
+    rowsNames->clear();
+    columnsCount=0;
+    rowsCount=0;
+}
 void TableData::addRow(vector<double> &row, u_int index, const string &rowName)
 {
     if (row.size() == columnsCount)
     {
-        if (rowsCount > index)
+        if (rowsCount >= index)
         {
             rowsNames->insert(rowsNames->begin() + index, rowName);
             table->insert(table->begin() + index, row);
@@ -43,6 +50,7 @@ void TableData::addRow(vector<double> &row, u_int index, const string &rowName)
     }
     else
         std::cout << "Add row out of range or overflow" << std::endl;
+    printTable();
 }
 void TableData::addColumn(vector<double> &column, u_int index, const string columnName)
 {
@@ -56,7 +64,7 @@ void TableData::addColumn(vector<double> &column, u_int index, const string colu
         }
         else if (columnsCount == index)
         {
-            for (u_int i = 0; columnsCount > i; ++i)
+            for (u_int i = 0; rowsCount > i; ++i)
                 (*table)[i].push_back(column[i]);
             columnsNames->push_back(columnName);
         }
@@ -64,6 +72,7 @@ void TableData::addColumn(vector<double> &column, u_int index, const string colu
     }
     else
         std::cout << "Add column out of range or overflow" << std::endl;
+    printTable();
 
 }
 vector<string> *TableData::getRowsNames() const
@@ -78,24 +87,36 @@ void TableData::deleteColumn(const u_int index)
 {
     if (columnsCount > index)
     {
+        if(columnsCount==1){
+            clearTable();
+        }
+        else{
         columnsNames->erase(columnsNames->begin() + index);
         for (u_int i = 0; rowsCount > i; ++i)
             (*table)[i].erase((*table)[i].begin() + index);
         columnsCount -= 1;
+        }
     }
     else
         std::cout << "Remove column out of range or overflow" << std::endl;
+    printTable();
 }
 void TableData::deleteRow(const u_int index)
 {
     if (rowsCount > index)
     {
+        if(rowsCount==1){
+            clearTable();
+        }
+        else{
         rowsNames->erase(rowsNames->begin() + index);
         table->erase(table->begin() + index);
         rowsCount -= 1;
+        }
     }
     else
         std::cout << "Remove row out of range or overflow" << std::endl;
+    printTable();
 }
 
 void TableData::printTable() const
@@ -120,8 +141,6 @@ void TableData::printTable() const
             std::cout << d << " ";
         std::cout << std::endl;
     }
-    std::cout << "Size:";
-    std::cout << std::endl;
 
     std::cout << "Columns:" << columnsCount << " ";
     std::cout << "Rows:" << rowsCount << " ";

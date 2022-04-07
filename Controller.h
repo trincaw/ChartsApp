@@ -17,7 +17,9 @@ class Controller : public QObject
 private:
     MainWindow* view;
     Model* model;
-    void showViewTable() const;
+    void insert_Row(u_int index);
+    void insert_Column(u_int index);
+
 
 public:
     explicit Controller(QObject *parent = nullptr);
@@ -27,12 +29,17 @@ public:
     void setView(MainWindow* v);
     Model* getModel();
 
+    void showDebougTable() const;
+
 public slots:
-    void insertRow();
-    void insertColumn();
-    void removeRow();
-    void removeColumn();
+    void insert_Row_Before_Selected();
+    void insert_Row_After_Selected();
+    void insert_Column_Before_Selected();
+    void insert_Column_After_Selected();
+    void remove_Selected_Row();
+    void remove_Selected_Column();
     void clearTable();
+
     void saveXML();
     void loadXML();
 

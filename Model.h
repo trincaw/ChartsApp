@@ -23,8 +23,6 @@ private:
     TableData table;
 public:
     Model(QObject *parent = 0);
-    TableData getTable() const;
-    void setTable(TableData table);
 
     int rowCount(const QModelIndex &parent = QModelIndex()) const;
     int columnCount(const QModelIndex &parent = QModelIndex()) const;
@@ -41,7 +39,9 @@ public:
     void removeRow(u_int index);
     void removeColumn(u_int index);
     void clearTable();
+
     void newModel(string rowLabel, string columnLabel);
+
     void SaveXML(QString path);
     void LoadXML(QString path);
 };
