@@ -1,29 +1,15 @@
 #include <MainWindow.h>
-#include <Controller.h>
+//#include <Controller.h>
 
 #include <iostream>
 
-MainWindow::MainWindow(QWidget *parent) : QWidget(parent){
-
-
-    mainLayout= new QVBoxLayout;
-    chartsLayout= new QHBoxLayout();
-
-
-
-    //addControls(mainLayout);
-
-    chartsLayout->setSpacing(0);
-    chartsLayout->setAlignment(Qt::AlignCenter);
-    chartsLayout->setContentsMargins(0,0,0,0);
-
-    mainLayout->setSpacing(0);
+MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent){
+    QHBoxLayout* mainLayout=new QHBoxLayout(this);
     mainLayout->setAlignment(Qt::AlignTop);
     mainLayout->setContentsMargins(0,0,0,0);
+    mainLayout->setSpacing(0);
 
-
-    setLayout(mainLayout);
-    resize(QSize(1024, 720));
+    resize(1500,750);
 
     QRect screenSize= QGuiApplication::screens().first()->geometry();
     const QRect wr{{},frameSize().boundedTo(screenSize.size())};
@@ -31,37 +17,17 @@ MainWindow::MainWindow(QWidget *parent) : QWidget(parent){
 
     //setWindowIcon(QIcon(":/images/icon.png"));
 
- addMenuBar();
-    mainLayout->addLayout(chartsLayout);
+    setBar();
 
-
-
-
-}
-void MainWindow::addTableView(){
-    chartsLayout->removeWidget(tableView);
     tableView = new QTableView(this);
-    //QAbstractTableModel *myModel = new Model(this);
-
-    tableView->setModel(model);
-
-    QLineSeries *series = new QLineSeries;
-    series->setName("Line 1");
-    QVXYModelMapper *mapper = new QVXYModelMapper(this);
-    mapper->setXColumn(0);
-    mapper->setYColumn(1);
-    //mapper->setSeries(series);
-    mapper->setModel(model);
-
-
-    chartsLayout->addWidget(tableView);
+    setCentralWidget(tableView);
+    QAbstractTableModel *myModel = new Model(this);
+    tableView->setModel(myModel);
 
     //transfer changes to the model to the window title
-    connect(model, SIGNAL(editCompleted(const QString &)), this, SLOT(setWindowTitle(const QString &)));
-
-
+    connect(myModel, SIGNAL(editCompleted(const QString &)), this, SLOT(setWindowTitle(const QString &)));
 }
-void MainWindow::addMenuBar(){
+void MainWindow::setBar(){
     menu=new QMenuBar();
     //File
     file=new QMenu("&File");
@@ -78,16 +44,13 @@ void MainWindow::addMenuBar(){
     edit=new QMenu("&Edit",menu);
     menu->addMenu(edit);
 
+    edit->addAction(new QAction("Add column before",menu));
+    edit->addAction(new QAction("Add column after",menu));
     edit->addAction(new QAction("Add row before",menu));
     edit->addAction(new QAction("Add row after",menu));
     edit->addSeparator();
-    edit->addAction(new QAction("Add column before",menu));
-    edit->addAction(new QAction("Add column after",menu));
-    edit->addSeparator();
     edit->addAction(new QAction("Delete selected column",menu));
     edit->addAction(new QAction("Delete selected row",menu));
-    edit->addSeparator();
-    edit->addAction(new QAction("Clear table",menu));
     //View
     view=new QMenu("&View",menu);
     menu->addMenu(view);
@@ -119,11 +82,10 @@ void MainWindow::addMenuBar(){
 
 //help
     help=new QMenu("&help",menu);
-    help->addAction(new QAction("About",menu));
-
     menu->addMenu(help);
 
-    mainLayout->addWidget(menu);
+    edit->addAction(new QAction("About",menu));
+    this->layout()->setMenuBar(menu);
 }
 void MainWindow::setTableView()
 {
@@ -131,7 +93,7 @@ void MainWindow::setTableView()
         layout()->removeWidget(tableView);
     else
         tableView= new QTableView();
-    tableView->setModel(controller->getModel());
+    //tableView->setModel(controller->getModel())
     tableView->resizeColumnsToContents();
     tableView->resizeRowsToContents();
     tableView->setGeometry(0,30,300,300);
@@ -140,32 +102,12 @@ void MainWindow::setTableView()
     tableView->verticalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     layout()->addWidget(tableView);
 }
-void MainWindow::setController(Controller* c){
-    controller=c;
-    model=c->getModel();
-
-    addTableView();
+void MainWindow::setController(Controller* controller){
+    this->controller=controller;
     //file
     //connect(file->actions().at(0),SIGNAL(triggered()),controller,SLOT(newChart()));
-
-    connect(file->actions().at(1),SIGNAL(triggered()),controller,SLOT(loadXML()));
-    connect(file->actions().at(2),SIGNAL(triggered()),controller,SLOT(saveXML()));
-    connect(file->actions().at(4),SIGNAL(triggered()),this,SLOT(close()));
-
     //+altre
-    //edit
-    connect(edit->actions().at(0),SIGNAL(triggered()),controller,SLOT(insert_Row_Before_Selected()));//before
-    connect(edit->actions().at(1),SIGNAL(triggered()),controller,SLOT(insert_Row_After_Selected()));//after
-
-    connect(edit->actions().at(3),SIGNAL(triggered()),controller,SLOT(insert_Column_Before_Selected()));//before
-    connect(edit->actions().at(4),SIGNAL(triggered()),controller,SLOT(insert_Column_After_Selected()));//after
-
-    connect(edit->actions().at(6),SIGNAL(triggered()),controller,SLOT(remove_Selected_Column()));
-    connect(edit->actions().at(7),SIGNAL(triggered()),controller,SLOT(remove_Selected_Row()));
-
-    connect(edit->actions().at(9),SIGNAL(triggered()),controller,SLOT(clearTable()));
-
-    //views
+    //view
 //    connect(view->actions().at(0),&QAction::triggered, [&](){
 //        auto tabella= controller->getModel()->getTable();
 //        chart= new PieChart(tabella);
@@ -187,10 +129,6 @@ u_int MainWindow::getSelectedRow() const{
 QWidget* MainWindow::getChartView() const{
     return chartView;
 }
-u_int MainWindow::getSelectedColumn(){
-    return tableView->selectionModel()->currentIndex().column();
-}
-
 //Chart* MainWindow::getChart() const{
 //    return chart;
 //}

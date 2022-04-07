@@ -5,16 +5,11 @@
 #include <QAbstractItemModel>
 #include <QModelIndex>
 #include <QVariant>
-#include <QTextStream>
-#include <QtXml>
-#include <iostream>
-
 
 #include "TableData.h"
 
 typedef unsigned int u_int;
 using std::vector;
-using std::string;
 
 class Model : public QAbstractTableModel
 {
@@ -23,6 +18,7 @@ private:
     TableData table;
 public:
     Model(QObject *parent = 0);
+    TableData getTable() const;
 
     int rowCount(const QModelIndex &parent = QModelIndex()) const;
     int columnCount(const QModelIndex &parent = QModelIndex()) const;
@@ -31,19 +27,17 @@ public:
     virtual Qt::ItemFlags flags(const QModelIndex &index) const;
     virtual QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const;
 
-    void readJson(string path);
-    void writeJson(string path);
 
-    void addRow(u_int index, string label);
-    void addColumn(u_int index, string label);
-    void removeRow(u_int index);
-    void removeColumn(u_int index);
-    void clearTable();
 
-    void newModel(string rowLabel, string columnLabel);
+    void readJson(std::string path);
+    void writeJson(std::string path);
 
-    void SaveXML(QString path);
-    void LoadXML(QString path);
+
+    void addRow(u_int i, std::string label);
+    void addColumn(u_int i, std::string label);
+    void removeRow(u_int i);
+    void removeColumn(u_int i);
+    void newModel(std::string rowLabel, std::string columnLabel);
 };
 
 #endif // MODEL_H
