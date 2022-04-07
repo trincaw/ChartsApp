@@ -15,6 +15,7 @@
 #include <QMessageBox>
 
 #include "Model.h"
+//#include "ChartItem"
 #include "TableData.h"
 
 typedef unsigned int u_int;
@@ -25,9 +26,6 @@ class MainWindow : public QMainWindow
 private:
     Controller* controller;
     Model* model;
-
-    QVBoxLayout* mainLayout;
-    QHBoxLayout* chartsLayout;
 
     QMenuBar* menu;
     QMenu* file;
@@ -42,13 +40,9 @@ public:
     MainWindow(QWidget* parent=nullptr);
     void setController(Controller* controller);
     void setTableView();
-
-    void addMenuBar();
-    void addTableView();
-
+    void setBar();
     u_int getSelectedRow() const;
     u_int getSelectedColumn() const;
-    u_int getSelectedColumn();
 
     QWidget* getChartView() const;
     //Chart* getChart() const;

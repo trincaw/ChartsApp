@@ -19,8 +19,6 @@ private:
     u_int rowsCount;
     u_int columnsCount;
 
-    void clearTable();
-
 public:
     TableData();
     TableData(vector<vector<double>>& table, vector<string>& rowsNames, vector<string>& columnsNames);
@@ -28,21 +26,19 @@ public:
     u_int getRowCount() const;
     u_int getColumnCount() const;
 
-    void addRow( vector<double> &row,const u_int index=0, const string &rowName="");
-    void addColumn(vector<double> &column,const u_int index=0, const string columnName="");
+    void addRow(const vector<double> &row,u_int index=0, const string &rowName="");
+    void addColumn(const vector<double> &column,u_int index=0, const string &columnName="");
     void deleteRow(const u_int index);
     void deleteColumn(const u_int index);
-    void clear();
 
     vector<double> getColumn(const u_int index) const;
     vector<double> getRow(const u_int index) const;
     vector<string>* getRowsNames() const;
     vector<string>* getColumnsNames() const;
     vector<vector<double>>* getTable() const;
-    vector<vector<double>>* getTable();
 
     //Deboug
-    void printTable() const;
+    void printModel() const;
     void loadModelRandom(const u_int columns,const u_int rows);
 };
 
