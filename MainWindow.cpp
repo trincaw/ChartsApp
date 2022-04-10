@@ -31,7 +31,7 @@ MainWindow::MainWindow(QWidget *parent) : QWidget(parent){
 
     //setWindowIcon(QIcon(":/images/icon.png"));
 
- addMenuBar();
+    addMenuBar();
     mainLayout->addLayout(chartsLayout);
 
 
@@ -45,19 +45,23 @@ void MainWindow::addTableView(){
 
     tableView->setModel(model);
 
-    QLineSeries *series = new QLineSeries;
-    series->setName("Line 1");
+    tableView->resizeColumnsToContents();
+    tableView->resizeRowsToContents();
+    //tableView->setGeometry(0,30,300,300);
+    tableView->setStyleSheet("QHeaderView::section {background-color:lightblue}");
+    tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+    tableView->verticalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+
+    //QLineSeries *series = new QLineSeries;
+    //series->setName("Line 1");
     QVXYModelMapper *mapper = new QVXYModelMapper(this);
-    mapper->setXColumn(0);
-    mapper->setYColumn(1);
+    //mapper->setXColumn(0);
+    //mapper->setYColumn(1);
     //mapper->setSeries(series);
     mapper->setModel(model);
 
-
     chartsLayout->addWidget(tableView);
 
-    //transfer changes to the model to the window title
-    connect(model, SIGNAL(editCompleted(const QString &)), this, SLOT(setWindowTitle(const QString &)));
 
 
 }

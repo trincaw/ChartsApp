@@ -8,7 +8,6 @@ Model::Model(QObject *parent) : QAbstractTableModel(parent){
     vector<string> columnsNames{"x"};
     TableData t(tab,rowsNames,columnsNames);
     table=t;
-
 }
 
 int Model::rowCount(const QModelIndex & /*parent*/) const{
@@ -26,7 +25,6 @@ QVariant Model::data(const QModelIndex &index, int role) const{
 }
 bool Model::setData(const QModelIndex &index, const QVariant &value, int role){
     if (role == Qt::EditRole){
-        table.printTable();
         table.getTable()->at(index.row()).at(index.column()) = value.toDouble();
         table.printTable();
         emit dataChanged(index, index);
@@ -37,7 +35,7 @@ Qt::ItemFlags Model::flags(const QModelIndex &index) const{
     return QAbstractItemModel::flags(index) | Qt::ItemIsEditable;
 }
 QVariant Model::headerData(int section, Qt::Orientation orientation, int role) const{
-    if (role == Qt::DisplayRole){
+    if (role != Qt::DisplayRole){
         if (Qt::Orientation::Vertical == orientation){
             if(((int)table.getRowCount()) > section)
                 return QString::fromStdString(table.getRowsNames()->at(section));
