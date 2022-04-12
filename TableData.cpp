@@ -123,11 +123,12 @@ void TableData::printTable() const
 {
     std::cout << std::endl;
     std::cout << "Names:";
-    std::cout << std::endl;
+    std::cout << std::endl;std::cout << " ";
     for (auto c : *columnsNames)
     {
         std::cout << c << " ";
     }
+    std::cout << std::endl;
     for (auto r : *rowsNames)
     {
         std::cout << r << " ";

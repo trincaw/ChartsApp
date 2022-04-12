@@ -1,17 +1,23 @@
 <Graph>
  <Cols CollumnCount="4">
-  <Col value=""/>
-  <Col value=""/>
   <Col value="x"/>
-  <Col value=""/>
+  <Col value="x1"/>
+  <Col value="x2"/>
+  <Col value="x3"/>
  </Cols>
  <Rows RowCount="4">
-  <Row value=""/>
-  <Row value=""/>
-  <Row value="x"/>
-  <Row value=""/>
+  <Row value="y"/>
+  <Row value="y1"/>
+  <Row value="y2"/>
+  <Row value="y3"/>
  </Rows>
  <Data>
+  <Row>
+   <Num value="0"/>
+   <Num value="1"/>
+   <Num value="2"/>
+   <Num value="3"/>
+  </Row>
   <Row>
    <Num value="1"/>
    <Num value="2"/>
@@ -29,12 +35,6 @@
    <Num value="4"/>
    <Num value="5"/>
    <Num value="6"/>
-  </Row>
-  <Row>
-   <Num value="4"/>
-   <Num value="5"/>
-   <Num value="6"/>
-   <Num value="7"/>
   </Row>
  </Data>
 </Graph>

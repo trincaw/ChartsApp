@@ -180,7 +180,7 @@ void MainWindow::setController(Controller* c){
     model=c->getModel();
 
     //addTableView();
-    addChartView();
+    //addChartView();
 
 
     //file
