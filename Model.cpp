@@ -35,14 +35,15 @@ Qt::ItemFlags Model::flags(const QModelIndex &index) const{
     return QAbstractItemModel::flags(index) | Qt::ItemIsEditable;
 }
 QVariant Model::headerData(int section, Qt::Orientation orientation, int role) const{
-    if (role != Qt::DisplayRole){
-        if (Qt::Orientation::Vertical == orientation){
-            if(((int)table.getRowCount()) > section)
-                return QString::fromStdString(table.getRowsNames()->at(section));
-        } else{
-            if(((int)table.getColumnCount()) > section)
-                return QString::fromStdString(table.getColumnsNames()->at(section));
-        }
+    if (role != Qt::DisplayRole)
+        return QVariant();
+
+    if (Qt::Orientation::Vertical == orientation){
+        if(((int)table.getRowCount()) > section)
+            return QString::fromStdString(table.getRowsNames()->at(section));
+    } else{
+        if(((int)table.getColumnCount()) > section)
+            return QString::fromStdString(table.getColumnsNames()->at(section));
     }
     return QString();//??
 }
@@ -89,7 +90,7 @@ void Model::SaveXML(QString path){
     // SAVE ROW TITLE
     QDomElement Rows = document.createElement("Rows");
     Rows.setAttribute("RowCount",QString::number(table.getRowCount()));
-    for (auto c : *table.getColumnsNames())
+    for (auto c : *table.getRowsNames())
     {
         QDomElement child = document.createElement("Row");
         child.setAttribute("value", QString::fromStdString(c));

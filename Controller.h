@@ -7,6 +7,7 @@
 #include "Model.h"
 #include <QInputDialog>
 #include <QFileDialog>
+#include <QInputDialog>
 
 typedef unsigned int u_int;
 using std::string;

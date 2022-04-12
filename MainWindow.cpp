@@ -38,6 +38,37 @@ MainWindow::MainWindow(QWidget *parent) : QWidget(parent){
 
 
 }
+void MainWindow::addChartView(){
+    chartsLayout->removeWidget(chartView);
+
+    QChart *chart = new QChart;
+    chart->setAnimationOptions(QChart::AllAnimations);
+    QLineSeries *series = new QLineSeries;
+    series->setName("Line1");
+    QVXYModelMapper *mapper = new QVXYModelMapper(this);
+    mapper->setXColumn(0);
+    mapper->setYColumn(1);
+    mapper->setSeries(series);
+    mapper->setModel(model);
+    chart->addSeries(series);
+    series = new QLineSeries;
+    series->setName("Line 2");
+
+    mapper = new QVXYModelMapper(this);
+    mapper->setXColumn(2);
+    mapper->setYColumn(3);
+    mapper->setSeries(series);
+    mapper->setModel(model);
+    chart->addSeries(series);
+    chart->createDefaultAxes();
+
+
+    chartView = new QChartView(chart);
+    chartView->setRenderHint(QPainter::Antialiasing);
+    chartView->setMinimumSize(640,480);
+
+    chartsLayout->addWidget(chartView);
+}
 void MainWindow::addTableView(){
     chartsLayout->removeWidget(tableView);
     tableView = new QTableView(this);
@@ -47,7 +78,7 @@ void MainWindow::addTableView(){
 
     tableView->resizeColumnsToContents();
     tableView->resizeRowsToContents();
-    //tableView->setGeometry(0,30,300,300);
+    //tableView->setGeometry(0,30,300,300);S
     tableView->setStyleSheet("QHeaderView::section {background-color:lightblue}");
     tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     tableView->verticalHeader()->setSectionResizeMode(QHeaderView::Stretch);
@@ -148,7 +179,10 @@ void MainWindow::setController(Controller* c){
     controller=c;
     model=c->getModel();
 
-    addTableView();
+    //addTableView();
+    addChartView();
+
+
     //file
     //connect(file->actions().at(0),SIGNAL(triggered()),controller,SLOT(newChart()));
 

@@ -1,15 +1,15 @@
 <Graph>
  <Cols CollumnCount="4">
-  <Col value=""/>
-  <Col value=""/>
-  <Col value=""/>
-  <Col value="x"/>
+  <Col value="x0"/>
+  <Col value="x1"/>
+  <Col value="x2"/>
+  <Col value="x3"/>
  </Cols>
  <Rows RowCount="5">
-  <Row value=""/>
-  <Row value=""/>
-  <Row value=""/>
-  <Row value="x"/>
+  <Row value"y0"/>
+  <Row value"y1"/>
+  <Row value"y2"/>
+  <Row value"y3"/>
  </Rows>
  <Data>
   <Row>

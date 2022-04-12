@@ -9,12 +9,19 @@ void Controller::setView(MainWindow* v) { view = v; }
 Model* Controller::getModel(){ return model; }
 
 void Controller::showDebougTable() const{
-    model->LoadXML("/home/olo/Progetti/ChartsApp/Example/sample1.xml");view->addTableView();
+    model->LoadXML("/home/olo/Progetti/ChartsApp/Example/sample1.xml");
+    view->addTableView();
 }
 void Controller::insert_Row(u_int index){
     if(view!=nullptr && model!=nullptr ){
-        model->addRow(index,"");
-        view->addTableView();
+        bool ok;
+        QString text = QInputDialog::getText(view, tr("Enter Row Name"),
+                                             tr("Label:"), QLineEdit::Normal,
+                                             "", &ok);
+        if (ok && !text.isEmpty()){
+            model->addRow(index,text.toStdString());
+            view->addTableView();
+        }
     }
     else
     throw ;
@@ -27,14 +34,22 @@ void Controller::insert_Row_After_Selected(){
 }
 void Controller::insert_Column(u_int index){
     if(view!=nullptr && model!=nullptr){
-        model->addColumn(index,"");
-        view->addTableView();
+        bool ok;
+        QString text = QInputDialog::getText(view, tr("Enter Col Name"),
+                                             tr("Label:"), QLineEdit::Normal,
+                                             "", &ok);
+        if (ok && !text.isEmpty()){
+            model->addColumn(index,text.toStdString());
+            view->addTableView();
+        }
+
     }
     else
     throw ;
 }
 void Controller::insert_Column_Before_Selected(){
     insert_Column(view->getSelectedColumn());
+
 }
 
 void Controller::insert_Column_After_Selected(){

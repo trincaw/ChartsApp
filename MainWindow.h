@@ -42,9 +42,11 @@ public:
     MainWindow(QWidget* parent=nullptr);
     void setController(Controller* controller);
     void setTableView();
+    void setChartView();
 
     void addMenuBar();
     void addTableView();
+    void addChartView();
 
     u_int getSelectedRow() const;
     u_int getSelectedColumn() const;
