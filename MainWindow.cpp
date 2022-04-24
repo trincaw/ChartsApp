@@ -43,23 +43,26 @@ void MainWindow::addChartView(){
 
     QChart *chart = new QChart;
     chart->setAnimationOptions(QChart::AllAnimations);
+
     QLineSeries *series = new QLineSeries;
     series->setName("Line1");
     QVXYModelMapper *mapper = new QVXYModelMapper(this);
     mapper->setXColumn(0);
     mapper->setYColumn(1);
     mapper->setSeries(series);
-    mapper->setModel(model);
+    mapper->setModel(controller->getModel());
     chart->addSeries(series);
-    series = new QLineSeries;
-    series->setName("Line 2");
 
-    mapper = new QVXYModelMapper(this);
-    mapper->setXColumn(2);
-    mapper->setYColumn(3);
-    mapper->setSeries(series);
-    mapper->setModel(model);
-    chart->addSeries(series);
+
+//    series = new QLineSeries;
+//    series->setName("Line 2");
+//    mapper = new QVXYModelMapper(this);
+//    mapper->setXColumn(2);
+//    mapper->setYColumn(3);
+//    mapper->setSeries(series);
+//    mapper->setModel(model);
+//    chart->addSeries(series);
+
     chart->createDefaultAxes();
 
 
@@ -68,13 +71,14 @@ void MainWindow::addChartView(){
     chartView->setMinimumSize(640,480);
 
     chartsLayout->addWidget(chartView);
+
 }
 void MainWindow::addTableView(){
     chartsLayout->removeWidget(tableView);
     tableView = new QTableView(this);
     //QAbstractTableModel *myModel = new Model(this);
 
-    tableView->setModel(model);
+    tableView->setModel(controller->getModel());
 
     tableView->resizeColumnsToContents();
     tableView->resizeRowsToContents();
@@ -89,7 +93,7 @@ void MainWindow::addTableView(){
     //mapper->setXColumn(0);
     //mapper->setYColumn(1);
     //mapper->setSeries(series);
-    mapper->setModel(model);
+    mapper->setModel(controller->getModel());
 
     chartsLayout->addWidget(tableView);
 
@@ -177,10 +181,9 @@ void MainWindow::setTableView()
 }
 void MainWindow::setController(Controller* c){
     controller=c;
-    model=c->getModel();
 
-    //addTableView();
-    //addChartView();
+    addTableView();
+    addChartView();
 
 
     //file
@@ -204,16 +207,7 @@ void MainWindow::setController(Controller* c){
     connect(edit->actions().at(9),SIGNAL(triggered()),controller,SLOT(clearTable()));
 
     //views
-//    connect(view->actions().at(0),&QAction::triggered, [&](){
-//        auto tabella= controller->getModel()->getTable();
-//        chart= new PieChart(tabella);
-//        drawChart(chart);
-//        if(tabella.getColumnCount()>1){
-//            QMessageBox msgBox;
-//            msgBox.setText("Dount charts can only consider the frist column of the dataset");
-//            msgBox.exec();
-//        }
-//    });
+
     //+altre
 }
 u_int MainWindow::getSelectedColumn() const{

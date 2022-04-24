@@ -24,7 +24,6 @@ class MainWindow : public QWidget
     Q_OBJECT
 private:
     Controller* controller;
-    Model* model;
 
     QVBoxLayout* mainLayout;
     QHBoxLayout* chartsLayout;
