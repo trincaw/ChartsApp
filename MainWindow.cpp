@@ -8,7 +8,7 @@ MainWindow::MainWindow(QWidget *parent) : QWidget(parent){
 
     mainLayout= new QVBoxLayout;
     chartsLayout= new QHBoxLayout();
-
+    mapper = new QVXYModelMapper(this);
 
 
     //addControls(mainLayout);
@@ -46,11 +46,7 @@ void MainWindow::addChartView(){
 
     QLineSeries *series = new QLineSeries;
     series->setName("Line1");
-    QVXYModelMapper *mapper = new QVXYModelMapper(this);
-    mapper->setXColumn(0);
-    mapper->setYColumn(1);
     mapper->setSeries(series);
-    mapper->setModel(controller->getModel());
     chart->addSeries(series);
 
 
@@ -82,23 +78,28 @@ void MainWindow::addTableView(){
 
     tableView->resizeColumnsToContents();
     tableView->resizeRowsToContents();
-    //tableView->setGeometry(0,30,300,300);S
+    //tableView->setGeometry(0,30,300,300);
+    tableView->setMinimumSize(640,480);
     tableView->setStyleSheet("QHeaderView::section {background-color:lightblue}");
     tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     tableView->verticalHeader()->setSectionResizeMode(QHeaderView::Stretch);
 
     //QLineSeries *series = new QLineSeries;
     //series->setName("Line 1");
-    QVXYModelMapper *mapper = new QVXYModelMapper(this);
+
     //mapper->setXColumn(0);
     //mapper->setYColumn(1);
     //mapper->setSeries(series);
-    mapper->setModel(controller->getModel());
-
+    //mapper->setModel(controller->getModel());
     chartsLayout->addWidget(tableView);
 
-
-
+}
+void MainWindow::refreshGui(){
+    mapper->setXColumn(0);
+    mapper->setYColumn(1);
+    mapper->setModel(controller->getModel());
+    addTableView();
+    addChartView();
 }
 void MainWindow::addMenuBar(){
     menu=new QMenuBar();
@@ -182,8 +183,7 @@ void MainWindow::setTableView()
 void MainWindow::setController(Controller* c){
     controller=c;
 
-    addTableView();
-    addChartView();
+    refreshGui();
 
 
     //file

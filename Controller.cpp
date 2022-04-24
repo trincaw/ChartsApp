@@ -10,7 +10,7 @@ Model* Controller::getModel(){ return model; }
 
 void Controller::showDebougTable() const{
     model->LoadXML("/home/olo/Progetti/ChartsApp/Example/sample1.xml");
-    view->addTableView();
+    view->refreshGui();
 }
 void Controller::insert_Row(u_int index){
     if(view!=nullptr && model!=nullptr ){
@@ -20,7 +20,7 @@ void Controller::insert_Row(u_int index){
                                              "", &ok);
         if (ok && !text.isEmpty()){
             model->addRow(index,text.toStdString());
-            view->addTableView();
+            view->refreshGui();
         }
     }
     else
@@ -40,7 +40,7 @@ void Controller::insert_Column(u_int index){
                                              "", &ok);
         if (ok && !text.isEmpty()){
             model->addColumn(index,text.toStdString());
-            view->addTableView();
+            view->refreshGui();
         }
 
     }
@@ -60,7 +60,7 @@ void Controller::remove_Selected_Row(){
     if(view!=nullptr && model!=nullptr){
         u_int i= view->getSelectedRow();
         model->removeRow(i);
-        view->addTableView();
+        view->refreshGui();
     }
     else
     throw ;
@@ -69,14 +69,14 @@ void Controller::remove_Selected_Column(){
     if(view!=nullptr && model!=nullptr){
         u_int i= view->getSelectedColumn();
         model->removeColumn(i);
-        view->addTableView();
+        view->refreshGui();
     }
     else
     throw ;
 }
 void Controller::clearTable(){
     model->clearTable();
-     view->addTableView();
+     view->refreshGui();
 }
 void Controller::saveXML(){
     if(view!=nullptr && model!=nullptr){
@@ -88,7 +88,7 @@ void Controller::saveXML(){
 void Controller::loadXML(){
     if(view!=nullptr && model!=nullptr){
         model->LoadXML(QFileDialog::getOpenFileName(view, "Load File","", "XML (*.xml)"));
-        view->addTableView();
+        view->refreshGui();
 
     }
     else

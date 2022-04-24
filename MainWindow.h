@@ -28,6 +28,8 @@ private:
     QVBoxLayout* mainLayout;
     QHBoxLayout* chartsLayout;
 
+    QVXYModelMapper *mapper;
+
     QMenuBar* menu;
     QMenu* file;
     QMenu* edit;
@@ -46,6 +48,7 @@ public:
     void addMenuBar();
     void addTableView();
     void addChartView();
+    void refreshGui();
 
     u_int getSelectedRow() const;
     u_int getSelectedColumn() const;
