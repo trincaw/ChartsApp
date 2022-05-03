@@ -4,7 +4,7 @@ Controller::Controller(QObject* parent): QObject(parent) {}
 
 void Controller::setModel(Model* m) { model = m; }//DEBOUG
 
-void Controller::setView(MainWindow* v) { view = v; }
+void Controller::setView(MainWindow* v) {view = v;}
 
 Model* Controller::getModel(){ return model; }
 

@@ -78,7 +78,7 @@ void MainWindow::addTableView(){
 
     tableView->resizeColumnsToContents();
     tableView->resizeRowsToContents();
-    //tableView->setGeometry(0,30,300,300);
+    tableView->setGeometry(0,30,300,300);
     tableView->setMinimumSize(640,480);
     tableView->setStyleSheet("QHeaderView::section {background-color:lightblue}");
     tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
@@ -183,6 +183,7 @@ void MainWindow::setTableView()
 void MainWindow::setController(Controller* c){
     controller=c;
 
+
     refreshGui();
 
 
@@ -209,6 +210,8 @@ void MainWindow::setController(Controller* c){
     //views
 
     //+altre
+    connect(controller->getModel(),&QAbstractItemModel::dataChanged,[&](){refreshGui();});
+
 }
 u_int MainWindow::getSelectedColumn() const{
     return tableView->selectionModel()->currentIndex().column();
