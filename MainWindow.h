@@ -16,6 +16,7 @@
 
 #include "Model.h"
 #include "TableData.h"
+#include "ChartList.h"
 
 typedef unsigned int u_int;
 class Controller;
@@ -48,6 +49,7 @@ public:
     void addMenuBar();
     void addTableView();
     void addChartView();
+    void addChartView2();
     void refreshGui();
 
     u_int getSelectedRow() const;

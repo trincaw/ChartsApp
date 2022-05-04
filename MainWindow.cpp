@@ -1,3 +1,4 @@
+#include "ChartList.h"
 #include <MainWindow.h>
 #include <Controller.h>
 
@@ -38,7 +39,33 @@ MainWindow::MainWindow(QWidget *parent) : QWidget(parent){
 
 
 }
+void MainWindow::addTableView(){
+    chartsLayout->removeWidget(tableView);
+    tableView = new QTableView(this);
+    //QAbstractTableModel *myModel = new Model(this);
+
+    tableView->setModel(controller->getModel());
+
+    tableView->resizeColumnsToContents();
+    tableView->resizeRowsToContents();
+    tableView->setGeometry(0,30,300,300);
+    tableView->setMinimumSize(640,480);
+    tableView->setStyleSheet("QHeaderView::section {background-color:lightblue}");
+    tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+    tableView->verticalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+
+    //QLineSeries *series = new QLineSeries;
+    //series->setName("Line 1");
+
+    //mapper->setXColumn(0);
+    //mapper->setYColumn(1);
+    //mapper->setSeries(series);
+    //mapper->setModel(controller->getModel());
+    chartsLayout->addWidget(tableView);
+
+}
 void MainWindow::addChartView(){
+
     chartsLayout->removeWidget(chartView);
 
     QChart *chart = new QChart;
@@ -69,37 +96,26 @@ void MainWindow::addChartView(){
     chartsLayout->addWidget(chartView);
 
 }
-void MainWindow::addTableView(){
-    chartsLayout->removeWidget(tableView);
-    tableView = new QTableView(this);
-    //QAbstractTableModel *myModel = new Model(this);
+void MainWindow::addChartView2(){
 
-    tableView->setModel(controller->getModel());
+    chartsLayout->removeWidget(chartView);
 
-    tableView->resizeColumnsToContents();
-    tableView->resizeRowsToContents();
-    tableView->setGeometry(0,30,300,300);
-    tableView->setMinimumSize(640,480);
-    tableView->setStyleSheet("QHeaderView::section {background-color:lightblue}");
-    tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
-    tableView->verticalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+    ChartLine* c= new ChartLine();
+    mapper->setSeries(c->getSeries());
+    chartView = new QChartView(c->getChart());
+    chartView->setRenderHint(QPainter::Antialiasing);
+    chartView->setMinimumSize(640,480);
 
-    //QLineSeries *series = new QLineSeries;
-    //series->setName("Line 1");
-
-    //mapper->setXColumn(0);
-    //mapper->setYColumn(1);
-    //mapper->setSeries(series);
-    //mapper->setModel(controller->getModel());
-    chartsLayout->addWidget(tableView);
+    chartsLayout->addWidget(chartView);
 
 }
+
 void MainWindow::refreshGui(){
     mapper->setXColumn(0);
     mapper->setYColumn(1);
     mapper->setModel(controller->getModel());
     addTableView();
-    addChartView();
+    addChartView2();
 }
 void MainWindow::addMenuBar(){
     menu=new QMenuBar();
