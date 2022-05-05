@@ -6,9 +6,7 @@
 #include <QtCharts/QBarCategoryAxis>
 #include <QtCharts/QValueAxis>
 #include <vector>
-#include "qvxymodelmapper.h"
 
-#include "Model.h"
 #include "Chart.h"
 
 QT_USE_NAMESPACE
@@ -18,8 +16,11 @@ using std::vector;
 class ChartLine: public Chart
 {
 private:
+    vector<QLineSeries>* sets;
+    QLineSeries *series;
 public:
-    ChartLine(Model* m);
+    ChartLine();
+    QLineSeries* getSeries();
 };
 
 #endif // CHARTLIST_H
