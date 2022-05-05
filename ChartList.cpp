@@ -1,13 +1,17 @@
 #include "ChartList.h"
 
-ChartLine::ChartLine()
+ChartLine::ChartLine(Model* m)
 {
-    series = new QLineSeries;
-    series->setName("Line1");
-    //mapper->setSeries(series);
+    QLineSeries *series = new QLineSeries;
+    series->setName("Line 1");
+
+    QVXYModelMapper *mapper = new QVXYModelMapper();
+    mapper->setXColumn(0);
+    mapper->setYColumn(1);
+    mapper->setSeries(series);
+    mapper->setModel(m);
+
     chart->addSeries(series);
     chart->createDefaultAxes();
 }
-QLineSeries* ChartLine::getSeries(){
-    return series;
-}
+

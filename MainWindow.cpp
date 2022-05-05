@@ -9,7 +9,6 @@ MainWindow::MainWindow(QWidget *parent) : QWidget(parent){
 
     mainLayout= new QVBoxLayout;
     chartsLayout= new QHBoxLayout();
-    mapper = new QVXYModelMapper(this);
 
 
     //addControls(mainLayout);
@@ -73,7 +72,7 @@ void MainWindow::addChartView(){
 
     QLineSeries *series = new QLineSeries;
     series->setName("Line1");
-    mapper->setSeries(series);
+    //mapper->setSeries(series);
     chart->addSeries(series);
 
 
@@ -100,9 +99,9 @@ void MainWindow::addChartView2(){
 
     chartsLayout->removeWidget(chartView);
 
-    ChartLine* c= new ChartLine();
-    mapper->setSeries(c->getSeries());
-    chartView = new QChartView(c->getChart());
+    ChartLine c= ChartLine(controller->getModel());
+
+    chartView = new QChartView(c.getChart());
     chartView->setRenderHint(QPainter::Antialiasing);
     chartView->setMinimumSize(640,480);
 
@@ -111,9 +110,7 @@ void MainWindow::addChartView2(){
 }
 
 void MainWindow::refreshGui(){
-    mapper->setXColumn(0);
-    mapper->setYColumn(1);
-    mapper->setModel(controller->getModel());
+
     addTableView();
     addChartView2();
 }

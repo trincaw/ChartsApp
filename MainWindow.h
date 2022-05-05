@@ -29,8 +29,6 @@ private:
     QVBoxLayout* mainLayout;
     QHBoxLayout* chartsLayout;
 
-    QVXYModelMapper *mapper;
-
     QMenuBar* menu;
     QMenu* file;
     QMenu* edit;
