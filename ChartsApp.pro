@@ -3,8 +3,8 @@ QT += xml
 
 SOURCES += \
     Chart.cpp \
-    ChartList.cpp \
     Controller.cpp \
+    LineChart.cpp \
     MainWindow.cpp \
     Model.cpp \
     TableData.cpp \
@@ -12,8 +12,8 @@ SOURCES += \
 
 HEADERS += \
     Chart.h \
-    ChartList.h \
     Controller.h \
+    LineChart.h \
     MainWindow.h \
     Model.h \
     TableData.h

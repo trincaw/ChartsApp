@@ -1,4 +1,3 @@
-#include "ChartList.h"
 #include <MainWindow.h>
 #include <Controller.h>
 
@@ -9,9 +8,7 @@ MainWindow::MainWindow(QWidget *parent) : QWidget(parent){
 
     mainLayout= new QVBoxLayout;
     chartsLayout= new QHBoxLayout();
-    mapper = new QVXYModelMapper(this);
-
-
+    mapper=new QVXYModelMapper();
     //addControls(mainLayout);
 
     chartsLayout->setSpacing(0);
@@ -39,6 +36,7 @@ MainWindow::MainWindow(QWidget *parent) : QWidget(parent){
 
 
 }
+
 void MainWindow::addTableView(){
     chartsLayout->removeWidget(tableView);
     tableView = new QTableView(this);
@@ -64,56 +62,22 @@ void MainWindow::addTableView(){
     chartsLayout->addWidget(tableView);
 
 }
-void MainWindow::addChartView(){
-
-    chartsLayout->removeWidget(chartView);
-
-    QChart *chart = new QChart;
-    chart->setAnimationOptions(QChart::AllAnimations);
-
-    QLineSeries *series = new QLineSeries;
-    series->setName("Line1");
-    mapper->setSeries(series);
-    chart->addSeries(series);
-
-
-//    series = new QLineSeries;
-//    series->setName("Line 2");
-//    mapper = new QVXYModelMapper(this);
-//    mapper->setXColumn(2);
-//    mapper->setYColumn(3);
-//    mapper->setSeries(series);
-//    mapper->setModel(model);
-//    chart->addSeries(series);
-
-    chart->createDefaultAxes();
-
-
-    chartView = new QChartView(chart);
-    chartView->setRenderHint(QPainter::Antialiasing);
-    chartView->setMinimumSize(640,480);
-
-    chartsLayout->addWidget(chartView);
-
-}
 void MainWindow::addChartView2(){
-
     chartsLayout->removeWidget(chartView);
 
-    ChartLine* c= new ChartLine();
-    mapper->setSeries(c->getSeries());
-    chartView = new QChartView(c->getChart());
+    chart=new LineChart(mapper);
+
+    chart->setModel(controller->getModel());
+    chart->start();
+
+    chartView = new QChartView(chart->getChart());
     chartView->setRenderHint(QPainter::Antialiasing);
     chartView->setMinimumSize(640,480);
 
     chartsLayout->addWidget(chartView);
-
 }
 
 void MainWindow::refreshGui(){
-    mapper->setXColumn(0);
-    mapper->setYColumn(1);
-    mapper->setModel(controller->getModel());
     addTableView();
     addChartView2();
 }

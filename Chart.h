@@ -1,23 +1,20 @@
 #ifndef CHART_H
 #define CHART_H
-#include <QtCharts/QChartView>
-#include <QtCharts/QBarSeries>
-#include <QtCharts/QLegend>
-#include <QtCharts/QBarCategoryAxis>
-#include <QtCharts/QValueAxis>
-#include <vector>
 
-QT_USE_NAMESPACE
-using namespace QtCharts;
-using std::vector;
+#include <QtCharts>
+#include "Model.h"
+
 class Chart
 {
 protected:
-    QChart *chart;
+    QChart* chart;
+    //QAbstractSeries* serie;
+
 public:
     Chart();
     QChart* getChart();
-
+    virtual void start()=0;
+    virtual void setModel(Model* model)=0;
 };
 
 #endif // CHART_H

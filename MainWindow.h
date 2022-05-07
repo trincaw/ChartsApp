@@ -14,9 +14,10 @@
 #include <QScreen>
 #include <QMessageBox>
 
+#include "Chart.h"
+#include "LineChart.h"
 #include "Model.h"
 #include "TableData.h"
-#include "ChartList.h"
 
 typedef unsigned int u_int;
 class Controller;
@@ -30,6 +31,8 @@ private:
     QHBoxLayout* chartsLayout;
 
     QVXYModelMapper *mapper;
+
+    Chart* chart;
 
     QMenuBar* menu;
     QMenu* file;
