@@ -10,7 +10,6 @@ private:
     QVXYModelMapper *mapper;
 public:
     LineChart(QVXYModelMapper *mapper);
-    void start();
     void setModel(Model* model);
 };
 

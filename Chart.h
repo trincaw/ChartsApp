@@ -13,7 +13,6 @@ protected:
 public:
     Chart();
     QChart* getChart();
-    virtual void start()=0;
     virtual void setModel(Model* model)=0;
 };
 

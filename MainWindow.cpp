@@ -62,13 +62,11 @@ void MainWindow::addTableView(){
     chartsLayout->addWidget(tableView);
 
 }
-void MainWindow::addChartView2(){
+void MainWindow::addChartView(){
     chartsLayout->removeWidget(chartView);
 
     chart=new LineChart(mapper);
-
     chart->setModel(controller->getModel());
-    chart->start();
 
     chartView = new QChartView(chart->getChart());
     chartView->setRenderHint(QPainter::Antialiasing);
@@ -79,7 +77,7 @@ void MainWindow::addChartView2(){
 
 void MainWindow::refreshGui(){
     addTableView();
-    addChartView2();
+    addChartView();
 }
 void MainWindow::addMenuBar(){
     menu=new QMenuBar();
