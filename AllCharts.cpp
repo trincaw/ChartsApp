@@ -1,7 +1,6 @@
-#include "LineChart.h"
+#include "AllCharts.h"
 
-LineChart::LineChart(QVXYModelMapper *mapper){this->mapper=mapper;}
-void LineChart::setModel(Model* model){
+void LineChart::setUp(Model* model,QVXYModelMapper *mapper){
     mapper->setXColumn(0);
     mapper->setYColumn(1);
     mapper->setModel(model);

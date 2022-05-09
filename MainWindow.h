@@ -15,7 +15,7 @@
 #include <QMessageBox>
 
 #include "Chart.h"
-#include "LineChart.h"
+#include "AllCharts.h"
 #include "Model.h"
 #include "TableData.h"
 

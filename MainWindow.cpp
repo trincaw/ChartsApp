@@ -65,8 +65,8 @@ void MainWindow::addTableView(){
 void MainWindow::addChartView(){
     chartsLayout->removeWidget(chartView);
 
-    chart=new LineChart(mapper);
-    chart->setModel(controller->getModel());
+    chart=new LineChart();
+    chart->setUp(controller->getModel(),mapper);
 
     chartView = new QChartView(chart->getChart());
     chartView->setRenderHint(QPainter::Antialiasing);
