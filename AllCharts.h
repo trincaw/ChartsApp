@@ -5,7 +5,7 @@
 
 class LineChart:public Chart{
 public:
-    void setUp(Model* model,QVXYModelMapper *mapper);
+    QChart* generateChart(Model* model,vector<QVXYModelMapper*> *mapper);
 };
 
 #endif // ALLCHARTS_H

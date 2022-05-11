@@ -19,6 +19,9 @@
 #include "Model.h"
 #include "TableData.h"
 
+#include <vector>
+using std::vector;
+
 typedef unsigned int u_int;
 class Controller;
 class MainWindow : public QWidget
@@ -30,7 +33,7 @@ private:
     QVBoxLayout* mainLayout;
     QHBoxLayout* chartsLayout;
 
-    QVXYModelMapper *mapper;
+    vector<QVXYModelMapper*> *mapper;
 
     Chart* chart;
 

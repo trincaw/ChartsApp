@@ -1,16 +1,14 @@
 #include "AllCharts.h"
 
-void LineChart::setUp(Model* model,QVXYModelMapper *mapper){
-    //if(model->columnCount()%2==0)
-    //for(int i=0;i<model->columnCount();++i)
-    mapper->setXColumn(0);
-    mapper->setYColumn(1);
+QChart* LineChart::generateChart(Model* model,vector<QVXYModelMapper*> *mapper){
+    (*mapper)[0]->setXColumn(0);
+    (*mapper)[0]->setYColumn(1);
 
-    mapper->setModel(model);
+    (*mapper)[0]->setModel(model);
 
     QLineSeries *series = new QLineSeries;
     series->setName("Line 1");
-    //mapper->setSeries(series);
+    (*mapper)[0]->setSeries(series);
 
     chart->addSeries(series);
     chart->createDefaultAxes();
@@ -21,11 +19,11 @@ void LineChart::setUp(Model* model,QVXYModelMapper *mapper){
     series = new QLineSeries;
     series->setName("Line 2");
 
-    mapper = new QVXYModelMapper();
-    mapper->setXColumn(2);
-    mapper->setYColumn(3);
-    mapper->setSeries(series);
-    mapper->setModel(model);
-    chart->addSeries(series);
 
+    (*mapper)[1]->setXColumn(2);
+    (*mapper)[1]->setYColumn(3);
+    (*mapper)[1]->setSeries(series);
+    (*mapper)[1]->setModel(model);
+    chart->addSeries(series);
+    return chart;
 }

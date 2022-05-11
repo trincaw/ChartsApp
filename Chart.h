@@ -2,8 +2,10 @@
 #define CHART_H
 
 #include <QtCharts>
-#include "Model.h"
 
+#include "Model.h"
+#include <vector>
+using std::vector;
 class Chart
 {
 protected:
@@ -12,8 +14,7 @@ protected:
 
 public:
     Chart();
-    QChart* getChart();
-    virtual void setUp(Model* model,QVXYModelMapper *mapper)=0;
+    virtual QChart* generateChart(Model* model,vector<QVXYModelMapper*> *mapper)=0;
 };
 
 #endif // CHART_H
