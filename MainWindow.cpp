@@ -8,9 +8,7 @@ MainWindow::MainWindow(QWidget *parent) : QWidget(parent){
 
     mainLayout= new QVBoxLayout;
     chartsLayout= new QHBoxLayout();
-    mapper=new vector<QVXYModelMapper*>();
-    mapper->push_back(new QVXYModelMapper());
-    mapper->push_back(new QVXYModelMapper());
+
 
     //addControls(mainLayout);
 
@@ -68,9 +66,18 @@ void MainWindow::addTableView(){
 void MainWindow::addChartView(){
     chartsLayout->removeWidget(chartView);
 
-    chart=new LineChart();
+    mapper=new vector<QVXYModelMapper*>();
 
-    chartView = new QChartView(chart->generateChart(controller->getModel(),mapper));
+    auto model=controller->getModel();
+    int tot=model->columnCount()/2;
+    for(int j=0;j<tot;++j){
+        mapper->push_back(new QVXYModelMapper());
+    }
+
+
+    chart=new LineChart("New chart",new vector<string>{"asd","cacca"});
+
+    chartView = new QChartView(chart->generateChart(model,mapper));
     chartView->setRenderHint(QPainter::Antialiasing);
     chartView->setMinimumSize(640,480);
 

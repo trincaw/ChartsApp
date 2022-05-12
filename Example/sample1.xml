@@ -14,27 +14,27 @@
  <Data>
   <Row>
    <Num value="0"/>
-   <Num value="1"/>
-   <Num value="2"/>
-   <Num value="3"/>
+   <Num value="0"/>
+   <Num value="0"/>
+   <Num value="0"/>
   </Row>
   <Row>
-   <Num value="1"/>
-   <Num value="2"/>
-   <Num value="3"/>
-   <Num value="4"/>
+   <Num value="20"/>
+   <Num value="20"/>
+   <Num value="10"/>
+   <Num value="60"/>
   </Row>
   <Row>
-   <Num value="2"/>
-   <Num value="3"/>
-   <Num value="4"/>
-   <Num value="5"/>
+   <Num value="0"/>
+   <Num value="30"/>
+   <Num value="20"/>
+   <Num value="60"/>
   </Row>
   <Row>
-   <Num value="3"/>
-   <Num value="4"/>
-   <Num value="5"/>
-   <Num value="6"/>
+   <Num value="50"/>
+   <Num value="90"/>
+   <Num value="30"/>
+   <Num value="90"/>
   </Row>
  </Data>
 </Graph>

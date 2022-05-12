@@ -1,19 +1,28 @@
 #ifndef CHART_H
 #define CHART_H
 
-#include <QtCharts>
+#include <QChart>
+#include <QVXYModelMapper>
+
+#include <vector>
+#include <string>
 
 #include "Model.h"
-#include <vector>
+
 using std::vector;
+using QtCharts::QChart;
+using QtCharts::QVXYModelMapper;
+using std::string;
 class Chart
 {
 protected:
     QChart* chart;
-    //QAbstractSeries* serie;
+
+    string titolo;
+    vector<string>* seriesNames;
 
 public:
-    Chart();
+    Chart(string titolo,vector<string>* seriesNames);
     virtual QChart* generateChart(Model* model,vector<QVXYModelMapper*> *mapper)=0;
 };
 

@@ -2,12 +2,12 @@
 #define CONTROLLER_H
 
 #include <QObject>
-
-#include "MainWindow.h"
-#include "Model.h"
 #include <QInputDialog>
 #include <QFileDialog>
 #include <QInputDialog>
+
+#include "MainWindow.h"
+#include "Model.h"
 
 typedef unsigned int u_int;
 using std::string;

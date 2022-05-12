@@ -1,29 +1,27 @@
 #include "AllCharts.h"
 
+LineChart::LineChart(string titolo,vector<string>* seriesNames):Chart(titolo,seriesNames){};
 QChart* LineChart::generateChart(Model* model,vector<QVXYModelMapper*> *mapper){
-    (*mapper)[0]->setXColumn(0);
-    (*mapper)[0]->setYColumn(1);
+    if(!(mapper->empty())){
+        int col=0;
+        QLineSeries *series;
 
-    (*mapper)[0]->setModel(model);
+        for(unsigned long i=0;i<mapper->size();++i){
+            series = new QLineSeries;
 
-    QLineSeries *series = new QLineSeries;
-    series->setName("Line 1");
-    (*mapper)[0]->setSeries(series);
+            if(seriesNames==nullptr || seriesNames->size()!=mapper->size())
+                series->setName("Line "+QString::number(i+1));
+            else
+                series->setName(QString::fromStdString((*seriesNames)[i]));
 
-    chart->addSeries(series);
-    chart->createDefaultAxes();
+            (*mapper)[i]->setXColumn(col++);
+            (*mapper)[i]->setYColumn(col++);
+            (*mapper)[i]->setModel(model);
+            (*mapper)[i]->setSeries(series);
 
-
-
-
-    series = new QLineSeries;
-    series->setName("Line 2");
-
-
-    (*mapper)[1]->setXColumn(2);
-    (*mapper)[1]->setYColumn(3);
-    (*mapper)[1]->setSeries(series);
-    (*mapper)[1]->setModel(model);
-    chart->addSeries(series);
+            chart->addSeries(series);
+            chart->createDefaultAxes();
+        }
+    }
     return chart;
 }

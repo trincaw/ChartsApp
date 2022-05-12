@@ -5,14 +5,17 @@
 #include <QApplication>
 #include <QChartView>
 #include <QLineSeries>
-#include <QtCharts>
-#include <QChart>
 #include <QWidget>
 #include <QMenuBar>
 #include <QVBoxLayout>
 #include <QAbstractItemModel>
 #include <QScreen>
 #include <QMessageBox>
+#include <QtCharts>
+
+#include <QVXYModelMapper>
+#include <QTableView>
+#include <QChartView>
 
 #include "Chart.h"
 #include "AllCharts.h"
@@ -21,6 +24,8 @@
 
 #include <vector>
 using std::vector;
+using QtCharts::QVXYModelMapper;
+using QtCharts::QChartView;
 
 typedef unsigned int u_int;
 class Controller;
