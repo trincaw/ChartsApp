@@ -9,7 +9,7 @@ void Controller::setView(MainWindow* v) {view = v;}
 Model* Controller::getModel(){ return model; }
 
 void Controller::showDebougTable() const{
-    model->LoadXML("/home/olo/Progetti/ChartsApp/Example/sample2.xml");
+    model->LoadXML("/home/olo/Progetti/Pao/ChartsApp/Example/sample2.xml");
     view->refreshGui();
 }
 void Controller::insert_Row(u_int index){

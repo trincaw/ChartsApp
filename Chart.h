@@ -23,7 +23,7 @@ protected:
 
 public:
     Chart(string titolo,vector<string>* seriesNames);
-    virtual QChart* generateChart(Model* model,vector<QVXYModelMapper*> *mapper)=0;
+    virtual QChart* generateChart(TableData* model)=0;
 };
 
 #endif // CHART_H

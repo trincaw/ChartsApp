@@ -77,7 +77,7 @@ void MainWindow::addChartView(){
 
     chart=new LineChart("New chart",new vector<string>{"asd","cacca"});
 
-    chartView = new QChartView(chart->generateChart(model,mapper));
+    chartView = new QChartView(chart->generateChart(model->getTable()));
     chartView->setRenderHint(QPainter::Antialiasing);
     chartView->setMinimumSize(640,480);
 

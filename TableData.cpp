@@ -169,3 +169,14 @@ void TableData::loadModelRandom(const u_int columns, const u_int rows)
     rowsCount = rows;
     printTable();
 }
+double TableData::getMaxValue() const{
+    if(table){
+        double max=0;
+        for(int i=0;i<table->size();++i)
+            for(int j=0;j<table[i].size();++j)
+                if(double m=table->at(i).at(j)>max)
+                    max=m;
+        return max;
+
+    }
+}

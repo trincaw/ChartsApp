@@ -44,6 +44,8 @@ public:
     //Deboug
     void printTable() const;
     void loadModelRandom(const u_int columns,const u_int rows);
+
+    double getMaxValue() const;
 };
 
 #endif // TABLEDATA_H

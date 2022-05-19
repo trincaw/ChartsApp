@@ -1,27 +1,22 @@
 #include "AllCharts.h"
 
 LineChart::LineChart(string titolo,vector<string>* seriesNames):Chart(titolo,seriesNames){};
-QChart* LineChart::generateChart(Model* model,vector<QVXYModelMapper*> *mapper){
-    if(!(mapper->empty())){
-        int col=0;
-        QLineSeries *series;
+QChart* LineChart::generateChart(TableData* table){
 
-        for(unsigned long i=0;i<mapper->size();++i){
-            series = new QLineSeries;
+    QChart *chart = new QChart();
+    chart->setTitle("Bar chart");
 
-            if(seriesNames==nullptr || seriesNames->size()!=mapper->size())
-                series->setName("Line "+QString::number(i+1));
-            else
-                series->setName(QString::fromStdString((*seriesNames)[i]));
-
-            (*mapper)[i]->setXColumn(col++);
-            (*mapper)[i]->setYColumn(col++);
-            (*mapper)[i]->setModel(model);
-            (*mapper)[i]->setSeries(series);
-
-            chart->addSeries(series);
-            chart->createDefaultAxes();
-        }
+    QStackedBarSeries *series = new QStackedBarSeries(chart);
+    for (u_int i(0); i < table->getColumnCount(); i++) {
+        QBarSet *set = new QBarSet("Bar set " + QString::number(i+1));
+        for (u_int j=0;j < table->getRowCount();++j)
+            *set << table->getTable()->at(i).at(j);
+        series->append(set);
+        chart->createDefaultAxes();
     }
+    chart->addSeries(series);
+chart->createDefaultAxes();
+
+
     return chart;
 }

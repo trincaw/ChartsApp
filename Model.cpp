@@ -177,3 +177,6 @@ void Model::LoadXML(QString path){
     table.printTable();
 
 }
+TableData* Model::getTable(){
+    return &table;
+}

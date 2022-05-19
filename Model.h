@@ -44,6 +44,8 @@ public:
 
     void SaveXML(QString path);
     void LoadXML(QString path);
+
+    TableData* getTable();
 };
 
 #endif // MODEL_H
