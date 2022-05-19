@@ -9,6 +9,8 @@ MainWindow::MainWindow(QWidget *parent) : QWidget(parent){
     mainLayout= new QVBoxLayout;
     chartsLayout= new QHBoxLayout();
 
+    chart= new Chart("new chart");
+
 
     //addControls(mainLayout);
 
@@ -63,30 +65,28 @@ void MainWindow::addTableView(){
     chartsLayout->addWidget(tableView);
 
 }
-void MainWindow::addChartView(){
+vector<QColor>* MainWindow::addChartView(){
     chartsLayout->removeWidget(chartView);
 
     mapper=new vector<QVXYModelMapper*>();
 
-    auto model=controller->getModel();
-    int tot=model->columnCount()/2;
-    for(int j=0;j<tot;++j){
-        mapper->push_back(new QVXYModelMapper());
-    }
+    vector<QColor> *colors=new vector<QColor>();
 
-
-    chart=new LineChart("New chart",new vector<string>{"asd","cacca"});
-
-    chartView = new QChartView(chart->generateChart(model->getTable()));
+    chartView = new QChartView(chart->generateChart(controller->getModel()->getTable(),colors));
     chartView->setRenderHint(QPainter::Antialiasing);
     chartView->setMinimumSize(640,480);
 
     chartsLayout->addWidget(chartView);
+
 }
 
 void MainWindow::refreshGui(){
     addTableView();
-    addChartView();
+    auto colors=addChartView();
+    updateTableColors(colors);
+}
+void MainWindow::updateTableColors(vector<QColor>* colors){
+
 }
 void MainWindow::addMenuBar(){
     menu=new QMenuBar();
@@ -195,10 +195,22 @@ void MainWindow::setController(Controller* c){
     connect(edit->actions().at(9),SIGNAL(triggered()),controller,SLOT(clearTable()));
 
     //views
+    connect(view->actions().at(0),SIGNAL(triggered()),this,SLOT(setPieChart()));
+    connect(view->actions().at(1),SIGNAL(triggered()),this,SLOT(setPieChart()));
+    connect(view->actions().at(2),SIGNAL(triggered()),this,SLOT(setBarChart()));
+
 
     //+altre
     connect(controller->getModel(),&QAbstractItemModel::dataChanged,[&](){refreshGui();});
 
+}
+void MainWindow::setPieChart(){
+    chart=new PieChart("New chart");
+    refreshGui();
+}
+void MainWindow::setBarChart(){
+    chart=new BarChart("New chart");
+    refreshGui();
 }
 u_int MainWindow::getSelectedColumn() const{
     return tableView->selectionModel()->currentIndex().column();

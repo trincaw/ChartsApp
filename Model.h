@@ -30,6 +30,7 @@ public:
     virtual bool setData(const QModelIndex &index, const QVariant &value, int role = Qt::EditRole);
     virtual Qt::ItemFlags flags(const QModelIndex &index) const;
     virtual QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const;
+    void addMapping(QString color, QRect area);
 
     void readJson(string path);
     void writeJson(string path);

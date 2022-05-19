@@ -2,7 +2,6 @@
 #define CHART_H
 
 #include <QChart>
-#include <QVXYModelMapper>
 
 #include <vector>
 #include <string>
@@ -11,19 +10,16 @@
 
 using std::vector;
 using QtCharts::QChart;
-using QtCharts::QVXYModelMapper;
 using std::string;
 class Chart
 {
 protected:
     QChart* chart;
-
     string titolo;
-    vector<string>* seriesNames;
 
 public:
-    Chart(string titolo,vector<string>* seriesNames);
-    virtual QChart* generateChart(TableData* model)=0;
+    Chart(string titolo);
+    virtual QChart* generateChart(TableData* model,vector<QColor>* colors)const;
 };
 
 #endif // CHART_H
