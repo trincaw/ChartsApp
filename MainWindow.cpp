@@ -9,6 +9,8 @@ MainWindow::MainWindow(QWidget *parent) : QWidget(parent){
     mainLayout= new QVBoxLayout;
     chartsLayout= new QHBoxLayout();
 
+    chart= new Chart();
+
 
     //addControls(mainLayout);
 
@@ -63,30 +65,26 @@ void MainWindow::addTableView(){
     chartsLayout->addWidget(tableView);
 
 }
-void MainWindow::addChartView(){
+vector<QColor>* MainWindow::addChartView(){
     chartsLayout->removeWidget(chartView);
 
     mapper=new vector<QVXYModelMapper*>();
 
-    auto model=controller->getModel();
-    int tot=model->columnCount()/2;
-    for(int j=0;j<tot;++j){
-        mapper->push_back(new QVXYModelMapper());
-    }
-
-
-    chart=new LineChart("New chart",new vector<string>{"asd","cacca"});
-
-    chartView = new QChartView(chart->generateChart(model->getTable()));
+    chartView = new QChartView(chart->generateChart(controller->getModel()->getTable()));
     chartView->setRenderHint(QPainter::Antialiasing);
     chartView->setMinimumSize(640,480);
 
     chartsLayout->addWidget(chartView);
+
 }
 
 void MainWindow::refreshGui(){
     addTableView();
-    addChartView();
+    auto colors=addChartView();
+    updateTableColors(colors);
+}
+void MainWindow::updateTableColors(vector<QColor>* colors){
+
 }
 void MainWindow::addMenuBar(){
     menu=new QMenuBar();
@@ -121,11 +119,11 @@ void MainWindow::addMenuBar(){
 
     QAction* item1=new QAction("Pie chart");
     item1->setCheckable(true);
-    QAction* item2=new QAction("Donut chart");
+    QAction* item2=new QAction("Scatter chart");
     item2->setCheckable(true);
     QAction* item3=new QAction("Bar chart");
     item3->setCheckable(true);
-    QAction* item4=new QAction("Stacked bar chart");
+    QAction* item4=new QAction("Spline chart");
     item4->setCheckable(true);
     QAction* item5=new QAction("Line chart");
     item5->setCheckable(true);
@@ -195,10 +193,36 @@ void MainWindow::setController(Controller* c){
     connect(edit->actions().at(9),SIGNAL(triggered()),controller,SLOT(clearTable()));
 
     //views
+    connect(view->actions().at(0),SIGNAL(triggered()),this,SLOT(setPieChart()));
+    connect(view->actions().at(1),SIGNAL(triggered()),this,SLOT(setScatterChart()));
+    connect(view->actions().at(2),SIGNAL(triggered()),this,SLOT(setBarChart()));
+    connect(view->actions().at(3),SIGNAL(triggered()),this,SLOT(setSplineChart()));
+    connect(view->actions().at(4),SIGNAL(triggered()),this,SLOT(setLineChart()));
+
 
     //+altre
     connect(controller->getModel(),&QAbstractItemModel::dataChanged,[&](){refreshGui();});
 
+}
+void MainWindow::setPieChart(){
+    chart=new PieChart();
+    refreshGui();
+}
+void MainWindow::setBarChart(){
+    chart=new BarChart();
+    refreshGui();
+}
+void MainWindow::setLineChart(){
+    chart=new LineChart();
+    refreshGui();
+}
+void MainWindow::setSplineChart(){
+    chart=new SplineChart();
+    refreshGui();
+}
+void MainWindow::setScatterChart(){
+    chart=new ScatterChart();
+    refreshGui();
 }
 u_int MainWindow::getSelectedColumn() const{
     return tableView->selectionModel()->currentIndex().column();

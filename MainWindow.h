@@ -58,15 +58,25 @@ public:
     void setChartView();
 
     void addMenuBar();
+
     void addTableView();
-    void addChartView();
+    vector<QColor>* addChartView();
+
+    void updateTableColors(vector<QColor>* colors);
     void addChartView2();
     void refreshGui();
 
     u_int getSelectedRow() const;
     u_int getSelectedColumn() const;
+
+
     //Chart* getChart() const;
 public slots:
+     void setPieChart();
+     void setBarChart();
+     void setLineChart();
+     void setSplineChart();
+     void setScatterChart();
     //void drawChart(Chart* chart)
 
 };

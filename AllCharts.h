@@ -2,12 +2,26 @@
 #define ALLCHARTS_H
 
 #include "Chart.h"
-#include "QLineSeries"
 #include <QtCharts>
 
+class BarChart:public Chart{
+public:
+    QChart* generateChart(TableData* table) const;
+};
+class PieChart:public Chart{
+public:
+    QChart* generateChart(TableData* table) const;
+};
 class LineChart:public Chart{
 public:
-    LineChart(string titolo,vector<string>* seriesNames);
-    QChart* generateChart(TableData* table);
+    QChart* generateChart(TableData* table) const;
+};
+class SplineChart:public Chart{
+public:
+    QChart* generateChart(TableData* table) const;
+};
+class ScatterChart:public Chart{
+public:
+    QChart* generateChart(TableData* table) const;
 };
 #endif // ALLCHARTS_H

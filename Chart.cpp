@@ -1,10 +1,8 @@
 #include "Chart.h"
+#include "AllCharts.h"
 
-Chart::Chart(string titolo,vector<string>* seriesNames){
-    chart = new QChart();
-    this->titolo=titolo;
-    this->seriesNames=seriesNames;
-    chart->setTitle(QString::fromStdString(titolo));
+
+QChart* Chart::generateChart(TableData* table)const{
+    BarChart br= BarChart();
+    return br.generateChart(table);
 }
-
-

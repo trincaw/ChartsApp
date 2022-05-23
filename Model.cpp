@@ -1,7 +1,5 @@
 #include "Model.h"
 
-
-
 Model::Model(QObject *parent) : QAbstractTableModel(parent){
     vector<vector<double>> tab={{0}};
     vector<string> rowsNames{"y"};
@@ -9,7 +7,6 @@ Model::Model(QObject *parent) : QAbstractTableModel(parent){
     TableData t(tab,rowsNames,columnsNames);
     table=t;
 }
-
 int Model::rowCount(const QModelIndex & /*parent*/) const{
     return table.getRowCount();
 }
