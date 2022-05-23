@@ -7,7 +7,6 @@
 #include <QVariant>
 #include <QTextStream>
 #include <QtXml>
-#include <QColor>
 #include <iostream>
 
 
@@ -22,7 +21,6 @@ class Model : public QAbstractTableModel
     Q_OBJECT
 private:
     TableData table;
-    QMultiHash<QString, QRect> m_mapping;
 public:
     Model(QObject *parent = 0);
 

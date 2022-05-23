@@ -6,7 +6,8 @@ Chart::Chart(string titolo){
     this->titolo=titolo;
     chart->setTitle(QString::fromStdString(titolo));
 }
-QChart* Chart::generateChart(Model* model)const{
-    LineChart br= LineChart(this->titolo);
-    return br.generateChart(model);
+
+QChart* Chart::generateChart(TableData* table,vector<QColor>* colors)const{
+    BarChart br= BarChart(this->titolo);
+    return br.generateChart(table,colors);
 }

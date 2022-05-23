@@ -19,7 +19,7 @@ protected:
 
 public:
     Chart(string titolo);
-    virtual QChart* generateChart(Model* model)const;
+    virtual QChart* generateChart(TableData* model,vector<QColor>* colors)const;
 };
 
 #endif // CHART_H
