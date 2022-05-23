@@ -1,7 +1,5 @@
 #include "Model.h"
 
-
-
 Model::Model(QObject *parent) : QAbstractTableModel(parent){
     vector<vector<double>> tab={{0}};
     vector<string> rowsNames{"y"};

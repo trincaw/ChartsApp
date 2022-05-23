@@ -8,18 +8,11 @@
 
 #include "Model.h"
 
-using std::vector;
 using QtCharts::QChart;
-using std::string;
 class Chart
 {
-protected:
-    QChart* chart;
-    string titolo;
-
 public:
-    Chart(string titolo);
-    virtual QChart* generateChart(TableData* model,vector<QColor>* colors)const;
+    virtual QChart* generateChart(TableData* model) const;
 };
 
 #endif // CHART_H

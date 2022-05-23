@@ -1,10 +1,8 @@
 #include "AllCharts.h"
 
-BarChart::BarChart(string titolo):Chart(titolo){};
-QChart* BarChart::generateChart(TableData* table,vector<QColor>* colors) const
+QChart* BarChart::generateChart(TableData* table) const
 {
     QChart *chart = new QChart();
-    chart->setTitle("Bar chart");
 
     QStackedBarSeries *series = new QStackedBarSeries(chart);
     for (u_int i(0); i < table->getColumnCount(); i++) {
@@ -12,7 +10,6 @@ QChart* BarChart::generateChart(TableData* table,vector<QColor>* colors) const
         for (u_int j=0;j < table->getRowCount();++j)
             *set << table->getTable()->at(i).at(j);
         series->append(set);
-        colors->push_back(set->color());
         chart->createDefaultAxes();
     }
     chart->addSeries(series);
@@ -21,11 +18,9 @@ QChart* BarChart::generateChart(TableData* table,vector<QColor>* colors) const
 
     return chart;
 }
-PieChart::PieChart(string titolo):Chart(titolo){};
-QChart* PieChart::generateChart(TableData* table,vector<QColor>* colors) const
+QChart* PieChart::generateChart(TableData* table) const
 {
     QChart *chart = new QChart();
-    chart->setTitle("Pie chart");
 
     QPieSeries *series = new QPieSeries(chart);
 
@@ -33,7 +28,6 @@ QChart* PieChart::generateChart(TableData* table,vector<QColor>* colors) const
 
     for (u_int i(0); i < table->getColumnCount(); i++) {
         QPieSlice *slice = series->append(QString::fromStdString(table->getColumnsNames()->at(i)),table->getTable()->at(0).at(i));
-        colors->push_back(slice->color());
         if (table->getTable()->at(0).at(i)>0 && frist) {
             // Show the first slice exploded with label
             frist=false;
@@ -45,5 +39,55 @@ QChart* PieChart::generateChart(TableData* table,vector<QColor>* colors) const
     series->setPieSize(0.6);
     chart->addSeries(series);
 
+    return chart;
+}
+QChart* LineChart::generateChart(TableData* table) const{
+    QChart *chart = new QChart();
+
+    QString name("Series ");
+    int nameIndex = 0;
+    for (u_int i(0); i < table->getColumnCount(); i++) {
+        QLineSeries *series = new QLineSeries(chart);
+        for (u_int j=0;j < table->getRowCount();j=j+2)
+            series->append(table->getTable()->at(i).at(j),table->getTable()->at(i).at(j+1));
+        series->setName(name + QString::number(nameIndex));
+        nameIndex++;
+        chart->addSeries(series);
+         chart->createDefaultAxes();
+    }
+
+    return chart;
+}
+QChart* SplineChart::generateChart(TableData* table) const{
+    QChart *chart = new QChart();
+    QString name("Series ");
+    int nameIndex = 0;
+    for (u_int i(0); i < table->getColumnCount(); i++) {
+        QSplineSeries *series = new QSplineSeries(chart);
+        for (u_int j=0;j < table->getRowCount();j=j+2)
+            series->append(table->getTable()->at(i).at(j),table->getTable()->at(i).at(j+1));
+        series->setName(name + QString::number(nameIndex));
+        nameIndex++;
+        chart->addSeries(series);
+    }
+
+    chart->createDefaultAxes();
+    return chart;
+}
+QChart* ScatterChart::generateChart(TableData* table) const{
+    QChart *chart = new QChart();
+    int nameIndex = 0;
+    QString name("Series ");
+    for (u_int i(0); i < table->getColumnCount(); i++) {
+        QScatterSeries *series = new QScatterSeries(chart);
+        for (u_int j=0;j < table->getRowCount();j=j+2)
+            series->append(table->getTable()->at(i).at(j),table->getTable()->at(i).at(j+1));
+        series->setName(name + QString::number(nameIndex));
+        nameIndex++;
+        chart->addSeries(series);
+        chart->createDefaultAxes();
+    }
+
+    chart->createDefaultAxes();
     return chart;
 }

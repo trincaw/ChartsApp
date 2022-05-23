@@ -6,12 +6,22 @@
 
 class BarChart:public Chart{
 public:
-    BarChart(string titolo);
-    QChart* generateChart(TableData* table,vector<QColor>* colors) const;
+    QChart* generateChart(TableData* table) const;
 };
 class PieChart:public Chart{
 public:
-    PieChart(string titolo);
-    QChart* generateChart(TableData* table,vector<QColor>* colors) const;
+    QChart* generateChart(TableData* table) const;
+};
+class LineChart:public Chart{
+public:
+    QChart* generateChart(TableData* table) const;
+};
+class SplineChart:public Chart{
+public:
+    QChart* generateChart(TableData* table) const;
+};
+class ScatterChart:public Chart{
+public:
+    QChart* generateChart(TableData* table) const;
 };
 #endif // ALLCHARTS_H

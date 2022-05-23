@@ -74,6 +74,9 @@ public:
 public slots:
      void setPieChart();
      void setBarChart();
+     void setLineChart();
+     void setSplineChart();
+     void setScatterChart();
     //void drawChart(Chart* chart)
 
 };

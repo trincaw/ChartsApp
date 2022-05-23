@@ -9,7 +9,7 @@ MainWindow::MainWindow(QWidget *parent) : QWidget(parent){
     mainLayout= new QVBoxLayout;
     chartsLayout= new QHBoxLayout();
 
-    chart= new Chart("new chart");
+    chart= new Chart();
 
 
     //addControls(mainLayout);
@@ -70,9 +70,7 @@ vector<QColor>* MainWindow::addChartView(){
 
     mapper=new vector<QVXYModelMapper*>();
 
-    vector<QColor> *colors=new vector<QColor>();
-
-    chartView = new QChartView(chart->generateChart(controller->getModel()->getTable(),colors));
+    chartView = new QChartView(chart->generateChart(controller->getModel()->getTable()));
     chartView->setRenderHint(QPainter::Antialiasing);
     chartView->setMinimumSize(640,480);
 
@@ -121,11 +119,11 @@ void MainWindow::addMenuBar(){
 
     QAction* item1=new QAction("Pie chart");
     item1->setCheckable(true);
-    QAction* item2=new QAction("Donut chart");
+    QAction* item2=new QAction("Scatter chart");
     item2->setCheckable(true);
     QAction* item3=new QAction("Bar chart");
     item3->setCheckable(true);
-    QAction* item4=new QAction("Stacked bar chart");
+    QAction* item4=new QAction("Spline chart");
     item4->setCheckable(true);
     QAction* item5=new QAction("Line chart");
     item5->setCheckable(true);
@@ -196,8 +194,10 @@ void MainWindow::setController(Controller* c){
 
     //views
     connect(view->actions().at(0),SIGNAL(triggered()),this,SLOT(setPieChart()));
-    connect(view->actions().at(1),SIGNAL(triggered()),this,SLOT(setPieChart()));
+    connect(view->actions().at(1),SIGNAL(triggered()),this,SLOT(setScatterChart()));
     connect(view->actions().at(2),SIGNAL(triggered()),this,SLOT(setBarChart()));
+    connect(view->actions().at(3),SIGNAL(triggered()),this,SLOT(setSplineChart()));
+    connect(view->actions().at(4),SIGNAL(triggered()),this,SLOT(setLineChart()));
 
 
     //+altre
@@ -205,11 +205,23 @@ void MainWindow::setController(Controller* c){
 
 }
 void MainWindow::setPieChart(){
-    chart=new PieChart("New chart");
+    chart=new PieChart();
     refreshGui();
 }
 void MainWindow::setBarChart(){
-    chart=new BarChart("New chart");
+    chart=new BarChart();
+    refreshGui();
+}
+void MainWindow::setLineChart(){
+    chart=new LineChart();
+    refreshGui();
+}
+void MainWindow::setSplineChart(){
+    chart=new SplineChart();
+    refreshGui();
+}
+void MainWindow::setScatterChart(){
+    chart=new ScatterChart();
     refreshGui();
 }
 u_int MainWindow::getSelectedColumn() const{
