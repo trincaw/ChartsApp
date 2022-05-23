@@ -42,7 +42,7 @@ MainWindow::MainWindow(QWidget *parent) : QWidget(parent){
 
 void MainWindow::addTableView(){
     chartsLayout->removeWidget(tableView);
-    tableView = new QTableView(this);
+    tableView = new QTableView();
     //QAbstractTableModel *myModel = new Model(this);
 
     tableView->setModel(controller->getModel());
@@ -70,9 +70,7 @@ vector<QColor>* MainWindow::addChartView(){
 
     mapper=new vector<QVXYModelMapper*>();
 
-    vector<QColor> *colors=new vector<QColor>();
-
-    chartView = new QChartView(chart->generateChart(controller->getModel()->getTable(),colors));
+    chartView = new QChartView(chart->generateChart(controller->getModel()));
     chartView->setRenderHint(QPainter::Antialiasing);
     chartView->setMinimumSize(640,480);
 

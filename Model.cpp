@@ -19,7 +19,15 @@ QVariant Model::data(const QModelIndex &index, int role) const{
     if (role == Qt::DisplayRole){
         qreal temp = table.getTable()->at(index.row()).at(index.column());
         return temp;
+    }      else if (role == Qt::BackgroundRole) {
+        for (const QRect &rect : m_mapping) {
+            if (rect.contains(index.column(), index.row()))
+             return QColor(m_mapping.key(rect));
+        }
+     // cell not mapped return white color
+     return QColor(Qt::white);
     }
+
     return QVariant();
 }
 bool Model::setData(const QModelIndex &index, const QVariant &value, int role){
@@ -63,7 +71,10 @@ void Model::clearTable(){
     TableData t(tab,rowsNames,columnsNames);
     table=t;
 }
-
+void Model::addMapping(QString color, QRect area)
+{
+    m_mapping.insert(color, area);
+}
 void Model::SaveXML(QString path){
     QFile xmlFile(path);
 
