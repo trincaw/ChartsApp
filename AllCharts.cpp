@@ -97,11 +97,12 @@ QChart* SplineChart::generateChart(TableData* table) const{
 QChart* ScatterChart::generateChart(TableData* table) const{
     QChart *chart = new QChart();
     int nameIndex = 0;
+    int shots=(table->getColumnCount()%2==0) ? 0:1;
     QString name("Series ");
-    for (u_int i(0); i < table->getColumnCount(); i++) {
+    for (u_int i(0); i < table->getRowCount(); i++) {
         QScatterSeries *series = new QScatterSeries(chart);
-        for (u_int j=0;j < table->getRowCount();j=j+2)
-            series->append(table->getTable()->at(j).at(i),table->getTable()->at(j).at(i+1));
+        for (u_int j=0;j <table->getColumnCount()-shots; j=j+2)
+            series->append(table->getTable()->at(i).at(j),table->getTable()->at(i).at(j+1));
         series->setName(name + QString::number(nameIndex));
         nameIndex++;
         chart->addSeries(series);
