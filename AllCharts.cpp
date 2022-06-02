@@ -46,10 +46,11 @@ QChart* LineChart::generateChart(TableData* table) const{
 
     QString name("Series ");
     int nameIndex = 0;
-    for (u_int i(0); i < table->getColumnCount(); i++) {
+    int shots=(table->getColumnCount()%2==0) ? 0:1;
+    for (u_int i(0); i < table->getRowCount(); i++) {
         QLineSeries *series = new QLineSeries(chart);
-        for (u_int j=0;j < table->getRowCount();j=j+2)
-            series->append(table->getTable()->at(j).at(i),table->getTable()->at(j).at(i+1));
+        for (u_int j=0;j < table->getColumnCount()-shots;j=j+2)
+            series->append(table->getTable()->at(i).at(j),table->getTable()->at(i).at(j+1));
         series->setName(name + QString::number(nameIndex));
         nameIndex++;
         chart->addSeries(series);
@@ -62,12 +63,10 @@ QChart* SplineChart::generateChart(TableData* table) const{
     QChart *chart = new QChart();
     QString name("Series ");
     int nameIndex = 0;
-    u_int columns=table->getColumnCount();
-    if(!columns%2==0)
-        columns-=1;
+    int shots=(table->getColumnCount()%2==0) ? 0:1;
     for (u_int i(0); i < table->getRowCount(); ++i) {
         QSplineSeries *series = new QSplineSeries(chart);
-        for (u_int j=0;j < columns;j=j+2)
+        for (u_int j=0;j < table->getColumnCount()-shots;j=j+2)
             series->append(table->getTable()->at(i).at(j),table->getTable()->at(i).at(j+1));
         series->setName(name + QString::number(nameIndex));
         nameIndex++;
@@ -94,6 +93,7 @@ QChart* SplineChart::generateChart(TableData* table) const{
 //        chart->addSeries(s);
 //    }
 //}
+
 QChart* ScatterChart::generateChart(TableData* table) const{
     QChart *chart = new QChart();
     int nameIndex = 0;
