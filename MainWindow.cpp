@@ -65,7 +65,7 @@ void MainWindow::addTableView(){
     chartsLayout->addWidget(tableView);
 
 }
-vector<QColor>* MainWindow::addChartView(){
+void MainWindow::addChartView(){
     chartsLayout->removeWidget(chartView);
 
     mapper=new vector<QVXYModelMapper*>();
@@ -80,11 +80,7 @@ vector<QColor>* MainWindow::addChartView(){
 
 void MainWindow::refreshGui(){
     addTableView();
-    auto colors=addChartView();
-    updateTableColors(colors);
-}
-void MainWindow::updateTableColors(vector<QColor>* colors){
-
+    addChartView();
 }
 void MainWindow::addMenuBar(){
     menu=new QMenuBar();

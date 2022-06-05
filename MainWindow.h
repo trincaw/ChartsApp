@@ -60,10 +60,8 @@ public:
     void addMenuBar();
 
     void addTableView();
-    vector<QColor>* addChartView();
+    void addChartView();
 
-    void updateTableColors(vector<QColor>* colors);
-    void addChartView2();
     void refreshGui();
 
     u_int getSelectedRow() const;
