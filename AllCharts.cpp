@@ -113,6 +113,7 @@ QChart* NestedPieChart::generateChart(TableData* table) const{
             }
             chart->addSeries(donut);
         }
+        chart->legend()->setVisible(false);
         return chart;
 }
 
