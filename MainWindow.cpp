@@ -123,12 +123,15 @@ void MainWindow::addMenuBar(){
     item4->setCheckable(true);
     QAction* item5=new QAction("Line chart");
     item5->setCheckable(true);
+    QAction* item6=new QAction("Nested Pie chart");
+    item6->setCheckable(true);
 
     view->addAction(item1);
     view->addAction(item2);
     view->addAction(item3);
     view->addAction(item4);
     view->addAction(item5);
+    view->addAction(item6);
 
     QActionGroup* myGroup= new QActionGroup(this);
     myGroup->setExclusive(true);
@@ -137,6 +140,7 @@ void MainWindow::addMenuBar(){
     myGroup->addAction(item3);
     myGroup->addAction(item4);
     myGroup->addAction(item5);
+    myGroup->addAction(item6);
 
 //help
     help=new QMenu("&help",menu);
@@ -194,6 +198,7 @@ void MainWindow::setController(Controller* c){
     connect(view->actions().at(2),SIGNAL(triggered()),this,SLOT(setBarChart()));
     connect(view->actions().at(3),SIGNAL(triggered()),this,SLOT(setSplineChart()));
     connect(view->actions().at(4),SIGNAL(triggered()),this,SLOT(setLineChart()));
+    connect(view->actions().at(5),SIGNAL(triggered()),this,SLOT(setNestedPieChart()));
 
 
     //+altre
@@ -202,6 +207,10 @@ void MainWindow::setController(Controller* c){
 }
 void MainWindow::setPieChart(){
     chart=new PieChart();
+    refreshGui();
+}
+void MainWindow::setNestedPieChart(){
+    chart=new NestedPieChart();
     refreshGui();
 }
 void MainWindow::setBarChart(){

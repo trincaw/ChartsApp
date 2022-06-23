@@ -5,6 +5,8 @@
 #include <QInputDialog>
 #include <QFileDialog>
 #include <QInputDialog>
+#include <filesystem>
+namespace fs = std::filesystem;
 
 #include "MainWindow.h"
 #include "Model.h"
@@ -30,7 +32,7 @@ public:
     void setView(MainWindow* v);
     Model* getModel();
 
-    void showDebougTable() const;
+    void loadAChart() const;
 
 public slots:
     void insert_Row_Before_Selected();

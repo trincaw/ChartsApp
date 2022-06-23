@@ -8,8 +8,12 @@ void Controller::setView(MainWindow* v) {view = v;}
 
 Model* Controller::getModel(){ return model; }
 
-void Controller::showDebougTable() const{
-    model->LoadXML("/home/olo/Progetti/Pao/ChartsApp/Example/sample2.xml");
+void Controller::loadAChart() const{
+    //takes frist simple from Projects folder that is .chart
+     for (const auto & entry : fs::directory_iterator((qApp->applicationDirPath()+"/../Projects").toStdString())){
+         if(string s=entry.path();s.find(".chart") != std::string::npos){
+             model->LoadXML(QString::fromStdString(entry.path()));break;}
+     }
     view->refreshGui();
 }
 void Controller::insert_Row(u_int index){
@@ -80,14 +84,14 @@ void Controller::clearTable(){
 }
 void Controller::saveXML(){
     if(view!=nullptr && model!=nullptr){
-        model->SaveXML(QFileDialog::getSaveFileName(view, "Save File","", "XML (*.xml)"));
+        model->SaveXML(QFileDialog::getSaveFileName(view, "Save File","", "XML (*.chart)"));
     }
     else
     throw ;
 }
 void Controller::loadXML(){
     if(view!=nullptr && model!=nullptr){
-        model->LoadXML(QFileDialog::getOpenFileName(view, "Load File","", "XML (*.xml)"));
+        model->LoadXML(QFileDialog::getOpenFileName(view, "Load File","", "XML (*.chart)"));
         view->refreshGui();
 
     }

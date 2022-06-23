@@ -75,6 +75,7 @@ public slots:
      void setLineChart();
      void setSplineChart();
      void setScatterChart();
+     void setNestedPieChart();
     //void drawChart(Chart* chart)
 
 };

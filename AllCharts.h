@@ -24,4 +24,8 @@ class ScatterChart:public Chart{
 public:
     QChart* generateChart(TableData* table) const;
 };
+class NestedPieChart:public Chart{
+public:
+    QChart* generateChart(TableData* table) const;
+};
 #endif // ALLCHARTS_H

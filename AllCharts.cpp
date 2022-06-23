@@ -112,3 +112,20 @@ QChart* ScatterChart::generateChart(TableData* table) const{
     chart->createDefaultAxes();
     return chart;
 }
+QChart* NestedPieChart::generateChart(TableData* table) const{
+    QChart *chart = new QChart();
+    for (int i = 0; i < table->getRowCount(); i++) {
+        QPieSeries *donut = new QPieSeries(chart);
+        for (int j = 0; j < table->getColumnCount(); j++) {
+            qreal value = table->getTable()->at(i).at(j);
+            QPieSlice *slice = new QPieSlice(QString("%1").arg(value), value);
+            slice->setLabelVisible(true);
+            slice->setLabelColor(Qt::white);
+            slice->setLabelPosition(QPieSlice::LabelInsideTangential);
+            donut->append(slice);
+        }
+    }
+        chart->createDefaultAxes();
+        return chart;
+}
+
