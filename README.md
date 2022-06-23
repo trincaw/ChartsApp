@@ -2,5 +2,5 @@
 <h1 align="center">ChartsApp</h1>
 <p>
   <h2 align="left"> A simple chart maker app</h2>
-  Here you can find a simple chart maker to manage plot your charts
+  Here you can find a simple chart maker to manage and plot your charts
 </p>
