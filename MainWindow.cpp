@@ -95,26 +95,26 @@ void MainWindow::addMenuBar(){
     menu->addMenu(file);
 
     //Menu
-    file->addAction(new QAction("New",file));
-    file->addAction(new QAction("Open",file));
-    file->addAction(new QAction("Save",file));
+    file->addAction(new QAction(QIcon::fromTheme("document-new"),"New",file));
+    file->addAction(new QAction(QIcon::fromTheme("document-open"),"Open",file));
+    file->addAction(new QAction(QIcon::fromTheme("document-save"),"Save",file));
 
     file->addSeparator();
-    file->addAction(new QAction("Exit",file));
+    file->addAction(new QAction(QIcon::fromTheme("application-exit"),"Exit",file));
     //Edit
     edit=new QMenu("&Edit",menu);
     menu->addMenu(edit);
 
-    edit->addAction(new QAction("Add row before",menu));
-    edit->addAction(new QAction("Add row after",menu));
+    edit->addAction(new QAction(QIcon::fromTheme("list-add"),"Add row before",menu));
+    edit->addAction(new QAction(QIcon::fromTheme("list-add"),"Add row after",menu));
     edit->addSeparator();
-    edit->addAction(new QAction("Add column before",menu));
-    edit->addAction(new QAction("Add column after",menu));
+    edit->addAction(new QAction(QIcon::fromTheme("list-add"),"Add column before",menu));
+    edit->addAction(new QAction(QIcon::fromTheme("list-add"),"Add column after",menu));
     edit->addSeparator();
-    edit->addAction(new QAction("Delete selected column",menu));
-    edit->addAction(new QAction("Delete selected row",menu));
+    edit->addAction(new QAction(QIcon::fromTheme("list-remove"),"Delete selected column",menu));
+    edit->addAction(new QAction(QIcon::fromTheme("list-remove"),"Delete selected row",menu));
     edit->addSeparator();
-    edit->addAction(new QAction("Clear table",menu));
+    edit->addAction(new QAction(QIcon::fromTheme("edit-clear"),"Clear table",menu));
     //View
     view=new QMenu("&View",menu);
     menu->addMenu(view);
@@ -146,7 +146,7 @@ void MainWindow::addMenuBar(){
 
 //help
     help=new QMenu("&help",menu);
-    help->addAction(new QAction("About",menu));
+    help->addAction(new QAction(QIcon::fromTheme("help-about"),"About",menu));
 
     menu->addMenu(help);
 
