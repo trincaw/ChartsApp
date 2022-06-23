@@ -6,7 +6,7 @@
 #include <QFileDialog>
 #include <QInputDialog>
 #include <filesystem>
-namespace fs = std::filesystem;
+
 
 #include "MainWindow.h"
 #include "Model.h"

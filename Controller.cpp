@@ -9,8 +9,8 @@ void Controller::setView(MainWindow* v) {view = v;}
 Model* Controller::getModel(){ return model; }
 
 void Controller::loadAChart() const{
-    //takes frist simple from Projects folder that is .chart
-     for (const auto & entry : fs::directory_iterator((qApp->applicationDirPath()+"/../Projects").toStdString())){
+    //Takes frist simple from Projects folder that is .chart
+     for (const auto & entry : std::filesystem::directory_iterator((qApp->applicationDirPath()+"/../Projects").toStdString())){
          if(string s=entry.path();s.find(".chart") != std::string::npos){
              model->LoadXML(QString::fromStdString(entry.path()));break;}
      }
@@ -53,7 +53,6 @@ void Controller::insert_Column(u_int index){
 }
 void Controller::insert_Column_Before_Selected(){
     insert_Column(view->getSelectedColumn());
-
 }
 
 void Controller::insert_Column_After_Selected(){
@@ -93,7 +92,6 @@ void Controller::loadXML(){
     if(view!=nullptr && model!=nullptr){
         model->LoadXML(QFileDialog::getOpenFileName(view, "Load File","", "XML (*.chart)"));
         view->refreshGui();
-
     }
     else
     throw ;

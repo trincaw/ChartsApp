@@ -77,7 +77,7 @@ void Model::SaveXML(QString path){
     // SAVE COLS HEADER
     QDomElement Cols = document.createElement("Cols");
     Cols.setAttribute("CollumnCount",QString::number(table.getColumnCount()));
-    for (auto c : *table.getColumnsNames())
+    for (const string &c : *table.getColumnsNames())
     {
         QDomElement child = document.createElement("Col");
         child.setAttribute("value", QString::fromStdString(c));
@@ -87,7 +87,7 @@ void Model::SaveXML(QString path){
     // SAVE ROW TITLE
     QDomElement Rows = document.createElement("Rows");
     Rows.setAttribute("RowCount",QString::number(table.getRowCount()));
-    for (auto c : *table.getRowsNames())
+    for (const string &c : *table.getRowsNames())
     {
         QDomElement child = document.createElement("Row");
         child.setAttribute("value", QString::fromStdString(c));
@@ -96,7 +96,7 @@ void Model::SaveXML(QString path){
     root.appendChild(Rows);
     // SAVE TABLE DATA
     QDomElement Data = document.createElement("Data");
-    for (auto data : *table.getTable())
+    for (const auto &data : *table.getTable())
     {
         QDomElement test = document.createElement("Row");
         for (auto d : data){

@@ -6,7 +6,7 @@ QChart* BarChart::generateChart(TableData* table) const
 
     QStackedBarSeries *series = new QStackedBarSeries(chart);
     for (u_int i(0); i < table->getColumnCount(); i++) {
-        QBarSet *set = new QBarSet("Bar set " + QString::number(i+1));
+        QBarSet *set = new QBarSet("Bar " + QString::number(i+1));
         for (u_int j=0;j < table->getRowCount();++j)
             *set << table->getTable()->at(j).at(i);
         series->append(set);
@@ -14,7 +14,6 @@ QChart* BarChart::generateChart(TableData* table) const
     }
     chart->addSeries(series);
     chart->createDefaultAxes();
-
 
     return chart;
 }
@@ -72,7 +71,6 @@ QChart* SplineChart::generateChart(TableData* table) const{
         nameIndex++;
         chart->addSeries(series);
     }
-
     chart->createDefaultAxes();
     return chart;
 }
@@ -89,9 +87,7 @@ QChart* ScatterChart::generateChart(TableData* table) const{
         series->setName(name + QString::number(nameIndex));
         nameIndex++;
         chart->addSeries(series);
-        chart->createDefaultAxes();
     }
-
     chart->createDefaultAxes();
     return chart;
 }

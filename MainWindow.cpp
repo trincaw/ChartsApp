@@ -200,7 +200,6 @@ void MainWindow::setController(Controller* c){
     connect(view->actions().at(4),SIGNAL(triggered()),this,SLOT(setLineChart()));
     connect(view->actions().at(5),SIGNAL(triggered()),this,SLOT(setNestedPieChart()));
 
-
     //+altre
     connect(controller->getModel(),&QAbstractItemModel::dataChanged,[&](){refreshGui();});
 

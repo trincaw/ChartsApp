@@ -124,19 +124,19 @@ void TableData::printTable() const
     std::cout << std::endl;
     std::cout << "Names:";
     std::cout << std::endl;std::cout << " ";
-    for (auto c : *columnsNames)
+    for (const auto &c : *columnsNames)
     {
         std::cout << c << " ";
     }
     std::cout << std::endl;
-    for (auto r : *rowsNames)
+    for (const auto &r : *rowsNames)
     {
         std::cout << r << " ";
         std::cout << std::endl;
     }
     std::cout << "Table:";
     std::cout << std::endl;
-    for (auto data : *table)
+    for (const auto &data : *table)
     {
         for (auto d : data)
             std::cout << d << " ";
@@ -168,15 +168,4 @@ void TableData::loadModelRandom(const u_int columns, const u_int rows)
     columnsCount = columns;
     rowsCount = rows;
     printTable();
-}
-double TableData::getMaxValue() const{
-    if(table){
-        double max=0;
-        for(int i=0;i<table->size();++i)
-            for(int j=0;j<table[i].size();++j)
-                if(double m=table->at(i).at(j)>max)
-                    max=m;
-        return max;
-
-    }
 }
