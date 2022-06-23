@@ -208,6 +208,9 @@ void MainWindow::setController(Controller* c){
 void MainWindow::setPieChart(){
     chart=new PieChart();
     refreshGui();
+    QMessageBox msgBox;
+    msgBox.setText("Pie Chart take only frist row");
+    msgBox.exec();
 }
 void MainWindow::setNestedPieChart(){
     chart=new NestedPieChart();

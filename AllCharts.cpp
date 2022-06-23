@@ -76,23 +76,6 @@ QChart* SplineChart::generateChart(TableData* table) const{
     chart->createDefaultAxes();
     return chart;
 }
-//template<typename T>
-//void f(T s,TableData* table,QChart *chart)
-//{
-//    QString name("Series ");
-//    int nameIndex = 0;
-//    u_int columns=table->getColumnCount();
-//    if(!columns%2==0)
-//        columns-=1;
-//    for (u_int i(0); i < table->getRowCount(); ++i) {
-//        s = new T(chart);
-//        for (u_int j=0;j < columns;j=j+2)
-//            s->append(table->getTable()->at(i).at(j),table->getTable()->at(i).at(j+1));
-//        s->setName(name + QString::number(nameIndex));
-//        nameIndex++;
-//        chart->addSeries(s);
-//    }
-//}
 
 QChart* ScatterChart::generateChart(TableData* table) const{
     QChart *chart = new QChart();
@@ -114,18 +97,22 @@ QChart* ScatterChart::generateChart(TableData* table) const{
 }
 QChart* NestedPieChart::generateChart(TableData* table) const{
     QChart *chart = new QChart();
-    for (int i = 0; i < table->getRowCount(); i++) {
-        QPieSeries *donut = new QPieSeries(chart);
-        for (int j = 0; j < table->getColumnCount(); j++) {
-            qreal value = table->getTable()->at(i).at(j);
-            QPieSlice *slice = new QPieSlice(QString("%1").arg(value), value);
-            slice->setLabelVisible(true);
-            slice->setLabelColor(Qt::white);
-            slice->setLabelPosition(QPieSlice::LabelInsideTangential);
-            donut->append(slice);
+    qreal minSize = 0.1;
+    qreal maxSize = 0.9;
+        for (u_int i = 0; i < table->getRowCount(); i++) {
+            QPieSeries *donut = new QPieSeries;
+            for (u_int j = 0; j < table->getColumnCount(); j++) {
+                qreal value = table->getTable()->at(i).at(j);
+                QPieSlice *slice = new QPieSlice(QString("%1").arg(value), value);
+                slice->setLabelVisible(true);
+                slice->setLabelColor(Qt::white);
+                slice->setLabelPosition(QPieSlice::LabelInsideTangential);
+                donut->append(slice);
+                donut->setHoleSize(minSize + i * (maxSize - minSize) / table->getRowCount());
+                donut->setPieSize(minSize + (i + 1) * (maxSize - minSize) / table->getRowCount());
+            }
+            chart->addSeries(donut);
         }
-    }
-        chart->createDefaultAxes();
         return chart;
 }
 
