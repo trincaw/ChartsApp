@@ -8,7 +8,8 @@ MainWindow::MainWindow(QWidget *parent) : QWidget(parent){
     mainLayout= new QVBoxLayout;
     chartsLayout= new QHBoxLayout();
 
-    chart= new Chart();
+    //costruisce di default un barChart
+    chart= new BarChart();
 
     chartsLayout->setSpacing(0);
     chartsLayout->setAlignment(Qt::AlignCenter);
@@ -31,6 +32,18 @@ MainWindow::MainWindow(QWidget *parent) : QWidget(parent){
 }
 MainWindow::~MainWindow(){
 
+    delete file;
+    delete edit;
+    delete view;
+    delete help;
+    delete menu;
+
+    delete tableView;
+    delete chartView;
+
+    delete chartsLayout;
+    delete mainLayout;
+    //delete chart;
 }
 void MainWindow::addTableView(){
     chartsLayout->removeWidget(tableView);
@@ -50,8 +63,6 @@ void MainWindow::addTableView(){
 }
 void MainWindow::addChartView(){
     chartsLayout->removeWidget(chartView);
-
-    mapper=new vector<QVXYModelMapper*>();
 
     chartView = new QChartView(chart->generateChart(controller->getModel()->getTable()));
     chartView->setRenderHint(QPainter::Antialiasing);
@@ -199,6 +210,7 @@ void MainWindow::setController(Controller* c){
 //these functions create a graph of the required type
 //---------------------------------------------------
 void MainWindow::setPieChart(){
+    delete chart;
     chart=new PieChart();
     refreshGui();
     QMessageBox msgBox;

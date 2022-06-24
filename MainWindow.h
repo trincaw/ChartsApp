@@ -38,8 +38,6 @@ private:
     QVBoxLayout* mainLayout;
     QHBoxLayout* chartsLayout;
 
-    vector<QVXYModelMapper*> *mapper;
-
     Chart* chart;
 
     QMenuBar* menu;

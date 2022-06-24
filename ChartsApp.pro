@@ -3,7 +3,6 @@ QT += xml
 
 SOURCES += \
     AllCharts.cpp \
-    Chart.cpp \
     Controller.cpp \
     MainWindow.cpp \
     Model.cpp \
