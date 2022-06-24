@@ -43,7 +43,6 @@ MainWindow::MainWindow(QWidget *parent) : QWidget(parent){
 void MainWindow::addTableView(){
     chartsLayout->removeWidget(tableView);
     tableView = new QTableView(this);
-    //QAbstractTableModel *myModel = new Model(this);
 
     tableView->setModel(controller->getModel());
 
@@ -55,15 +54,7 @@ void MainWindow::addTableView(){
     tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     tableView->verticalHeader()->setSectionResizeMode(QHeaderView::Stretch);
 
-    //QLineSeries *series = new QLineSeries;
-    //series->setName("Line 1");
-
-    //mapper->setXColumn(0);
-    //mapper->setYColumn(1);
-    //mapper->setSeries(series);
-    //mapper->setModel(controller->getModel());
     chartsLayout->addWidget(tableView);
-
 }
 void MainWindow::addChartView(){
     chartsLayout->removeWidget(chartView);
@@ -75,7 +66,6 @@ void MainWindow::addChartView(){
     chartView->setMinimumSize(640,480);
 
     chartsLayout->addWidget(chartView);
-
 }
 
 void MainWindow::refreshGui(){
@@ -95,6 +85,7 @@ void MainWindow::addMenuBar(){
 
     file->addSeparator();
     file->addAction(new QAction("Exit",file));
+
     //Edit
     edit=new QMenu("&Edit",menu);
     menu->addMenu(edit);
@@ -109,6 +100,7 @@ void MainWindow::addMenuBar(){
     edit->addAction(new QAction("Delete selected row",menu));
     edit->addSeparator();
     edit->addAction(new QAction("Clear table",menu));
+
     //View
     view=new QMenu("&View",menu);
     menu->addMenu(view);
@@ -142,8 +134,8 @@ void MainWindow::addMenuBar(){
     myGroup->addAction(item5);
     myGroup->addAction(item6);
 
-//help
-    help=new QMenu("&help",menu);
+    //Help
+    help=new QMenu("&Help",menu);
     help->addAction(new QAction("About",menu));
 
     menu->addMenu(help);
@@ -202,6 +194,11 @@ void MainWindow::setController(Controller* c){
 
     //+altre
     connect(controller->getModel(),&QAbstractItemModel::dataChanged,[&](){refreshGui();});
+
+    connect(help->actions().at(0),&QAction::triggered,[&](){
+        QMessageBox msgBox;
+        msgBox.setText("Developed by Nicolo' Trinca & Marco Bernardi");
+        msgBox.exec();});
 
 }
 void MainWindow::setPieChart(){
