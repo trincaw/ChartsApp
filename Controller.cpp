@@ -21,6 +21,7 @@ void Controller::loadAChart() const{
      }
     view->refreshGui();
 }
+//Inserisce una nuova riga
 void Controller::insert_Row(u_int index){
     if(view!=nullptr && model!=nullptr ){
         bool ok;
@@ -35,12 +36,15 @@ void Controller::insert_Row(u_int index){
     else
     throw ;
 }
+//Insert a new row before the selected one
 void Controller::insert_Row_Before_Selected(){
     insert_Row(view->getSelectedRow());
 }
+//Insert a new row after the selected one
 void Controller::insert_Row_After_Selected(){
     insert_Row(view->getSelectedRow()+1);
 }
+//Insert a column
 void Controller::insert_Column(u_int index){
     if(view!=nullptr && model!=nullptr){
         bool ok;
@@ -56,14 +60,15 @@ void Controller::insert_Column(u_int index){
     else
     throw ;
 }
+//Insert a new column before the selected one
 void Controller::insert_Column_Before_Selected(){
     insert_Column(view->getSelectedColumn());
 }
-
+//Insert a new column after the selected one
 void Controller::insert_Column_After_Selected(){
     insert_Column(view->getSelectedColumn()+1);
 }
-
+//Remove the selected row
 void Controller::remove_Selected_Row(){
     if(view!=nullptr && model!=nullptr){
         u_int i= view->getSelectedRow();
@@ -73,6 +78,7 @@ void Controller::remove_Selected_Row(){
     else
     throw ;
 }
+//Remove the selected column
 void Controller::remove_Selected_Column(){
     if(view!=nullptr && model!=nullptr){
         u_int i= view->getSelectedColumn();
@@ -82,7 +88,7 @@ void Controller::remove_Selected_Column(){
     else
     throw ;
 }
-//Save a chart
+//Save the chart
 void Controller::saveXML(){
     if(view!=nullptr && model!=nullptr){
         model->SaveXML(QFileDialog::getSaveFileName(view, "Save File","", "XML (*.chart)"));

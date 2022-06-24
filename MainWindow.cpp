@@ -5,14 +5,10 @@
 
 MainWindow::MainWindow(QWidget *parent) : QWidget(parent){
 
-
     mainLayout= new QVBoxLayout;
     chartsLayout= new QHBoxLayout();
 
     chart= new Chart();
-
-
-    //addControls(mainLayout);
 
     chartsLayout->setSpacing(0);
     chartsLayout->setAlignment(Qt::AlignCenter);
@@ -22,7 +18,6 @@ MainWindow::MainWindow(QWidget *parent) : QWidget(parent){
     mainLayout->setAlignment(Qt::AlignTop);
     mainLayout->setContentsMargins(0,0,0,0);
 
-
     setLayout(mainLayout);
     resize(QSize(1024, 720));
 
@@ -30,16 +25,13 @@ MainWindow::MainWindow(QWidget *parent) : QWidget(parent){
     const QRect wr{{},frameSize().boundedTo(screenSize.size())};
     move(screenSize.center()-wr.center());
 
-    //setWindowIcon(QIcon(":/images/icon.png"));
-
     addMenuBar();
     mainLayout->addLayout(chartsLayout);
 
-
-
+}
+MainWindow::~MainWindow(){
 
 }
-
 void MainWindow::addTableView(){
     chartsLayout->removeWidget(tableView);
     tableView = new QTableView(this);
@@ -72,8 +64,19 @@ void MainWindow::refreshGui(){
     addTableView();
     addChartView();
 }
+//return selected column
+u_int MainWindow::getSelectedColumn() const{
+    return tableView->selectionModel()->currentIndex().column();
+}
+//return selected row
+u_int MainWindow::getSelectedRow() const{
+    return tableView->selectionModel()->currentIndex().row();
+}
+
+//create the menu with his items
 void MainWindow::addMenuBar(){
     menu=new QMenuBar();
+
     //File
     file=new QMenu("&File");
     menu->addMenu(file);
@@ -82,14 +85,12 @@ void MainWindow::addMenuBar(){
     file->addAction(new QAction("New",file));
     file->addAction(new QAction("Open",file));
     file->addAction(new QAction("Save",file));
-
     file->addSeparator();
     file->addAction(new QAction("Exit",file));
 
     //Edit
     edit=new QMenu("&Edit",menu);
     menu->addMenu(edit);
-
     edit->addAction(new QAction("Add row before",menu));
     edit->addAction(new QAction("Add row after",menu));
     edit->addSeparator();
@@ -102,7 +103,6 @@ void MainWindow::addMenuBar(){
     //View
     view=new QMenu("&View",menu);
     menu->addMenu(view);
-
     QAction* item1=new QAction("Pie chart");
     item1->setCheckable(true);
     QAction* item2=new QAction("Scatter chart");
@@ -134,10 +134,9 @@ void MainWindow::addMenuBar(){
 
     //Help
     help=new QMenu("&Help",menu);
-    help->addAction(new QAction("About",menu));
+    help->addAction(new QAction("Credits",menu));
 
     menu->addMenu(help);
-
     mainLayout->addWidget(menu);
 }
 void MainWindow::setTableView()
@@ -155,12 +154,13 @@ void MainWindow::setTableView()
     tableView->verticalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     layout()->addWidget(tableView);
 }
+
 void MainWindow::setController(Controller* c){
     controller=c;
 
-
     refreshGui();
 
+    //Connect all events needed with the controller
 
     //file
     connect(file->actions().at(0),SIGNAL(triggered()),controller,SLOT(newChart()));
@@ -186,15 +186,18 @@ void MainWindow::setController(Controller* c){
     connect(view->actions().at(4),SIGNAL(triggered()),this,SLOT(setLineChart()));
     connect(view->actions().at(5),SIGNAL(triggered()),this,SLOT(setNestedPieChart()));
 
-    //+altre
-    connect(controller->getModel(),&QAbstractItemModel::dataChanged,[&](){refreshGui();});
-
+    //help
     connect(help->actions().at(0),&QAction::triggered,[&](){
         QMessageBox msgBox;
         msgBox.setText("Developed by Nicolo' Trinca & Marco Bernardi");
         msgBox.exec();});
 
+    //update on edits
+    connect(controller->getModel(),&QAbstractItemModel::dataChanged,[&](){refreshGui();});
+
 }
+//these functions create a graph of the required type
+//---------------------------------------------------
 void MainWindow::setPieChart(){
     chart=new PieChart();
     refreshGui();
@@ -222,12 +225,5 @@ void MainWindow::setScatterChart(){
     chart=new ScatterChart();
     refreshGui();
 }
-u_int MainWindow::getSelectedColumn() const{
-    return tableView->selectionModel()->currentIndex().column();
-}
-u_int MainWindow::getSelectedRow() const{
-    return tableView->selectionModel()->currentIndex().row();
-}
-//Chart* MainWindow::getChart() const{
-//    return chart;
-//}
+//---------------------------------------------------
+

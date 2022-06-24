@@ -23,7 +23,6 @@ private:
     void insert_Row(u_int index);
     void insert_Column(u_int index);
 
-
 public:
     explicit Controller(QObject *parent = nullptr);
     //~Controller();
@@ -45,8 +44,6 @@ public slots:
     void newChart();
     void saveXML();
     void loadXML();
-
-    //void addMapping(QString color, QRect area);
 };
 
 

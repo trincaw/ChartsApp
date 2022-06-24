@@ -52,6 +52,7 @@ private:
     QChartView* chartView= nullptr;
 public:
     MainWindow(QWidget* parent=nullptr);
+    ~MainWindow();
     void setController(Controller* controller);
     void setTableView();
     void setChartView();
@@ -64,7 +65,7 @@ public:
     u_int getSelectedRow() const;
     u_int getSelectedColumn() const;
 
-public slots:
+private slots:
      void setPieChart();
      void setBarChart();
      void setLineChart();
