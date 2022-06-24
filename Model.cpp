@@ -177,3 +177,6 @@ void Model::LoadXML(QString path){
 TableData* Model::getTable(){
     return &table;
 }
+void Model::newModel(){
+    table=TableData();
+}

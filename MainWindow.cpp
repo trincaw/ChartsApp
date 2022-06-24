@@ -165,13 +165,11 @@ void MainWindow::setController(Controller* c){
 
 
     //file
-    //connect(file->actions().at(0),SIGNAL(triggered()),controller,SLOT(newChart()));
-
+    connect(file->actions().at(0),SIGNAL(triggered()),controller,SLOT(newChart()));
     connect(file->actions().at(1),SIGNAL(triggered()),controller,SLOT(loadXML()));
     connect(file->actions().at(2),SIGNAL(triggered()),controller,SLOT(saveXML()));
     connect(file->actions().at(4),SIGNAL(triggered()),this,SLOT(close()));
 
-    //+altre
     //edit
     connect(edit->actions().at(0),SIGNAL(triggered()),controller,SLOT(insert_Row_Before_Selected()));//before
     connect(edit->actions().at(1),SIGNAL(triggered()),controller,SLOT(insert_Row_After_Selected()));//after

@@ -43,6 +43,7 @@ public:
 
     void newModel(string rowLabel, string columnLabel);
 
+    void newModel();
     void SaveXML(QString path);
     void LoadXML(QString path);
 

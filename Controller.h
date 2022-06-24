@@ -43,6 +43,7 @@ public slots:
     void remove_Selected_Column();
     void clearTable();
 
+    void newChart();
     void saveXML();
     void loadXML();
 

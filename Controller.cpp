@@ -96,4 +96,12 @@ void Controller::loadXML(){
     else
     throw ;
 }
+void Controller::newChart(){
+    if(view!=nullptr && model!=nullptr){
+        model->newModel();
+        view->refreshGui();
+    }
+    else
+    throw ;
+}
 

@@ -50,7 +50,6 @@ private:
 
     QTableView* tableView= nullptr;
     QChartView* chartView= nullptr;
-    //ChartItem* chartItem=nullptr;
 public:
     MainWindow(QWidget* parent=nullptr);
     void setController(Controller* controller);
@@ -58,17 +57,13 @@ public:
     void setChartView();
 
     void addMenuBar();
-
     void addTableView();
     void addChartView();
-
     void refreshGui();
 
     u_int getSelectedRow() const;
     u_int getSelectedColumn() const;
 
-
-    //Chart* getChart() const;
 public slots:
      void setPieChart();
      void setBarChart();
@@ -76,8 +71,6 @@ public slots:
      void setSplineChart();
      void setScatterChart();
      void setNestedPieChart();
-    //void drawChart(Chart* chart)
-
 };
 
 #endif // MAINWINDOW_H
