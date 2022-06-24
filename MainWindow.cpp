@@ -98,8 +98,6 @@ void MainWindow::addMenuBar(){
     edit->addSeparator();
     edit->addAction(new QAction("Delete selected column",menu));
     edit->addAction(new QAction("Delete selected row",menu));
-    edit->addSeparator();
-    edit->addAction(new QAction("Clear table",menu));
 
     //View
     view=new QMenu("&View",menu);
@@ -179,8 +177,6 @@ void MainWindow::setController(Controller* c){
 
     connect(edit->actions().at(6),SIGNAL(triggered()),controller,SLOT(remove_Selected_Column()));
     connect(edit->actions().at(7),SIGNAL(triggered()),controller,SLOT(remove_Selected_Row()));
-
-    connect(edit->actions().at(9),SIGNAL(triggered()),controller,SLOT(clearTable()));
 
     //views
     connect(view->actions().at(0),SIGNAL(triggered()),this,SLOT(setPieChart()));

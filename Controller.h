@@ -41,7 +41,6 @@ public slots:
     void insert_Column_After_Selected();
     void remove_Selected_Row();
     void remove_Selected_Column();
-    void clearTable();
 
     void newChart();
     void saveXML();

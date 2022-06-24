@@ -9,8 +9,13 @@ void Controller::setView(MainWindow* v) {view = v;}
 Model* Controller::getModel(){ return model; }
 
 void Controller::loadAChart() const{
-    //Takes frist simple from Projects folder that is .chart
-     for (const auto & entry : std::filesystem::directory_iterator((qApp->applicationDirPath()+"/../Projects").toStdString())){
+    //Setup project folder if not exist
+    string dir=(qApp->applicationDirPath()+"/../Projects").toStdString();
+    if (!std::filesystem::is_directory(dir) || !std::filesystem::exists(dir)) { // Check if src folder exists
+        std::filesystem::create_directory(dir); // create src folder
+    }
+    //Takes frist chart from Projects folder that is .chart
+     for (const auto & entry : std::filesystem::directory_iterator(dir)){
          if(string s=entry.path();s.find(".chart") != std::string::npos){
              model->LoadXML(QString::fromStdString(entry.path()));break;}
      }
@@ -77,10 +82,7 @@ void Controller::remove_Selected_Column(){
     else
     throw ;
 }
-void Controller::clearTable(){
-    model->clearTable();
-     view->refreshGui();
-}
+//Save a chart
 void Controller::saveXML(){
     if(view!=nullptr && model!=nullptr){
         model->SaveXML(QFileDialog::getSaveFileName(view, "Save File","", "XML (*.chart)"));
@@ -88,6 +90,7 @@ void Controller::saveXML(){
     else
     throw ;
 }
+//Load a saved chart
 void Controller::loadXML(){
     if(view!=nullptr && model!=nullptr){
         model->LoadXML(QFileDialog::getOpenFileName(view, "Load File","", "XML (*.chart)"));
@@ -96,6 +99,7 @@ void Controller::loadXML(){
     else
     throw ;
 }
+//Resets model to make a new chart
 void Controller::newChart(){
     if(view!=nullptr && model!=nullptr){
         model->newModel();
