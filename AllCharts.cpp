@@ -5,10 +5,10 @@ QChart* BarChart::generateChart(TableData* table) const
     QChart *chart = new QChart();
 
     QStackedBarSeries *series = new QStackedBarSeries(chart);
-    for (u_int i(0); i < table->getColumnCount(); i++) {
-        QBarSet *set = new QBarSet("Bar " + QString::number(i+1));
-        for (u_int j=0;j < table->getRowCount();++j)
-            *set << table->getTable()->at(j).at(i);
+    for (u_int i(0); i < table->getRowCount(); i++) {
+        QBarSet *set = new QBarSet(QString::fromUtf8(table->getRowsNames()->at(i).c_str()));
+        for (u_int j=0;j < table->getColumnCount();++j)
+            *set << table->getTable()->at(i).at(j);
         series->append(set);
         chart->createDefaultAxes();
     }
@@ -43,14 +43,13 @@ QChart* PieChart::generateChart(TableData* table) const
 QChart* LineChart::generateChart(TableData* table) const{
     QChart *chart = new QChart();
 
-    QString name("Series ");
     int nameIndex = 0;
     int shots=(table->getColumnCount()%2==0) ? 0:1;
     for (u_int i(0); i < table->getRowCount(); i++) {
         QLineSeries *series = new QLineSeries(chart);
         for (u_int j=0;j < table->getColumnCount()-shots;j=j+2)
             series->append(table->getTable()->at(i).at(j),table->getTable()->at(i).at(j+1));
-        series->setName(name + QString::number(nameIndex));
+        series->setName(QString::fromUtf8(table->getRowsNames()->at(nameIndex).c_str()));
         nameIndex++;
         chart->addSeries(series);
          chart->createDefaultAxes();
@@ -60,14 +59,13 @@ QChart* LineChart::generateChart(TableData* table) const{
 }
 QChart* SplineChart::generateChart(TableData* table) const{
     QChart *chart = new QChart();
-    QString name("Series ");
     int nameIndex = 0;
     int shots=(table->getColumnCount()%2==0) ? 0:1;
     for (u_int i(0); i < table->getRowCount(); ++i) {
         QSplineSeries *series = new QSplineSeries(chart);
         for (u_int j=0;j < table->getColumnCount()-shots;j=j+2)
             series->append(table->getTable()->at(i).at(j),table->getTable()->at(i).at(j+1));
-        series->setName(name + QString::number(nameIndex));
+       series->setName(QString::fromUtf8(table->getRowsNames()->at(nameIndex).c_str()));
         nameIndex++;
         chart->addSeries(series);
     }
@@ -79,12 +77,11 @@ QChart* ScatterChart::generateChart(TableData* table) const{
     QChart *chart = new QChart();
     int nameIndex = 0;
     int shots=(table->getColumnCount()%2==0) ? 0:1;
-    QString name("Series ");
     for (u_int i(0); i < table->getRowCount(); i++) {
         QScatterSeries *series = new QScatterSeries(chart);
         for (u_int j=0;j <table->getColumnCount()-shots; j=j+2)
             series->append(table->getTable()->at(i).at(j),table->getTable()->at(i).at(j+1));
-        series->setName(name + QString::number(nameIndex));
+        series->setName(QString::fromUtf8(table->getRowsNames()->at(nameIndex).c_str()));
         nameIndex++;
         chart->addSeries(series);
     }
