@@ -2,12 +2,12 @@
 using std::string;
 using std::vector;
 
-TableData::TableData() : table(new vector<vector<double>>), rowsNames(new vector<string>), columnsNames(new vector<string>), rowsCount(0), columnsCount(0) {}
-TableData::TableData(vector<vector<double>> &table, vector<string> &rowsNames, vector<string> &columnsNames) : rowsCount(rowsNames.size()), columnsCount(columnsNames.size())
+TableData::TableData() : table(vector<vector<double>>()), rowsNames( vector<string>()), columnsNames( vector<string>()), rowsCount(0), columnsCount(0) {}
+TableData::TableData(vector<vector<double>> table, vector<string> rowsNames, vector<string> columnsNames) : rowsCount(rowsNames.size()), columnsCount(columnsNames.size())
 {
-    this->table = new auto(table);
-    this->rowsNames = new auto(rowsNames);
-    this->columnsNames = new auto(columnsNames);
+    this->table =  table;
+    this->rowsNames =  rowsNames;
+    this->columnsNames =  columnsNames;
 }
 u_int TableData::getRowCount() const
 {
@@ -17,18 +17,23 @@ u_int TableData::getColumnCount() const
 {
     return columnsCount;
 }
-vector<vector<double>> *TableData::getTable() const
+vector<vector<double>> TableData::getTable() const
 {
     return table;
 }
-vector<vector<double>> *TableData::getTable()
-{
-    return table;
+void TableData::changeValue(int x,int y,double value){
+     table.at(x).at(y) = value;
+}
+void TableData::changeRowsHeader(int index,string value){
+    rowsNames.at(index) = value;
+}
+void TableData::changeColumnsHeader(int index,string value){
+    columnsNames.at(index) = value;
 }
 void TableData::clearTable(){
-    table->clear();
-    columnsNames->clear();
-    rowsNames->clear();
+    table.clear();
+    columnsNames.clear();
+    rowsNames.clear();
     columnsCount=0;
     rowsCount=0;
 }
@@ -38,13 +43,13 @@ void TableData::addRow(vector<double> &row, u_int index, const string &rowName)
     {
         if (rowsCount > index)
         {
-            rowsNames->insert(rowsNames->begin() + index, rowName);
-            table->insert(table->begin() + index, row);
+            rowsNames.insert(rowsNames.begin() + index, rowName);
+            table.insert(table.begin() + index, row);
         }
         else //if (rowsCount == index)
         {
-            rowsNames->push_back(rowName);
-            table->push_back(row);
+            rowsNames.push_back(rowName);
+            table.push_back(row);
         }
         rowsCount += 1;
     }
@@ -59,14 +64,14 @@ void TableData::addColumn(vector<double> &column, u_int index, const string colu
         if (columnsCount > index)
         {
             for (u_int i = 0; rowsCount > i; ++i)
-                (*table)[i].insert((*table)[i].begin() + index, column[i]);
-            columnsNames->insert(columnsNames->begin() + index, columnName);
+                (table)[i].insert((table)[i].begin() + index, column[i]);
+            columnsNames.insert(columnsNames.begin() + index, columnName);
         }
         else //if (columnsCount == index)
         {
             for (u_int i = 0; rowsCount > i; ++i)
-                (*table)[i].push_back(column[i]);
-            columnsNames->push_back(columnName);
+                (table)[i].push_back(column[i]);
+            columnsNames.push_back(columnName);
         }
         columnsCount += 1;
     }
@@ -75,11 +80,11 @@ void TableData::addColumn(vector<double> &column, u_int index, const string colu
     printTable();
 
 }
-vector<string> *TableData::getRowsNames() const
+vector<string> TableData::getRowsNames() const
 {
     return rowsNames;
 }
-vector<string> *TableData::getColumnsNames() const
+vector<string> TableData::getColumnsNames() const
 {
     return columnsNames;
 }
@@ -91,9 +96,9 @@ void TableData::deleteColumn(const u_int index)
             clearTable();
         }
         else{
-        columnsNames->erase(columnsNames->begin() + index);
+        columnsNames.erase(columnsNames.begin() + index);
         for (u_int i = 0; rowsCount > i; ++i)
-            (*table)[i].erase((*table)[i].begin() + index);
+            (table)[i].erase((table)[i].begin() + index);
         columnsCount -= 1;
         }
     }
@@ -109,8 +114,8 @@ void TableData::deleteRow(const u_int index)
             clearTable();
         }
         else{
-        rowsNames->erase(rowsNames->begin() + index);
-        table->erase(table->begin() + index);
+        rowsNames.erase(rowsNames.begin() + index);
+        table.erase(table.begin() + index);
         rowsCount -= 1;
         }
     }
@@ -124,19 +129,19 @@ void TableData::printTable() const
     std::cout << std::endl;
     std::cout << "Names:";
     std::cout << std::endl;std::cout << " ";
-    for (const auto &c : *columnsNames)
+    for (const auto &c : columnsNames)
     {
         std::cout << c << " ";
     }
     std::cout << std::endl;
-    for (const auto &r : *rowsNames)
+    for (const auto &r : rowsNames)
     {
         std::cout << r << " ";
         std::cout << std::endl;
     }
     std::cout << "Table:";
     std::cout << std::endl;
-    for (const auto &data : *table)
+    for (const auto &data : table)
     {
         for (auto d : data)
             std::cout << d << " ";
@@ -157,13 +162,13 @@ void TableData::loadModelRandom(const u_int columns, const u_int rows)
         {
             d.push_back(i + j);
         }
-        columnsNames->push_back("");
-        table->push_back(d);
+        columnsNames.push_back("");
+        table.push_back(d);
 
     }
     for (u_int i = 0; rows > i; i++)
     {
-        rowsNames->push_back("");
+        rowsNames.push_back("");
     }
     columnsCount = columns;
     rowsCount = rows;

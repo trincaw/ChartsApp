@@ -6,9 +6,9 @@ QChart* BarChart::generateChart(TableData* table) const
 
     QStackedBarSeries *series = new QStackedBarSeries(chart);
     for (u_int i(0); i < table->getRowCount(); i++) {
-        QBarSet *set = new QBarSet(QString::fromUtf8(table->getRowsNames()->at(i).c_str()));
+        QBarSet *set = new QBarSet(QString::fromUtf8(table->getRowsNames().at(i).c_str()));
         for (u_int j=0;j < table->getColumnCount();++j)
-            *set << table->getTable()->at(i).at(j);
+            *set << table->getTable().at(i).at(j);
         series->append(set);
         chart->createDefaultAxes();
     }
@@ -23,17 +23,9 @@ QChart* PieChart::generateChart(TableData* table) const
 
     QPieSeries *series = new QPieSeries(chart);
 
-    bool frist=true;
-
     for (u_int i(0); i < table->getColumnCount(); i++) {
-        QPieSlice *slice = series->append(QString::fromStdString(table->getColumnsNames()->at(i)),table->getTable()->at(0).at(i));
-        if (table->getTable()->at(0).at(i)>0 && frist) {
-            // Show the first slice exploded with label
-            frist=false;
-            slice->setLabelVisible();
-            slice->setExploded();
-            slice->setExplodeDistanceFactor(0.4);
-        }
+        QPieSlice *slice = series->append(QString::fromStdString(table->getColumnsNames().at(i)),table->getTable().at(0).at(i));
+        slice->setLabelVisible();
     }
     series->setPieSize(0.6);
     chart->addSeries(series);
@@ -48,8 +40,8 @@ QChart* LineChart::generateChart(TableData* table) const{
     for (u_int i(0); i < table->getRowCount(); i++) {
         QLineSeries *series = new QLineSeries(chart);
         for (u_int j=0;j < table->getColumnCount()-shots;j=j+2)
-            series->append(table->getTable()->at(i).at(j),table->getTable()->at(i).at(j+1));
-        series->setName(QString::fromUtf8(table->getRowsNames()->at(nameIndex).c_str()));
+            series->append(table->getTable().at(i).at(j),table->getTable().at(i).at(j+1));
+        series->setName(QString::fromUtf8(table->getRowsNames().at(nameIndex).c_str()));
         nameIndex++;
         chart->addSeries(series);
          chart->createDefaultAxes();
@@ -64,8 +56,8 @@ QChart* SplineChart::generateChart(TableData* table) const{
     for (u_int i(0); i < table->getRowCount(); ++i) {
         QSplineSeries *series = new QSplineSeries(chart);
         for (u_int j=0;j < table->getColumnCount()-shots;j=j+2)
-            series->append(table->getTable()->at(i).at(j),table->getTable()->at(i).at(j+1));
-       series->setName(QString::fromUtf8(table->getRowsNames()->at(nameIndex).c_str()));
+            series->append(table->getTable().at(i).at(j),table->getTable().at(i).at(j+1));
+       series->setName(QString::fromUtf8(table->getRowsNames().at(nameIndex).c_str()));
         nameIndex++;
         chart->addSeries(series);
     }
@@ -80,8 +72,8 @@ QChart* ScatterChart::generateChart(TableData* table) const{
     for (u_int i(0); i < table->getRowCount(); i++) {
         QScatterSeries *series = new QScatterSeries(chart);
         for (u_int j=0;j <table->getColumnCount()-shots; j=j+2)
-            series->append(table->getTable()->at(i).at(j),table->getTable()->at(i).at(j+1));
-        series->setName(QString::fromUtf8(table->getRowsNames()->at(nameIndex).c_str()));
+            series->append(table->getTable().at(i).at(j),table->getTable().at(i).at(j+1));
+        series->setName(QString::fromUtf8(table->getRowsNames().at(nameIndex).c_str()));
         nameIndex++;
         chart->addSeries(series);
     }
@@ -95,7 +87,7 @@ QChart* NestedPieChart::generateChart(TableData* table) const{
         for (u_int i = 0; i < table->getRowCount(); i++) {
             QPieSeries *donut = new QPieSeries;
             for (u_int j = 0; j < table->getColumnCount(); j++) {
-                qreal value = table->getTable()->at(i).at(j);
+                qreal value = table->getTable().at(i).at(j);
                 QPieSlice *slice = new QPieSlice(QString("%1").arg(value), value);
                 slice->setLabelVisible(true);
                 slice->setLabelColor(Qt::white);

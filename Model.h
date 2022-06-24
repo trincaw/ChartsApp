@@ -20,9 +20,11 @@ class Model : public QAbstractTableModel
 {
     Q_OBJECT
 private:
-    TableData table;
+    TableData *table;
+    void createNewTable();
 public:
     Model(QObject *parent = 0);
+    ~Model();
 
     int rowCount(const QModelIndex &parent = QModelIndex()) const;
     int columnCount(const QModelIndex &parent = QModelIndex()) const;
@@ -30,7 +32,6 @@ public:
     virtual bool setData(const QModelIndex &index, const QVariant &value, int role = Qt::EditRole);
     virtual Qt::ItemFlags flags(const QModelIndex &index) const;
     virtual QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const;
-    void addMapping(QString color, QRect area);
 
     void readJson(string path);
     void writeJson(string path);

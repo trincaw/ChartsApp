@@ -1,29 +1,28 @@
 #include "Model.h"
 
 Model::Model(QObject *parent) : QAbstractTableModel(parent){
-    vector<vector<double>> tab={{0}};
-    vector<string> rowsNames{"y"};
-    vector<string> columnsNames{"x"};
-    TableData t(tab,rowsNames,columnsNames);
-    table=t;
+    createNewTable();
+}
+Model::~Model(){
+    delete table;
 }
 int Model::rowCount(const QModelIndex & /*parent*/) const{
-    return table.getRowCount();
+    return table->getRowCount();
 }
 int Model::columnCount(const QModelIndex & /*parent*/) const{
-    return table.getColumnCount();
+    return table->getColumnCount();
 }
 QVariant Model::data(const QModelIndex &index, int role) const{
     if (role == Qt::DisplayRole){
-        qreal temp = table.getTable()->at(index.row()).at(index.column());
+        qreal temp = table->getTable().at(index.row()).at(index.column());
         return temp;
     }
     return QVariant();
 }
 bool Model::setData(const QModelIndex &index, const QVariant &value, int role){
     if (role == Qt::EditRole){
-        table.getTable()->at(index.row()).at(index.column()) = value.toDouble();
-        table.printTable();
+        table->changeValue(index.row(),index.column(),value.toDouble());
+        table->printTable();
         emit dataChanged(index, index);
     }
     return true;
@@ -34,32 +33,27 @@ Qt::ItemFlags Model::flags(const QModelIndex &index) const{
 QVariant Model::headerData(int section, Qt::Orientation orientation, int role) const{
     if (role != Qt::DisplayRole)
         return QVariant();
-
     if (Qt::Orientation::Vertical == orientation){
-        if(((int)table.getRowCount()) > section)
-            return QString::fromStdString(table.getRowsNames()->at(section));
+        if(((int)table->getRowCount()) > section)
+            return QString::fromStdString(table->getRowsNames().at(section));
     } else{
-        if(((int)table.getColumnCount()) > section)
-            return QString::fromStdString(table.getColumnsNames()->at(section));
+        if(((int)table->getColumnCount()) > section)
+            return QString::fromStdString(table->getColumnsNames().at(section));
     }
     return QString();//??
 }
 void Model::addRow(u_int i, std::string label){
-    vector<double> v(table.getColumnCount(),0);
-    table.addRow(v,i,label);
+    vector<double> v(table->getColumnCount(),0);
+    table->addRow(v,i,label);
 }
 void Model::addColumn(u_int i, std::string label){
-    vector<double> v(table.getRowCount(),0);
-    table.addColumn(v,i,label);
+    vector<double> v(table->getRowCount(),0);
+    table->addColumn(v,i,label);
 }
-void Model::removeColumn(u_int i){table.deleteColumn(i);}
-void Model::removeRow(u_int i){table.deleteRow(i);}
+void Model::removeColumn(u_int i){table->deleteColumn(i);}
+void Model::removeRow(u_int i){table->deleteRow(i);}
 void Model::newModel(){
-    vector<vector<double>> tab={{0}};
-    vector<string> rowsNames{"y"};
-    vector<string> columnsNames{"x"};
-    TableData t(tab,rowsNames,columnsNames);
-    table=t;
+   createNewTable();//???????
 }
 
 void Model::SaveXML(QString path){
@@ -76,8 +70,8 @@ void Model::SaveXML(QString path){
     document.appendChild(root);
     // SAVE COLS HEADER
     QDomElement Cols = document.createElement("Cols");
-    Cols.setAttribute("CollumnCount",QString::number(table.getColumnCount()));
-    for (const string &c : *table.getColumnsNames())
+    Cols.setAttribute("CollumnCount",QString::number(table->getColumnCount()));
+    for (const string &c : table->getColumnsNames())
     {
         QDomElement child = document.createElement("Col");
         child.setAttribute("value", QString::fromStdString(c));
@@ -86,8 +80,8 @@ void Model::SaveXML(QString path){
     root.appendChild(Cols);
     // SAVE ROW TITLE
     QDomElement Rows = document.createElement("Rows");
-    Rows.setAttribute("RowCount",QString::number(table.getRowCount()));
-    for (const string &c : *table.getRowsNames())
+    Rows.setAttribute("RowCount",QString::number(table->getRowCount()));
+    for (const string &c : table->getRowsNames())
     {
         QDomElement child = document.createElement("Row");
         child.setAttribute("value", QString::fromStdString(c));
@@ -96,7 +90,7 @@ void Model::SaveXML(QString path){
     root.appendChild(Rows);
     // SAVE TABLE DATA
     QDomElement Data = document.createElement("Data");
-    for (const auto &data : *table.getTable())
+    for (const auto &data : table->getTable())
     {
         QDomElement test = document.createElement("Row");
         for (auto d : data){
@@ -168,12 +162,19 @@ void Model::LoadXML(QString path){
     } else {
         qDebug() << "è null DC" << "";
     }
-
-    TableData t(tab,rowsNames,columnsNames);
-    table = t;
-    table.printTable();
+    delete table;
+    table = new TableData(tab,rowsNames,columnsNames);
+    table->printTable();
 
 }
 TableData* Model::getTable(){
-    return &table;
+    return table;
 }
+void Model::createNewTable(){
+    vector<double> column={0};
+    vector<double> row={0};
+    table=new TableData();
+    table->addColumn(column,0,"x");
+    table->addRow(row,0,"y");
+}
+

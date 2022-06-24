@@ -13,9 +13,9 @@ using std::string;
 class TableData
 {
 private:
-    vector<vector<double>>* table;
-    vector<string>* rowsNames;
-    vector<string>* columnsNames;
+    vector<vector<double>> table;
+    vector<string> rowsNames;
+    vector<string> columnsNames;
     u_int rowsCount;
     u_int columnsCount;
 
@@ -23,7 +23,7 @@ private:
 
 public:
     TableData();
-    TableData(vector<vector<double>>& table, vector<string>& rowsNames, vector<string>& columnsNames);
+    TableData(vector<vector<double>> table, vector<string> rowsNames, vector<string> columnsNames);
 
     u_int getRowCount() const;
     u_int getColumnCount() const;
@@ -36,10 +36,12 @@ public:
 
     vector<double> getColumn(const u_int index) const;
     vector<double> getRow(const u_int index) const;
-    vector<string>* getRowsNames() const;
-    vector<string>* getColumnsNames() const;
-    vector<vector<double>>* getTable() const;
-    vector<vector<double>>* getTable();
+    vector<string> getRowsNames() const;
+    vector<string> getColumnsNames() const;
+    vector<vector<double>> getTable() const;
+    void changeValue(int x,int y,double value);
+    void changeRowsHeader(int index,string value);
+    void changeColumnsHeader(int index,string value);
 
     //Deboug
     void printTable() const;
