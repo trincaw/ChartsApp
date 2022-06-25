@@ -91,7 +91,7 @@ void Controller::remove_Selected_Column(){
 //Save the chart
 void Controller::saveXML(){
     if(view!=nullptr && model!=nullptr){
-        model->SaveXML(QFileDialog::getSaveFileName(view, "Save File","", "XML (*.chart)"));
+        model->SaveXML(QFileDialog::getSaveFileName(view, "Save File","../ChartsApp/Projects", "XML (*.chart)"));
     }
     else
     throw ;
@@ -99,7 +99,7 @@ void Controller::saveXML(){
 //Load a saved chart
 void Controller::loadXML(){
     if(view!=nullptr && model!=nullptr){
-        model->LoadXML(QFileDialog::getOpenFileName(view, "Load File","", "XML (*.chart)"));
+        model->LoadXML(QFileDialog::getOpenFileName(view, "Load File","../ChartsApp/Projects", "XML (*.chart)"));
         view->refreshGui();
     }
     else
