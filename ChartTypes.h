@@ -54,7 +54,6 @@ protected:
         QChart *chart = new QChart();
 
         int nameIndex = 0;
-        //int shots=table->getColumnCount();
         for (u_int i(0); i < table->getRowCount(); i++) {
             T1 *series = new T1(chart);
             for (u_int j=0;j < table->getColumnCount();j++)
@@ -62,7 +61,6 @@ protected:
             series->setName(QString::fromUtf8(table->getRowsNames().at(nameIndex).c_str()));
             nameIndex++;
             chart->addSeries(series);
-
         }
         chart->createDefaultAxes();
         return chart;

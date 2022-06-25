@@ -38,10 +38,6 @@ public:
     vector<string> getRowsNames() const;
     vector<string> getColumnsNames() const;
     vector<vector<double>> getTable() const;
-
-    //Deboug
-    void printTable() const;
-    void loadModelRandom(const u_int columns,const u_int rows);
 };
 
 #endif // TABLEDATA_H

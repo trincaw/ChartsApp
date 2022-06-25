@@ -22,7 +22,6 @@ QVariant Model::data(const QModelIndex &index, int role) const{
 bool Model::setData(const QModelIndex &index, const QVariant &value, int role){
     if (role == Qt::EditRole){
         table->changeValue(index.row(),index.column(),value.toDouble());
-        table->printTable();
         emit dataChanged(index, index);
     }
     return true;
@@ -170,7 +169,6 @@ void Model::LoadXML(QString path){
     }
     //delete table;///////////////////////////////
     table = new TableData(tab,rowsNames,columnsNames);
-    table->printTable();
 
 }
 TableData* Model::getTable(){
