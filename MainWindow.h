@@ -37,11 +37,9 @@ private:
 
     QVBoxLayout* mainLayout;
     QHBoxLayout* chartsLayout;
-
-    vector<QVXYModelMapper*> *mapper;
-
     Chart* chart;
 
+    //menu items
     QMenuBar* menu;
     QMenu* file;
     QMenu* edit;
@@ -50,25 +48,33 @@ private:
 
     QTableView* tableView= nullptr;
     QChartView* chartView= nullptr;
-    //ChartItem* chartItem=nullptr;
 public:
     MainWindow(QWidget* parent=nullptr);
+    ~MainWindow();
+
+    //required sets
     void setController(Controller* controller);
     void setTableView();
     void setChartView();
 
+    //add grapichal interface
     void addMenuBar();
     void addTableView();
     void addChartView();
-    void addChartView2();
     void refreshGui();
 
+    //get tableview selected cells
     u_int getSelectedRow() const;
     u_int getSelectedColumn() const;
-    //Chart* getChart() const;
-public slots:
-    //void drawChart(Chart* chart)
 
+private slots:
+    //set a chart tipe
+     void setPieChart();
+     void setBarChart();
+     void setLineChart();
+     void setSplineChart();
+     void setScatterChart();
+     void setNestedPieChart();
 };
 
 #endif // MAINWINDOW_H

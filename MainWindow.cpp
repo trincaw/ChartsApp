@@ -5,12 +5,11 @@
 
 MainWindow::MainWindow(QWidget *parent) : QWidget(parent){
 
-
     mainLayout= new QVBoxLayout;
     chartsLayout= new QHBoxLayout();
 
-
-    //addControls(mainLayout);
+    //costruisce di default un barChart
+    chart= new BarChart();
 
     chartsLayout->setSpacing(0);
     chartsLayout->setAlignment(Qt::AlignCenter);
@@ -20,7 +19,6 @@ MainWindow::MainWindow(QWidget *parent) : QWidget(parent){
     mainLayout->setAlignment(Qt::AlignTop);
     mainLayout->setContentsMargins(0,0,0,0);
 
-
     setLayout(mainLayout);
     resize(QSize(1024, 720));
 
@@ -28,20 +26,28 @@ MainWindow::MainWindow(QWidget *parent) : QWidget(parent){
     const QRect wr{{},frameSize().boundedTo(screenSize.size())};
     move(screenSize.center()-wr.center());
 
-    //setWindowIcon(QIcon(":/images/icon.png"));
-
     addMenuBar();
     mainLayout->addLayout(chartsLayout);
-
-
-
-
 }
+MainWindow::~MainWindow(){
 
+    delete file;
+    delete edit;
+    delete view;
+    delete help;
+    delete menu;
+
+    delete tableView;
+    delete chartView;
+
+    delete chartsLayout;
+    delete mainLayout;
+}
 void MainWindow::addTableView(){
     chartsLayout->removeWidget(tableView);
+    if(tableView!=nullptr)
+        delete tableView;
     tableView = new QTableView(this);
-    //QAbstractTableModel *myModel = new Model(this);
 
     tableView->setModel(controller->getModel());
 
@@ -53,31 +59,14 @@ void MainWindow::addTableView(){
     tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     tableView->verticalHeader()->setSectionResizeMode(QHeaderView::Stretch);
 
-    //QLineSeries *series = new QLineSeries;
-    //series->setName("Line 1");
-
-    //mapper->setXColumn(0);
-    //mapper->setYColumn(1);
-    //mapper->setSeries(series);
-    //mapper->setModel(controller->getModel());
     chartsLayout->addWidget(tableView);
-
 }
 void MainWindow::addChartView(){
     chartsLayout->removeWidget(chartView);
+    if(chartView!=nullptr)
+        delete chartView;
 
-    mapper=new vector<QVXYModelMapper*>();
-
-    auto model=controller->getModel();
-    int tot=model->columnCount()/2;
-    for(int j=0;j<tot;++j){
-        mapper->push_back(new QVXYModelMapper());
-    }
-
-
-    chart=new LineChart("New chart",new vector<string>{"asd","cacca"});
-
-    chartView = new QChartView(chart->generateChart(model,mapper));
+    chartView = new QChartView(chart->generateChart(controller->getModel()->getTable()));
     chartView->setRenderHint(QPainter::Antialiasing);
     chartView->setMinimumSize(640,480);
 
@@ -88,53 +77,64 @@ void MainWindow::refreshGui(){
     addTableView();
     addChartView();
 }
+//return selected column
+u_int MainWindow::getSelectedColumn() const{
+    return tableView->selectionModel()->currentIndex().column();
+}
+//return selected row
+u_int MainWindow::getSelectedRow() const{
+    return tableView->selectionModel()->currentIndex().row();
+}
+
+//create the menu with his items
 void MainWindow::addMenuBar(){
     menu=new QMenuBar();
+
     //File
     file=new QMenu("&File");
     menu->addMenu(file);
 
     //Menu
-    file->addAction(new QAction(QIcon::fromTheme("document-new"),"New",file));
-    file->addAction(new QAction(QIcon::fromTheme("document-open"),"Open",file));
-    file->addAction(new QAction(QIcon::fromTheme("document-save"),"Save",file));
-
+    file->addAction(new QAction("New",file));
+    file->addAction(new QAction("Open",file));
+    file->addAction(new QAction("Save",file));
     file->addSeparator();
-    file->addAction(new QAction(QIcon::fromTheme("application-exit"),"Exit",file));
+    file->addAction(new QAction("Exit",file));
+
     //Edit
     edit=new QMenu("&Edit",menu);
     menu->addMenu(edit);
+    edit->addAction(new QAction("Add row before",menu));
+    edit->addAction(new QAction("Add row after",menu));
+    edit->addSeparator();
+    edit->addAction(new QAction("Add column before",menu));
+    edit->addAction(new QAction("Add column after",menu));
+    edit->addSeparator();
+    edit->addAction(new QAction("Delete selected column",menu));
+    edit->addAction(new QAction("Delete selected row",menu));
 
-    edit->addAction(new QAction(QIcon::fromTheme("list-add"),"Add row before",menu));
-    edit->addAction(new QAction(QIcon::fromTheme("list-add"),"Add row after",menu));
-    edit->addSeparator();
-    edit->addAction(new QAction(QIcon::fromTheme("list-add"),"Add column before",menu));
-    edit->addAction(new QAction(QIcon::fromTheme("list-add"),"Add column after",menu));
-    edit->addSeparator();
-    edit->addAction(new QAction(QIcon::fromTheme("list-remove"),"Delete selected column",menu));
-    edit->addAction(new QAction(QIcon::fromTheme("list-remove"),"Delete selected row",menu));
-    edit->addSeparator();
-    edit->addAction(new QAction(QIcon::fromTheme("edit-clear"),"Clear table",menu));
     //View
     view=new QMenu("&View",menu);
     menu->addMenu(view);
-
     QAction* item1=new QAction("Pie chart");
     item1->setCheckable(true);
-    QAction* item2=new QAction("Donut chart");
+    QAction* item2=new QAction("Scatter chart");
     item2->setCheckable(true);
     QAction* item3=new QAction("Bar chart");
     item3->setCheckable(true);
-    QAction* item4=new QAction("Stacked bar chart");
+    QAction* item4=new QAction("Spline chart");
     item4->setCheckable(true);
     QAction* item5=new QAction("Line chart");
     item5->setCheckable(true);
+    QAction* item6=new QAction("Nested Pie chart");
+    item6->setCheckable(true);
 
     view->addAction(item1);
     view->addAction(item2);
     view->addAction(item3);
     view->addAction(item4);
     view->addAction(item5);
+    view->addAction(item6);
 
     QActionGroup* myGroup= new QActionGroup(this);
     myGroup->setExclusive(true);
@@ -143,13 +143,13 @@ void MainWindow::addMenuBar(){
     myGroup->addAction(item3);
     myGroup->addAction(item4);
     myGroup->addAction(item5);
+    myGroup->addAction(item6);
 
-//help
-    help=new QMenu("&help",menu);
-    help->addAction(new QAction(QIcon::fromTheme("help-about"),"About",menu));
+    //Help
+    help=new QMenu("&Help",menu);
+    help->addAction(new QAction("Credits",menu));
 
     menu->addMenu(help);
-
     mainLayout->addWidget(menu);
 }
 void MainWindow::setTableView()
@@ -167,21 +167,21 @@ void MainWindow::setTableView()
     tableView->verticalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     layout()->addWidget(tableView);
 }
+
 void MainWindow::setController(Controller* c){
     controller=c;
 
 
     refreshGui();
 
+    //Connect all events needed with the controller
 
     //file
-    //connect(file->actions().at(0),SIGNAL(triggered()),controller,SLOT(newChart()));
-
+    connect(file->actions().at(0),SIGNAL(triggered()),controller,SLOT(newChart()));
     connect(file->actions().at(1),SIGNAL(triggered()),controller,SLOT(loadXML()));
     connect(file->actions().at(2),SIGNAL(triggered()),controller,SLOT(saveXML()));
     connect(file->actions().at(4),SIGNAL(triggered()),this,SLOT(close()));
 
-    //+altre
     //edit
     connect(edit->actions().at(0),SIGNAL(triggered()),controller,SLOT(insert_Row_Before_Selected()));//before
     connect(edit->actions().at(1),SIGNAL(triggered()),controller,SLOT(insert_Row_After_Selected()));//after
@@ -192,20 +192,56 @@ void MainWindow::setController(Controller* c){
     connect(edit->actions().at(6),SIGNAL(triggered()),controller,SLOT(remove_Selected_Column()));
     connect(edit->actions().at(7),SIGNAL(triggered()),controller,SLOT(remove_Selected_Row()));
 
-    connect(edit->actions().at(9),SIGNAL(triggered()),controller,SLOT(clearTable()));
-
     //views
+    connect(view->actions().at(0),SIGNAL(triggered()),this,SLOT(setPieChart()));
+    connect(view->actions().at(1),SIGNAL(triggered()),this,SLOT(setScatterChart()));
+    connect(view->actions().at(2),SIGNAL(triggered()),this,SLOT(setBarChart()));
+    connect(view->actions().at(3),SIGNAL(triggered()),this,SLOT(setSplineChart()));
+    connect(view->actions().at(4),SIGNAL(triggered()),this,SLOT(setLineChart()));
+    connect(view->actions().at(5),SIGNAL(triggered()),this,SLOT(setNestedPieChart()));
 
-    //+altre
+    //help
+    connect(help->actions().at(0),&QAction::triggered,[&](){
+        QMessageBox msgBox;
+        msgBox.setText("Developed by Nicolo' Trinca & Marco Bernardi");
+        msgBox.exec();});
+
+    //update on edits
     connect(controller->getModel(),&QAbstractItemModel::dataChanged,[&](){refreshGui();});
 
 }
-u_int MainWindow::getSelectedColumn() const{
-    return tableView->selectionModel()->currentIndex().column();
+//these functions create a graph of the required type
+void MainWindow::setPieChart(){
+    delete chart;
+    chart=new PieChart();
+    refreshGui();
+    QMessageBox msgBox;
+    msgBox.setText("Pie Chart take only frist row");
+    msgBox.exec();
 }
-u_int MainWindow::getSelectedRow() const{
-    return tableView->selectionModel()->currentIndex().row();
+void MainWindow::setNestedPieChart(){
+    delete chart;
+    chart=new NestedPieChart();
+    refreshGui();
 }
-//Chart* MainWindow::getChart() const{
-//    return chart;
-//}
+void MainWindow::setBarChart(){
+    delete chart;
+    chart=new BarChart();
+    refreshGui();
+}
+void MainWindow::setLineChart(){
+    delete chart;
+    chart=new LineChart();
+    refreshGui();
+}
+void MainWindow::setSplineChart(){
+    delete chart;
+    chart=new SplineChart();
+    refreshGui();
+}
+void MainWindow::setScatterChart(){
+    delete chart;
+    chart=new ScatterChart();
+    refreshGui();
+}
+

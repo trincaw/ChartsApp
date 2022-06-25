@@ -14,6 +14,6 @@ int main(int argc, char *argv[])
     c.setView(&w);
     w.setController(&c);
     w.show();
-    c.showDebougTable();//DEBOUG();
+    c.loadAChart();//DEBOUG();
     return a.exec();
 }
