@@ -116,34 +116,29 @@ void MainWindow::addMenuBar(){
     //View
     view=new QMenu("&View",menu);
     menu->addMenu(view);
+    vector<QAction*>items=vector<QAction*>();
     QAction* item1=new QAction("Pie chart");
-    item1->setCheckable(true);
+    items.push_back(item1);
     QAction* item2=new QAction("Scatter chart");
-    item2->setCheckable(true);
+    items.push_back(item2);
     QAction* item3=new QAction("Bar chart");
-    item3->setCheckable(true);
+    items.push_back(item3);
     QAction* item4=new QAction("Spline chart");
-    item4->setCheckable(true);
+    items.push_back(item4);
     QAction* item5=new QAction("Line chart");
-    item5->setCheckable(true);
+    items.push_back(item5);
     QAction* item6=new QAction("Nested Pie chart");
-    item6->setCheckable(true);
+    items.push_back(item6);
 
-    view->addAction(item1);
-    view->addAction(item2);
-    view->addAction(item3);
-    view->addAction(item4);
-    view->addAction(item5);
-    view->addAction(item6);
 
     QActionGroup* myGroup= new QActionGroup(this);
     myGroup->setExclusive(true);
-    myGroup->addAction(item1);
-    myGroup->addAction(item2);
-    myGroup->addAction(item3);
-    myGroup->addAction(item4);
-    myGroup->addAction(item5);
-    myGroup->addAction(item6);
+
+    for (auto &item : items){
+        item->setCheckable(true);
+        view->addAction(item);
+        myGroup->addAction(item);
+    }
 
     //Help
     help=new QMenu("&Help",menu);
@@ -199,7 +194,6 @@ void MainWindow::setController(Controller* c){
     connect(view->actions().at(3),SIGNAL(triggered()),this,SLOT(setSplineChart()));
     connect(view->actions().at(4),SIGNAL(triggered()),this,SLOT(setLineChart()));
     connect(view->actions().at(5),SIGNAL(triggered()),this,SLOT(setNestedPieChart()));
-
     //help
     connect(help->actions().at(0),&QAction::triggered,[&](){
         QMessageBox msgBox;
@@ -244,4 +238,3 @@ void MainWindow::setScatterChart(){
     chart=new ScatterChart();
     refreshGui();
 }
-

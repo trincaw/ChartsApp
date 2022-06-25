@@ -75,6 +75,7 @@ private slots:
      void setSplineChart();
      void setScatterChart();
      void setNestedPieChart();
+     void setWhiskerChart();
 };
 
 #endif // MAINWINDOW_H
