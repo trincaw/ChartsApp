@@ -23,8 +23,10 @@ private:
     TableData *table=nullptr;
 public:
     Model(QObject *parent = 0);
+    TableData* getTable();
     ~Model();
 
+    //implementation of QAbstractTableModel on Table data
     int rowCount(const QModelIndex &parent = QModelIndex()) const;
     int columnCount(const QModelIndex &parent = QModelIndex()) const;
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const;
@@ -32,19 +34,17 @@ public:
     virtual Qt::ItemFlags flags(const QModelIndex &index) const;
     virtual QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const;
 
-    void readJson(string path);
-    void writeJson(string path);
-
+    //basic operation on the table
     void addRow(u_int index, string label);
     void addColumn(u_int index, string label);
     void removeRow(u_int index);
     void removeColumn(u_int index);
 
+    //xml read/write
     void createNewTable();
     void SaveXML(QString path);
     void LoadXML(QString path);
 
-    TableData* getTable();
 };
 
 #endif // MODEL_H

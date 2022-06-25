@@ -8,6 +8,7 @@
 class Chart
 {
 public:
+    //general virtual class for chart polymorphism
     virtual ~Chart()=default;
     virtual QChart* generateChart(TableData* table)=0;
 };

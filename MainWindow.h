@@ -37,9 +37,9 @@ private:
 
     QVBoxLayout* mainLayout;
     QHBoxLayout* chartsLayout;
-
     Chart* chart;
 
+    //menu items
     QMenuBar* menu;
     QMenu* file;
     QMenu* edit;
@@ -51,19 +51,24 @@ private:
 public:
     MainWindow(QWidget* parent=nullptr);
     ~MainWindow();
+
+    //required sets
     void setController(Controller* controller);
     void setTableView();
     void setChartView();
 
+    //add grapichal interface
     void addMenuBar();
     void addTableView();
     void addChartView();
     void refreshGui();
 
+    //get tableview selected cells
     u_int getSelectedRow() const;
     u_int getSelectedColumn() const;
 
 private slots:
+    //set a chart tipe
      void setPieChart();
      void setBarChart();
      void setLineChart();

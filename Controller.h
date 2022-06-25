@@ -27,7 +27,6 @@ private:
 
 public:
     explicit Controller(QObject *parent = nullptr);
-
     void setModel(Model* m);
     void setView(MainWindow* v);
     Model* getModel() const;

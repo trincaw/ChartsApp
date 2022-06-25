@@ -42,10 +42,11 @@ MainWindow::~MainWindow(){
 
     delete chartsLayout;
     delete mainLayout;
-    //delete chart;
 }
 void MainWindow::addTableView(){
     chartsLayout->removeWidget(tableView);
+    if(tableView!=nullptr)
+        delete tableView;
     tableView = new QTableView(this);
 
     tableView->setModel(controller->getModel());
@@ -62,6 +63,8 @@ void MainWindow::addTableView(){
 }
 void MainWindow::addChartView(){
     chartsLayout->removeWidget(chartView);
+    if(chartView!=nullptr)
+        delete chartView;
 
     chartView = new QChartView(chart->generateChart(controller->getModel()->getTable()));
     chartView->setRenderHint(QPainter::Antialiasing);
@@ -208,7 +211,6 @@ void MainWindow::setController(Controller* c){
 
 }
 //these functions create a graph of the required type
-//---------------------------------------------------
 void MainWindow::setPieChart(){
     delete chart;
     chart=new PieChart();
@@ -242,5 +244,4 @@ void MainWindow::setScatterChart(){
     chart=new ScatterChart();
     refreshGui();
 }
-//---------------------------------------------------
 
