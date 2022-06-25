@@ -2,7 +2,6 @@ QT += charts
 QT += xml
 
 SOURCES += \
-    AllCharts.cpp \
     Controller.cpp \
     MainWindow.cpp \
     Model.cpp \
@@ -12,6 +11,7 @@ SOURCES += \
 HEADERS += \
     AllCharts.h \
     Chart.h \
+    ChartTypes.h \
     Controller.h \
     MainWindow.h \
     Model.h \

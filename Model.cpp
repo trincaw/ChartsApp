@@ -168,7 +168,7 @@ void Model::LoadXML(QString path){
     } else {
         qDebug() << "è null DC" << "";
     }
-    delete table;
+    //delete table;///////////////////////////////
     table = new TableData(tab,rowsNames,columnsNames);
     table->printTable();
 

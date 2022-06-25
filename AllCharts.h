@@ -1,31 +1,15 @@
 #ifndef ALLCHARTS_H
 #define ALLCHARTS_H
 
-#include "Chart.h"
+#include "ChartTypes.h"
 #include <QtCharts>
 
-class BarChart:public Chart{
-public:
-    QChart* generateChart(TableData* table)  const;
-};
-class PieChart:public Chart{
-public:
-    QChart* generateChart(TableData* table) const;
-};
-class LineChart:public Chart{
-public:
-    QChart* generateChart(TableData* table) const;
-};
-class SplineChart:public Chart{
-public:
-    QChart* generateChart(TableData* table) const;
-};
-class ScatterChart:public Chart{
-public:
-    QChart* generateChart(TableData* table) const;
-};
-class NestedPieChart:public Chart{
-public:
-    QChart* generateChart(TableData* table) const;
-};
+//per creare un nuovo grafco basta selezionare il tipo padre e definire le series
+class BarChart:public BarTypeChart<QStackedBarSeries,QBarSet>{};
+class PieChart:public PieTypeChart<QPieSeries,QPieSlice>{};
+class LineChart:public LineTypeChart<QLineSeries>{};
+class SplineChart:public LineTypeChart<QSplineSeries>{};
+class ScatterChart:public LineTypeChart<QScatterSeries>{};
+class NestedPieChart:public NestedPieTypeChart<QPieSeries,QPieSlice>{};
+
 #endif // ALLCHARTS_H

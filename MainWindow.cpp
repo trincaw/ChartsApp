@@ -168,6 +168,7 @@ void MainWindow::setTableView()
 void MainWindow::setController(Controller* c){
     controller=c;
 
+
     refreshGui();
 
     //Connect all events needed with the controller
