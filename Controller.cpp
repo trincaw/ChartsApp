@@ -87,14 +87,14 @@ void Controller::remove_Selected_Column(){
 }
 void Controller::saveXML(){
     if(view!=nullptr && model!=nullptr){
-        model->SaveXML(QFileDialog::getSaveFileName(view, "Save File","../ChartsApp/Projects", "XML (*.chart)"));
+        model->SaveXML(QFileDialog::getSaveFileName(view, "Save File","../ChartsApp/Projects", "Chart (*.chart)"));
     }
     else
     throw ;
 }
 void Controller::loadXML(){
     if(view!=nullptr && model!=nullptr){
-        model->LoadXML(QFileDialog::getOpenFileName(view, "Load File","../ChartsApp/Projects", "XML (*.chart)"));
+        model->LoadXML(QFileDialog::getOpenFileName(view, "Load File","../ChartsApp/Projects", "Chart (*.chart)"));
         view->refreshGui();
     }
     else
