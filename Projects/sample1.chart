@@ -1,0 +1,75 @@
+<Graph>
+ <Cols CollumnCount="11">
+  <Col value="x"/>
+  <Col value="x1"/>
+  <Col value="x2"/>
+  <Col value="x3"/>
+  <Col value="x4"/>
+  <Col value="x5"/>
+  <Col value="x6"/>
+  <Col value="x7"/>
+  <Col value="x8"/>
+  <Col value="x9"/>
+  <Col value="x10"/>
+ </Cols>
+ <Rows RowCount="4">
+  <Row value="y"/>
+  <Row value="y1"/>
+  <Row value="y2"/>
+  <Row value="y3"/>
+ </Rows>
+ <Data>
+  <Row>
+   <Num value="0"/>
+   <Num value="55"/>
+   <Num value="3"/>
+   <Num value="57"/>
+   <Num value="15"/>
+   <Num value="63.3"/>
+   <Num value="20"/>
+   <Num value="44"/>
+   <Num value="54"/>
+   <Num value="5"/>
+   <Num value="0"/>
+  </Row>
+  <Row>
+   <Num value="0"/>
+   <Num value="20"/>
+   <Num value="15.62"/>
+   <Num value="44.3"/>
+   <Num value="25"/>
+   <Num value="48.7"/>
+   <Num value="36"/>
+   <Num value="64"/>
+   <Num value="54"/>
+   <Num value="14"/>
+   <Num value="6"/>
+  </Row>
+  <Row>
+   <Num value="0"/>
+   <Num value="30"/>
+   <Num value="20"/>
+   <Num value="60"/>
+   <Num value="25"/>
+   <Num value="25.52"/>
+   <Num value="32.5"/>
+   <Num value="28"/>
+   <Num value="54"/>
+   <Num value="52"/>
+   <Num value="22"/>
+  </Row>
+  <Row>
+   <Num value="0"/>
+   <Num value="23.72"/>
+   <Num value="18"/>
+   <Num value="74"/>
+   <Num value="26"/>
+   <Num value="32.99"/>
+   <Num value="35"/>
+   <Num value="22"/>
+   <Num value="54"/>
+   <Num value="16"/>
+   <Num value="0"/>
+  </Row>
+ </Data>
+</Graph>
