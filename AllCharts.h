@@ -5,7 +5,8 @@
 #include <QtCharts>
 
 //to create a new chart just select the parent type and define the series
-class BarChart:public BarTypeChart<QStackedBarSeries,QBarSet>{};
+class StackedBarChart:public BarTypeChart<QStackedBarSeries,QBarSet>{};
+class BarChart:public BarTypeChart<QBarSeries,QBarSet>{};
 class PieChart:public PieTypeChart<QPieSeries,QPieSlice>{};
 class LineChart:public LineTypeChart<QLineSeries>{};
 class SplineChart:public LineTypeChart<QSplineSeries>{};

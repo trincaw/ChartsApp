@@ -123,6 +123,8 @@ void MainWindow::addMenuBar(){
     items.push_back(item2);
     QAction* item3=new QAction("Bar chart");
     items.push_back(item3);
+    QAction* item7=new QAction("StacckedBar chart");
+    items.push_back(item7);
     QAction* item4=new QAction("Spline chart");
     items.push_back(item4);
     QAction* item5=new QAction("Line chart");
@@ -191,9 +193,10 @@ void MainWindow::setController(Controller* c){
     connect(view->actions().at(0),SIGNAL(triggered()),this,SLOT(setPieChart()));
     connect(view->actions().at(1),SIGNAL(triggered()),this,SLOT(setScatterChart()));
     connect(view->actions().at(2),SIGNAL(triggered()),this,SLOT(setBarChart()));
-    connect(view->actions().at(3),SIGNAL(triggered()),this,SLOT(setSplineChart()));
-    connect(view->actions().at(4),SIGNAL(triggered()),this,SLOT(setLineChart()));
-    connect(view->actions().at(5),SIGNAL(triggered()),this,SLOT(setNestedPieChart()));
+    connect(view->actions().at(3),SIGNAL(triggered()),this,SLOT(setStackedBarChart()));
+    connect(view->actions().at(4),SIGNAL(triggered()),this,SLOT(setSplineChart()));
+    connect(view->actions().at(5),SIGNAL(triggered()),this,SLOT(setLineChart()));
+    connect(view->actions().at(6),SIGNAL(triggered()),this,SLOT(setNestedPieChart()));
     //help
     connect(help->actions().at(0),&QAction::triggered,[&](){
         QMessageBox msgBox;
@@ -210,7 +213,7 @@ void MainWindow::setPieChart(){
     chart=new PieChart();
     refreshGui();
     QMessageBox msgBox;
-    msgBox.setText("Pie Chart take only frist row");
+    msgBox.setText("Pie Chart take only first row");
     msgBox.exec();
 }
 void MainWindow::setNestedPieChart(){
@@ -219,6 +222,11 @@ void MainWindow::setNestedPieChart(){
     refreshGui();
 }
 void MainWindow::setBarChart(){
+    delete chart;
+    chart=new BarChart();
+    refreshGui();
+}
+void MainWindow::setStackedBarChart(){
     delete chart;
     chart=new BarChart();
     refreshGui();
