@@ -39,7 +39,7 @@ QVariant Model::headerData(int section, Qt::Orientation orientation, int role) c
         if(((int)table->getColumnCount()) > section)
             return QString::fromStdString(table->getColumnsNames().at(section));
     }
-    return QString();//??
+    return QString();
 }
 void Model::addRow(u_int i, std::string label){
     vector<double> v(table->getColumnCount(),0);
@@ -164,10 +164,8 @@ void Model::LoadXML(QString path){
             tab.push_back(riga);
             Row = Row.nextSiblingElement();
         }
-    } else {
-        qDebug() << "è null DC" << "";
     }
-    //delete table;///////////////////////////////
+    delete table;
     table = new TableData(tab,rowsNames,columnsNames);
 
 }

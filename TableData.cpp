@@ -33,15 +33,12 @@ void TableData::clearTable(){
 }
 void TableData::addRow(vector<double> &row, u_int index, const string &rowName)
 {
-    if (row.size() == columnsCount)
-    {
-        if (rowsCount > index)
-        {
+    if (row.size() == columnsCount){
+        if (rowsCount > index){
             rowsNames.insert(rowsNames.begin() + index, rowName);
             table.insert(table.begin() + index, row);
         }
-        else //if (rowsCount == index)
-        {
+        else{
             rowsNames.push_back(rowName);
             table.push_back(row);
         }
@@ -52,16 +49,13 @@ void TableData::addRow(vector<double> &row, u_int index, const string &rowName)
 }
 void TableData::addColumn(vector<double> &column, u_int index, const string columnName)
 {
-    if (column.size() == rowsCount)
-    {
-        if (columnsCount > index)
-        {
+    if (column.size() == rowsCount){
+        if (columnsCount > index){
             for (u_int i = 0; rowsCount > i; ++i)
                 (table)[i].insert((table)[i].begin() + index, column[i]);
             columnsNames.insert(columnsNames.begin() + index, columnName);
         }
-        else //if (columnsCount == index)
-        {
+        else{
             for (u_int i = 0; rowsCount > i; ++i)
                 (table)[i].push_back(column[i]);
             columnsNames.push_back(columnName);
