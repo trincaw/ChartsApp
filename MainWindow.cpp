@@ -28,7 +28,6 @@ MainWindow::MainWindow(QWidget *parent) : QWidget(parent){
 
     addMenuBar();
     mainLayout->addLayout(chartsLayout);
-
 }
 MainWindow::~MainWindow(){
 

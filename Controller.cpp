@@ -108,7 +108,7 @@ void Controller::loadXML(){
 //Resets model to make a new chart
 void Controller::newChart(){
     if(view!=nullptr && model!=nullptr){
-        model->newModel();
+        model->createNewTable();
         view->refreshGui();
     }
     else

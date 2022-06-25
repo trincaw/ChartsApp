@@ -21,7 +21,6 @@ class Model : public QAbstractTableModel
     Q_OBJECT
 private:
     TableData *table;
-    void createNewTable();
 public:
     Model(QObject *parent = 0);
     ~Model();
@@ -41,10 +40,7 @@ public:
     void removeRow(u_int index);
     void removeColumn(u_int index);
 
-
-    void newModel(string rowLabel, string columnLabel);
-
-    void newModel();
+    void createNewTable();
     void SaveXML(QString path);
     void LoadXML(QString path);
 

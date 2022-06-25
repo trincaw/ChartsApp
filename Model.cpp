@@ -52,8 +52,12 @@ void Model::addColumn(u_int i, std::string label){
 }
 void Model::removeColumn(u_int i){table->deleteColumn(i);}
 void Model::removeRow(u_int i){table->deleteRow(i);}
-void Model::newModel(){
-   createNewTable();//???????
+void Model::createNewTable(){
+    vector<double> column={0};
+    vector<double> row={0};
+    table=new TableData();
+    table->addColumn(column,0,"x");
+    table->addRow(row,0,"y");
 }
 
 void Model::SaveXML(QString path){
@@ -169,12 +173,5 @@ void Model::LoadXML(QString path){
 }
 TableData* Model::getTable(){
     return table;
-}
-void Model::createNewTable(){
-    vector<double> column={0};
-    vector<double> row={0};
-    table=new TableData();
-    table->addColumn(column,0,"x");
-    table->addRow(row,0,"y");
 }
 
