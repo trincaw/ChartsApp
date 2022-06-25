@@ -34,7 +34,7 @@ MainWindow::~MainWindow(){
     delete file;
     delete edit;
     delete view;
-    delete help;
+    delete credits;
     delete menu;
 
     delete tableView;
@@ -142,11 +142,11 @@ void MainWindow::addMenuBar(){
         myGroup->addAction(item);
     }
 
-    //Help
-    help=new QMenu("&Help",menu);
-    help->addAction(new QAction("Credits",menu));
+    //Credits
+    credits=new QMenu("&Credits",menu);
+    credits->addAction(new QAction("Credits",menu));
 
-    menu->addMenu(help);
+    menu->addMenu(credits);
     mainLayout->addWidget(menu);
 }
 void MainWindow::setTableView()
@@ -197,8 +197,8 @@ void MainWindow::setController(Controller* c){
     connect(view->actions().at(4),SIGNAL(triggered()),this,SLOT(setSplineChart()));
     connect(view->actions().at(5),SIGNAL(triggered()),this,SLOT(setLineChart()));
     connect(view->actions().at(6),SIGNAL(triggered()),this,SLOT(setNestedPieChart()));
-    //help
-    connect(help->actions().at(0),&QAction::triggered,[&](){
+    //credits
+    connect(credits->actions().at(0),&QAction::triggered,[&](){
         QMessageBox msgBox;
         msgBox.setText("Developed by Nicolo' Trinca & Marco Bernardi");
         msgBox.exec();});

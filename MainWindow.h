@@ -44,7 +44,7 @@ private:
     QMenu* file;
     QMenu* edit;
     QMenu* view;
-    QMenu* help;
+    QMenu* credits;
 
     QTableView* tableView= nullptr;
     QChartView* chartView= nullptr;
