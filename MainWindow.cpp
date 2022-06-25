@@ -123,14 +123,14 @@ void MainWindow::addMenuBar(){
     items.push_back(item2);
     QAction* item3=new QAction("Bar chart");
     items.push_back(item3);
-    QAction* item7=new QAction("StacckedBar chart");
-    items.push_back(item7);
-    QAction* item4=new QAction("Spline chart");
+    QAction* item4=new QAction("StackedBar chart");
     items.push_back(item4);
-    QAction* item5=new QAction("Line chart");
+    QAction* item5=new QAction("Spline chart");
     items.push_back(item5);
-    QAction* item6=new QAction("Nested Pie chart");
+    QAction* item6=new QAction("Line chart");
     items.push_back(item6);
+    QAction* item7=new QAction("Nested Pie chart");
+    items.push_back(item7);
 
 
     QActionGroup* myGroup= new QActionGroup(this);
@@ -228,7 +228,7 @@ void MainWindow::setBarChart(){
 }
 void MainWindow::setStackedBarChart(){
     delete chart;
-    chart=new BarChart();
+    chart=new StackedBarChart();
     refreshGui();
 }
 void MainWindow::setLineChart(){
