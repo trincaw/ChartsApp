@@ -18,7 +18,6 @@ private:
     vector<string> columnsNames;
     u_int rowsCount;
     u_int columnsCount;
-
     void clearTable();
 
 public:
@@ -28,20 +27,17 @@ public:
     u_int getRowCount() const;
     u_int getColumnCount() const;
 
+    void changeValue(const u_int x,const u_int y,double value);
     void addRow( vector<double> &row,const u_int index=0, const string &rowName="");
     void addColumn(vector<double> &column,const u_int index=0, const string columnName="");
     void deleteRow(const u_int index);
     void deleteColumn(const u_int index);
-    void clear();
 
     vector<double> getColumn(const u_int index) const;
     vector<double> getRow(const u_int index) const;
     vector<string> getRowsNames() const;
     vector<string> getColumnsNames() const;
     vector<vector<double>> getTable() const;
-    void changeValue(int x,int y,double value);
-    void changeRowsHeader(int index,string value);
-    void changeColumnsHeader(int index,string value);
 
     //Deboug
     void printTable() const;

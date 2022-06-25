@@ -217,22 +217,27 @@ void MainWindow::setPieChart(){
     msgBox.exec();
 }
 void MainWindow::setNestedPieChart(){
+    delete chart;
     chart=new NestedPieChart();
     refreshGui();
 }
 void MainWindow::setBarChart(){
+    delete chart;
     chart=new BarChart();
     refreshGui();
 }
 void MainWindow::setLineChart(){
+    delete chart;
     chart=new LineChart();
     refreshGui();
 }
 void MainWindow::setSplineChart(){
+    delete chart;
     chart=new SplineChart();
     refreshGui();
 }
 void MainWindow::setScatterChart(){
+    delete chart;
     chart=new ScatterChart();
     refreshGui();
 }

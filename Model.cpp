@@ -55,6 +55,8 @@ void Model::removeRow(u_int i){table->deleteRow(i);}
 void Model::createNewTable(){
     vector<double> column={0};
     vector<double> row={0};
+    if(table!=nullptr)
+    delete table;
     table=new TableData();
     table->addColumn(column,0,"x");
     table->addRow(row,0,"y");

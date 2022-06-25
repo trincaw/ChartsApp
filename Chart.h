@@ -13,8 +13,7 @@ class Chart
 {
 public:
     virtual QChart* generateChart(TableData* model) const =0;
-    //Chart()=default;
-    ~Chart()=default;
+    virtual ~Chart()=default;
 };
 
 #endif // CHART_H

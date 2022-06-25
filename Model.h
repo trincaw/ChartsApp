@@ -20,7 +20,7 @@ class Model : public QAbstractTableModel
 {
     Q_OBJECT
 private:
-    TableData *table;
+    TableData *table=nullptr;
 public:
     Model(QObject *parent = 0);
     ~Model();

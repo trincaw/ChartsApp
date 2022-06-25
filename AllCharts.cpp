@@ -10,7 +10,6 @@ QChart* BarChart::generateChart(TableData* table) const
         for (u_int j=0;j < table->getColumnCount();++j)
             *set << table->getTable().at(i).at(j);
         series->append(set);
-        chart->createDefaultAxes();
     }
     chart->addSeries(series);
     chart->createDefaultAxes();
@@ -44,9 +43,9 @@ QChart* LineChart::generateChart(TableData* table) const{
         series->setName(QString::fromUtf8(table->getRowsNames().at(nameIndex).c_str()));
         nameIndex++;
         chart->addSeries(series);
-         chart->createDefaultAxes();
-    }
 
+    }
+    chart->createDefaultAxes();
     return chart;
 }
 QChart* SplineChart::generateChart(TableData* table) const{

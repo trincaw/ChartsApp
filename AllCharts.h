@@ -6,7 +6,7 @@
 
 class BarChart:public Chart{
 public:
-    QChart* generateChart(TableData* table) const;
+    QChart* generateChart(TableData* table)  const;
 };
 class PieChart:public Chart{
 public:

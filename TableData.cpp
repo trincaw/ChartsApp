@@ -21,14 +21,8 @@ vector<vector<double>> TableData::getTable() const
 {
     return table;
 }
-void TableData::changeValue(int x,int y,double value){
+void TableData::changeValue(const u_int x,const u_int y,double value){
      table.at(x).at(y) = value;
-}
-void TableData::changeRowsHeader(int index,string value){
-    rowsNames.at(index) = value;
-}
-void TableData::changeColumnsHeader(int index,string value){
-    columnsNames.at(index) = value;
 }
 void TableData::clearTable(){
     table.clear();
