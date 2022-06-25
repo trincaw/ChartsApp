@@ -61,7 +61,6 @@ protected:
             series->setName(QString::fromUtf8(table->getRowsNames().at(nameIndex).c_str()));
             nameIndex++;
             chart->addSeries(series);
-
         }
         chart->createDefaultAxes();
         return chart;

@@ -49,7 +49,6 @@ void TableData::addRow(vector<double> &row, u_int index, const string &rowName)
     }
     else
         std::cout << "Add row out of range or overflow" << std::endl;
-    printTable();
 }
 void TableData::addColumn(vector<double> &column, u_int index, const string columnName)
 {
@@ -71,8 +70,6 @@ void TableData::addColumn(vector<double> &column, u_int index, const string colu
     }
     else
         std::cout << "Add column out of range or overflow" << std::endl;
-    printTable();
-
 }
 vector<string> TableData::getRowsNames() const
 {
@@ -98,7 +95,6 @@ void TableData::deleteColumn(const u_int index)
     }
     else
         std::cout << "Remove column out of range or overflow" << std::endl;
-    printTable();
 }
 void TableData::deleteRow(const u_int index)
 {
@@ -115,56 +111,4 @@ void TableData::deleteRow(const u_int index)
     }
     else
         std::cout << "Remove row out of range or overflow" << std::endl;
-    printTable();
-}
-
-void TableData::printTable() const
-{
-    std::cout << std::endl;
-    std::cout << "Names:";
-    std::cout << std::endl;std::cout << " ";
-    for (const auto &c : columnsNames)
-    {
-        std::cout << c << " ";
-    }
-    std::cout << std::endl;
-    for (const auto &r : rowsNames)
-    {
-        std::cout << r << " ";
-        std::cout << std::endl;
-    }
-    std::cout << "Table:";
-    std::cout << std::endl;
-    for (const auto &data : table)
-    {
-        for (auto d : data)
-            std::cout << d << " ";
-        std::cout << std::endl;
-    }
-
-    std::cout << "Columns:" << columnsCount << " ";
-    std::cout << "Rows:" << rowsCount << " ";
-    std::cout << std::endl;
-}
-
-void TableData::loadModelRandom(const u_int columns, const u_int rows)
-{
-    for (u_int j = 0; columns > j; j++)
-    {
-        vector<double> d = vector<double>();
-        for (u_int i = 0; rows > i; i++)
-        {
-            d.push_back(i + j);
-        }
-        columnsNames.push_back("");
-        table.push_back(d);
-
-    }
-    for (u_int i = 0; rows > i; i++)
-    {
-        rowsNames.push_back("");
-    }
-    columnsCount = columns;
-    rowsCount = rows;
-    printTable();
 }
