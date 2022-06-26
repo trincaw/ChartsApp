@@ -23,8 +23,17 @@ protected:
                 *set << table->getTable().at(i).at(j);
             series->append(set);
         }
+        QStringList categories;
+        for (u_int i(0); i < table->getColumnCount(); i++) {
+            categories.append(table->getColumnsNames().at(i).c_str());
+        }
+        QBarCategoryAxis *axisX = new QBarCategoryAxis();
+        axisX->append(categories);
+        QValueAxis *axisY = new QValueAxis();
+        axisY->setRange(table->getMinValue(),table->getMaxValue());
         chart->addSeries(series);
-        chart->createDefaultAxes();
+        chart->addAxis(axisX, Qt::AlignBottom);
+        chart->addAxis(axisY, Qt::AlignLeft);
 
         return chart;
     }

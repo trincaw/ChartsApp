@@ -1,0 +1,23 @@
+<Graph>
+ <Cols CollumnCount="6">
+  <Col value="Gennaio"/>
+  <Col value="Febbraio"/>
+  <Col value="Marzo"/>
+  <Col value="Aprile"/>
+  <Col value="Maggio"/>
+  <Col value="Giugno"/>
+ </Cols>
+ <Rows RowCount="1">
+  <Row value="Progetti"/>
+ </Rows>
+ <Data>
+  <Row>
+   <Num value="12"/>
+   <Num value="4"/>
+   <Num value="7"/>
+   <Num value="2"/>
+   <Num value="9">
+   <Num value="14"/>
+  </Row>
+ </Data>
+</Graph

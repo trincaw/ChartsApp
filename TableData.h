@@ -39,6 +39,8 @@ public:
     vector<string> getRowsNames() const;
     vector<string> getColumnsNames() const;
     vector<vector<double>> getTable() const;
+    double getMinValue() const;
+    double getMaxValue() const;
 };
 
 #endif // TABLEDATA_H

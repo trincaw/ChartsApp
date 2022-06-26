@@ -98,3 +98,27 @@ void TableData::deleteRow(const u_int index)
         }
     }
 }
+double TableData::getMinValue() const{
+    double min = 0;
+    for(int i = 0; i < table.size(); i++)
+    {
+        for(int j = 0; j < table[i].size(); j++)
+        {
+            if (table[i][j] < min)
+                min = table[i][j];
+        }
+    }
+    return min;
+}
+double TableData::getMaxValue() const{
+    double max = 0;
+    for(int i = 0; i < table.size(); i++)
+    {
+        for(int j = 0; j < table[i].size(); j++)
+        {
+            if (table[i][j] > max)
+                max = table[i][j];
+        }
+    }
+    return max;
+}

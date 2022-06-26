@@ -120,7 +120,7 @@ void Model::LoadXML(QString path){
     QFile xmlFile(path);
     if (!xmlFile.open(QIODevice::ReadOnly ))
     {
-        // Error while loading file
+       qDebug() << "errore nel file"; // Error while loading file
     }
     tableXML.setContent(&xmlFile);
     xmlFile.close();
@@ -134,7 +134,6 @@ void Model::LoadXML(QString path){
         QDomElement ColsChild = Cols.firstChildElement();
         while(ColsChild.isNull() == false){
             columnsNames.push_back(ColsChild.attribute("value","x").toStdString());
-            qDebug() << ColsChild.attribute("value","x") << " ";
             ColsChild = ColsChild.nextSiblingElement();
         }
     } else {
@@ -144,21 +143,18 @@ void Model::LoadXML(QString path){
         QDomElement RowChild = Row.firstChildElement();
         while(!RowChild.isNull()){
             rowsNames.push_back(RowChild.attribute("value","x").toStdString());
-            qDebug() << RowChild.attribute("value","x") << " ";
             RowChild = RowChild.nextSiblingElement();
         }
     } else {
     }
     // LOAD TABLE DATA
     if (!Table.isNull()){
-        qDebug() << Table.tagName();
         QDomElement Row = Table.firstChildElement();
         while (!Row.isNull()){
             vector<double> riga;
             QDomElement RowElement = Row.firstChildElement();
             while (!RowElement.isNull()){
                 riga.push_back(RowElement.attribute("value","0").toDouble());
-                qDebug() << RowElement.attribute("value","0") << " ";
                 RowElement = RowElement.nextSiblingElement();
             }
             tab.push_back(riga);
