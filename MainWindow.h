@@ -59,8 +59,8 @@ public:
 
     //add grapichal interface
     void addMenuBar();
-    void refreshTableView();
-    void refreshChartView();
+    void addTableView();
+    void addChartView();
     void refreshGui();
 
     //get tableview selected cells
