@@ -44,8 +44,6 @@ void TableData::addRow(vector<double> &row, u_int index, const string &rowName)
         }
         rowsCount += 1;
     }
-    else
-        std::cout << "Add row out of range or overflow" << std::endl;
 }
 void TableData::addColumn(vector<double> &column, u_int index, const string columnName)
 {
@@ -62,8 +60,6 @@ void TableData::addColumn(vector<double> &column, u_int index, const string colu
         }
         columnsCount += 1;
     }
-    else
-        std::cout << "Add column out of range or overflow" << std::endl;
 }
 vector<string> TableData::getRowsNames() const
 {
@@ -87,8 +83,6 @@ void TableData::deleteColumn(const u_int index)
         columnsCount -= 1;
         }
     }
-    else
-        std::cout << "Remove column out of range or overflow" << std::endl;
 }
 void TableData::deleteRow(const u_int index)
 {
@@ -103,6 +97,4 @@ void TableData::deleteRow(const u_int index)
         rowsCount -= 1;
         }
     }
-    else
-        std::cout << "Remove row out of range or overflow" << std::endl;
 }
