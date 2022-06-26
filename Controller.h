@@ -31,7 +31,6 @@ public:
     void setView(MainWindow* v);
     Model* getModel() const;
 
-    void loadAChart() const;
 public slots:
     //Insert a new row before the selected one
     void insert_Row_Before_Selected();
