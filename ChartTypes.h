@@ -17,15 +17,14 @@ protected:
         QChart *chart = new QChart();
 
         T1 *series = new T1(chart);
+        QStringList categories;
         for (u_int i(0); i < table->getRowCount(); i++) {
             T2 *set = new T2(QString::fromUtf8(table->getRowsNames().at(i).c_str()));
-            for (u_int j=0;j < table->getColumnCount();++j)
+            for (u_int j=0;j < table->getColumnCount();++j){
                 *set << table->getTable().at(i).at(j);
+                categories.append(table->getColumnsNames().at(j).c_str());
+            }
             series->append(set);
-        }
-        QStringList categories;
-        for (u_int i(0); i < table->getColumnCount(); i++) {
-            categories.append(table->getColumnsNames().at(i).c_str());
         }
         QBarCategoryAxis *axisX = new QBarCategoryAxis();
         axisX->append(categories);
@@ -63,24 +62,22 @@ protected:
         QChart *chart = new QChart();
 
         int nameIndex = 0;
+        QStringList categories;
         for (u_int i(0); i < table->getRowCount(); i++) {
             T1 *series = new T1(chart);
-            for (u_int j=0;j < table->getColumnCount();j++)
+            for (u_int j=0;j < table->getColumnCount();j++){
                 series->append(j+1,table->getTable().at(i).at(j));
+                categories.append(table->getColumnsNames().at(j).c_str());
+            }
             series->setName(QString::fromUtf8(table->getRowsNames().at(nameIndex).c_str()));
             nameIndex++;
             chart->addSeries(series);
-        }
-        QStringList categories;
-        for (u_int i(0); i < table->getColumnCount(); i++) {
-            categories.append(table->getColumnsNames().at(i).c_str());
         }
         QBarCategoryAxis *axisX = new QBarCategoryAxis();
         axisX->append(categories);
         QValueAxis *axisY = new QValueAxis();
         axisY->setRange(table->getMinValue(),table->getMaxValue());
 
-        //chart->createDefaultAxes();
         chart->addAxis(axisX, Qt::AlignBottom);
         chart->addAxis(axisY, Qt::AlignLeft);
         return chart;

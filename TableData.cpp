@@ -71,8 +71,7 @@ vector<string> TableData::getColumnsNames() const
 }
 void TableData::deleteColumn(const u_int index)
 {
-    if (columnsCount > index)
-    {
+    if (columnsCount > index){
         if(columnsCount==1){
             clearTable();
         }
@@ -86,8 +85,7 @@ void TableData::deleteColumn(const u_int index)
 }
 void TableData::deleteRow(const u_int index)
 {
-    if (rowsCount > index)
-    {
+    if (rowsCount > index){
         if(rowsCount==1){
             clearTable();
         }
@@ -100,10 +98,8 @@ void TableData::deleteRow(const u_int index)
 }
 double TableData::getMinValue() const{
     double min = 0;
-    for(int i = 0; i < table.size(); i++)
-    {
-        for(int j = 0; j < table[i].size(); j++)
-        {
+    for(unsigned long i = 0; i < table.size(); i++){
+        for(unsigned long j = 0; j < table[i].size(); j++){
             if (table[i][j] < min)
                 min = table[i][j];
         }
@@ -112,10 +108,8 @@ double TableData::getMinValue() const{
 }
 double TableData::getMaxValue() const{
     double max = 0;
-    for(int i = 0; i < table.size(); i++)
-    {
-        for(int j = 0; j < table[i].size(); j++)
-        {
+    for(unsigned long i = 0; i < table.size(); i++){
+        for(unsigned long j = 0; j < table[i].size(); j++){
             if (table[i][j] > max)
                 max = table[i][j];
         }
