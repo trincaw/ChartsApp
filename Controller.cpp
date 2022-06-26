@@ -8,20 +8,6 @@ void Controller::setView(MainWindow* v) {view = v;}
 
 Model* Controller::getModel() const{ return model; }
 
-void Controller::loadAChart() const{
-    //Setup project folder if not exist
-    string dir=(qApp->applicationDirPath()+"/../Projects").toStdString();
-    if (!std::filesystem::is_directory(dir) || !std::filesystem::exists(dir)) { // Check if src folder exists
-        std::filesystem::create_directory(dir); // create src folder
-    }
-    //Takes frist chart from Projects folder that is .chart
-     for (const auto & entry : std::filesystem::directory_iterator(dir)){
-         if(string s=entry.path();s.find(".chart") != std::string::npos){
-             model->LoadXML(QString::fromStdString(entry.path()));break;}
-     }
-    view->refreshGui();
-}
-
 void Controller::insert_Row(u_int index){
     if(view!=nullptr && model!=nullptr ){
         bool ok;
