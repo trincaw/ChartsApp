@@ -1,0 +1,95 @@
+<Graph>
+ <Cols CollumnCount="12">
+  <Col value="January"/>
+  <Col value="February&#x9;"/>
+  <Col value="March"/>
+  <Col value="April"/>
+  <Col value="May"/>
+  <Col value="June"/>
+  <Col value="July"/>
+  <Col value="August"/>
+  <Col value="September"/>
+  <Col value="October"/>
+  <Col value="November"/>
+  <Col value="December"/>
+ </Cols>
+ <Rows RowCount="5">
+  <Row value="Oranges"/>
+  <Row value="Mangos"/>
+  <Row value="Cherries"/>
+  <Row value="Bananas"/>
+  <Row value="Apples"/>
+ </Rows>
+ <Data>
+  <Row>
+   <Num value="23"/>
+   <Num value="35"/>
+   <Num value="34"/>
+   <Num value="35"/>
+   <Num value="36"/>
+   <Num value="45"/>
+   <Num value="44"/>
+   <Num value="33"/>
+   <Num value="36"/>
+   <Num value="34"/>
+   <Num value="23"/>
+   <Num value="21"/>
+  </Row>
+  <Row>
+   <Num value="12"/>
+   <Num value="14"/>
+   <Num value="15"/>
+   <Num value="18"/>
+   <Num value="23"/>
+   <Num value="25"/>
+   <Num value="34"/>
+   <Num value="53"/>
+   <Num value="34"/>
+   <Num value="22"/>
+   <Num value="20"/>
+   <Num value="15"/>
+  </Row>
+  <Row>
+   <Num value="13"/>
+   <Num value="12"/>
+   <Num value="11"/>
+   <Num value="15"/>
+   <Num value="16"/>
+   <Num value="45"/>
+   <Num value="55"/>
+   <Num value="32"/>
+   <Num value="21"/>
+   <Num value="15"/>
+   <Num value="13"/>
+   <Num value="10"/>
+  </Row>
+  <Row>
+   <Num value="12"/>
+   <Num value="14"/>
+   <Num value="15"/>
+   <Num value="17"/>
+   <Num value="34"/>
+   <Num value="46"/>
+   <Num value="55"/>
+   <Num value="66"/>
+   <Num value="43"/>
+   <Num value="23"/>
+   <Num value="10"/>
+   <Num value="3"/>
+  </Row>
+  <Row>
+   <Num value="32"/>
+   <Num value="53"/>
+   <Num value="60"/>
+   <Num value="42"/>
+   <Num value="34"/>
+   <Num value="23"/>
+   <Num value="24"/>
+   <Num value="26"/>
+   <Num value="15"/>
+   <Num value="14"/>
+   <Num value="12"/>
+   <Num value="15"/>
+  </Row>
+ </Data>
+</Graph>

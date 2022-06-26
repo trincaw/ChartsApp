@@ -62,6 +62,9 @@ void Model::createNewTable(){
 }
 
 void Model::SaveXML(QString path){
+    if(!(path.contains(".chart")))
+        path=path+".chart";
+
     QFile xmlFile(path);
 
     if (!xmlFile.open(QFile::WriteOnly | QFile::Text )){

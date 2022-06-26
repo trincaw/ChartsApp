@@ -62,7 +62,7 @@ void MainWindow::refreshTableView(){
 }
 void MainWindow::refreshChartView(){
     if(chartView==nullptr){
-    chartView = new QChartView(chart->generateChart(controller->getModel()->getTable()));
+    chartView = new QChartView();
     chartsLayout->addWidget(chartView);
     }
     chartView->setChart(chart->generateChart(controller->getModel()->getTable()));
