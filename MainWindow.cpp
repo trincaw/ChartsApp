@@ -43,10 +43,11 @@ MainWindow::~MainWindow(){
     delete chartsLayout;
     delete mainLayout;
 }
-void MainWindow::addTableView(){
-    chartsLayout->removeWidget(tableView);
+void MainWindow::refreshTableView(){
+    if(tableView==nullptr){
     tableView = new QTableView(this);
-
+    chartsLayout->addWidget(tableView);
+    }
     tableView->setModel(controller->getModel());
 
     tableView->resizeColumnsToContents();
@@ -57,21 +58,22 @@ void MainWindow::addTableView(){
     tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     tableView->verticalHeader()->setSectionResizeMode(QHeaderView::Stretch);
 
-    chartsLayout->addWidget(tableView);
-}
-void MainWindow::addChartView(){
-    chartsLayout->removeWidget(chartView);
 
+}
+void MainWindow::refreshChartView(){
+    if(chartView==nullptr){
     chartView = new QChartView(chart->generateChart(controller->getModel()->getTable()));
+    chartsLayout->addWidget(chartView);
+    }
+    chartView->setChart(chart->generateChart(controller->getModel()->getTable()));
+
     chartView->setRenderHint(QPainter::Antialiasing);
     chartView->setMinimumSize(640,480);
-
-    chartsLayout->addWidget(chartView);
 }
 
 void MainWindow::refreshGui(){
-    addTableView();
-    addChartView();
+    refreshTableView();
+    refreshChartView();
 }
 //return selected column
 u_int MainWindow::getSelectedColumn() const{
