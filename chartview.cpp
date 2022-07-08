@@ -4,7 +4,6 @@
 ChartView::ChartView() : QChartView(){
 
 }
-//![1]
 void ChartView::keyPressEvent(QKeyEvent *event)
 {
     switch (event->key()) {
@@ -14,7 +13,6 @@ void ChartView::keyPressEvent(QKeyEvent *event)
     case Qt::Key_Minus:
         chart()->zoomOut();
         break;
-//![1]
     case Qt::Key_Left:
         chart()->scroll(-10, 0);
         break;

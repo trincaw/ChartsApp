@@ -8,6 +8,8 @@
 #include <QTextStream>
 #include <QtXml>
 #include <iostream>
+#include <fstream>
+
 
 
 #include "TableData.h"
@@ -42,7 +44,9 @@ public:
 
     //xml read/write
     void createNewTable();
-    void SaveXML(QString path);
+    void SaveCSV(QString path) const;
+    void LoadCSV(QString path);
+    void SaveXML(QString path) const;
     void LoadXML(QString path);
 
 };

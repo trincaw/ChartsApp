@@ -51,6 +51,8 @@ public slots:
     void saveXML();
     //Load a saved chart
     void loadXML();
+
+    void saveCSV();
 };
 
 

@@ -61,7 +61,65 @@ void Model::createNewTable(){
     table->addRow(row,0,"y");
 }
 
-void Model::SaveXML(QString path){
+void Model::SaveCSV(QString path) const{
+    if(!(path.contains(".csv")))
+        path=path+".csv";
+    QFile csvFile(path);
+    if (csvFile.open(QFile::WriteOnly | QFile::Truncate)){
+        QTextStream output(&csvFile);
+        for(unsigned long j = 0; j < table->getColumnCount(); j++){
+            if (j == table->getColumnCount() - 1){
+                output << QString::fromStdString(table->getColumnsNames()[j]);
+            } else{
+                output << QString::fromStdString(table->getColumnsNames()[j]) << ",";
+            }
+        }
+        output << '\n';
+        for(unsigned long i = 0; i < table->getRowCount(); i++){
+            output << QString::fromStdString(table->getRowsNames()[i]) << ",";
+            for(unsigned long j = 0; j < table->getColumnCount(); j++){
+                if (j == table->getColumnCount() - 1){
+                    output << table->getTable()[i][j];
+                } else{
+                    output << table->getTable()[i][j] << ",";
+                }
+            }
+            output << '\n';
+        }
+    }
+    csvFile.close();
+}
+
+void Model::LoadCSV(QString path) {
+    QFile file(path);
+    vector<vector<double>> tab;
+    vector<string> rowsNames;
+    vector<string> columnsNames;
+    if (!file.open(QIODevice::ReadOnly)) {
+        qDebug() << file.errorString();
+        return;
+    }
+    QByteArray line = file.readLine();
+    for (auto &c : line.split(','))
+    {
+        columnsNames.push_back(c.toStdString());
+    }
+    QList<QByteArray> splitted;
+    while (!file.atEnd()) {
+        line = file.readLine();
+        splitted = line.split(',');
+        rowsNames.push_back(splitted[0].toStdString());
+        vector<double> riga;
+        for(int i = 1; i < splitted.count(); i++){
+            riga.push_back(splitted[i].toDouble());
+        }
+        tab.push_back(riga);
+    }
+    delete table;
+    table = new TableData(tab,rowsNames,columnsNames);
+}
+
+void Model::SaveXML(QString path) const{
     if(!(path.contains(".chart")))
         path=path+".chart";
 

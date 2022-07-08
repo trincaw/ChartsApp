@@ -96,7 +96,8 @@ void MainWindow::addMenuBar(){
     //Menu
     file->addAction(new QAction(QIcon("://Icons/new.png"),"New",file));
     file->addAction(new QAction(QIcon("://Icons/open.png"),"Open",file));
-    file->addAction(new QAction(QIcon("://Icons/save.png"),"Save",file));
+    file->addAction(new QAction(QIcon("://Icons/save.png"),"Save XML",file));
+    file->addAction(new QAction(QIcon("://Icons/save.png"),"Save CSV",file));
     file->addSeparator();
     file->addAction(new QAction(QIcon("://Icons/close.png"),"Exit",file));
 
@@ -184,7 +185,8 @@ void MainWindow::setController(Controller* c){
     connect(file->actions().at(0),SIGNAL(triggered()),controller,SLOT(newChart()));
     connect(file->actions().at(1),SIGNAL(triggered()),controller,SLOT(loadXML()));
     connect(file->actions().at(2),SIGNAL(triggered()),controller,SLOT(saveXML()));
-    connect(file->actions().at(4),SIGNAL(triggered()),this,SLOT(close()));
+    connect(file->actions().at(3),SIGNAL(triggered()),controller,SLOT(saveCSV()));
+    connect(file->actions().at(5),SIGNAL(triggered()),this,SLOT(close()));
 
     //edit
     connect(edit->actions().at(0),SIGNAL(triggered()),controller,SLOT(insert_Row_Before_Selected()));//before

@@ -80,10 +80,24 @@ void Controller::saveXML(){
     else
     throw ;
 }
+void Controller::saveCSV(){
+    if(view!=nullptr && model!=nullptr){
+        model->SaveCSV(QFileDialog::getSaveFileName(view, "Save File","../ChartsApp/Projects", "CSV (*.csv)"));
+    }
+    else
+    throw ;
+}
 void Controller::loadXML(){
     if(view!=nullptr && model!=nullptr){
-        model->LoadXML(QFileDialog::getOpenFileName(view, "Load File","../ChartsApp/Projects", "Chart (*.chart)"));
-        view->refreshGui();
+        QString path = QFileDialog::getOpenFileName(view, "Load File","../ChartsApp/Projects", "Chart,CSV (*.chart *.csv)");
+        if(path.contains(".chart")){
+            model->LoadXML(path);
+            view->refreshGui();
+        }
+        else if (path.contains(".csv")){
+            model->LoadCSV(path);
+            view->refreshGui();
+        }
     }
     else
     throw ;
