@@ -16,5 +16,7 @@
         <file>Icons/delete-row.png</file>
         <file>Icons/row.png</file>
         <file>Icons/image.png</file>
+        <file>Icons/ChartApp.ico</file>
+        <file>Icons/ChartApp.png</file>
     </qresource>
 </RCC>

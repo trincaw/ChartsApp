@@ -10,6 +10,7 @@ int main(int argc, char *argv[])
     Controller c;
     Model m;
 
+    a.setWindowIcon(QIcon("://Icons/ChartApp.png"));
     c.setModel(&m);
     c.setView(&w);
     w.setController(&c);

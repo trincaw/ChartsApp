@@ -1,5 +1,6 @@
 QT += charts
 QT += xml
+win32:RC_ICONS += ChartApp.ico
 
 SOURCES += \
     Controller.cpp \
