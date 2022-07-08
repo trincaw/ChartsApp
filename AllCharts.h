@@ -3,6 +3,7 @@
 
 #include "ChartTypes.h"
 #include <QtCharts>
+#include <QVBarModelMapper>
 
 class StackedBarChart:public BarredChart{
     QChart* generateChart(TableData* table){
@@ -18,13 +19,18 @@ class StackedBarChart:public BarredChart{
                 }
                 series->append(set);
             }
-            QBarCategoryAxis *axisX = new QBarCategoryAxis();
-            axisX->append(categories);
-            QValueAxis *axisY = new QValueAxis();
-            axisY->setRange(table->getMinValue(),table->getMaxValue());
+
+            //QBarCategoryAxis *axisX = new QBarCategoryAxis();
+            //axisX->append(categories);
+            //QValueAxis *axisY = new QValueAxis();
+            //axisY->setRange(table->getMinValue(),table->getMaxValue());
+
             chart->addSeries(series);
-            chart->addAxis(axisX, Qt::AlignBottom);
-            chart->addAxis(axisY, Qt::AlignLeft);
+            chart->createDefaultAxes();
+
+            //chart->addAxis(axisX, Qt::AlignBottom);
+            //chart->addAxis(axisY, Qt::AlignLeft);
+
             return chart;
         }
 };

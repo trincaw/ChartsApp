@@ -9,6 +9,7 @@
 #include <QMenuBar>
 #include <QVBoxLayout>
 #include <QAbstractItemModel>
+#include <QAbstractTableModel>
 #include <QScreen>
 #include <QMessageBox>
 #include <QtCharts>
@@ -21,6 +22,7 @@
 #include "AllCharts.h"
 #include "Model.h"
 #include "TableData.h"
+#include "chartview.h"
 
 #include <vector>
 using std::vector;
@@ -47,7 +49,7 @@ private:
     QMenu* credits;
 
     QTableView* tableView= nullptr;
-    QChartView* chartView= nullptr;
+    ChartView* chartView= nullptr;
 public:
     MainWindow(QWidget* parent=nullptr);
     ~MainWindow();

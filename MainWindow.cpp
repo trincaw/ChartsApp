@@ -11,6 +11,7 @@ MainWindow::MainWindow(QWidget *parent) : QWidget(parent){
     //costruisce di default un barChart
     chart= new BarChart();
 
+
     chartsLayout->setSpacing(0);
     chartsLayout->setAlignment(Qt::AlignCenter);
     chartsLayout->setContentsMargins(0,0,0,0);
@@ -57,12 +58,12 @@ void MainWindow::refreshTableView(){
     tableView->setStyleSheet("QHeaderView::section {background-color:lightblue}");
     tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     tableView->verticalHeader()->setSectionResizeMode(QHeaderView::Stretch);
-
+    //controller->setTableViewOnModel(tableView);
 
 }
 void MainWindow::refreshChartView(){
     if(chartView==nullptr){
-    chartView = new QChartView();
+    chartView = new ChartView();
     chartsLayout->addWidget(chartView);
     }
     chartView->setChart(chart->generateChart(controller->getModel()->getTable()));
@@ -93,41 +94,48 @@ void MainWindow::addMenuBar(){
     menu->addMenu(file);
 
     //Menu
-    file->addAction(new QAction("New",file));
-    file->addAction(new QAction("Open",file));
-    file->addAction(new QAction("Save",file));
+    file->addAction(new QAction(QIcon("://Icons/new.png"),"New",file));
+    file->addAction(new QAction(QIcon("://Icons/open.png"),"Open",file));
+    file->addAction(new QAction(QIcon("://Icons/save.png"),"Save",file));
     file->addSeparator();
-    file->addAction(new QAction("Exit",file));
+    file->addAction(new QAction(QIcon("://Icons/close.png"),"Exit",file));
 
     //Edit
     edit=new QMenu("&Edit",menu);
     menu->addMenu(edit);
-    edit->addAction(new QAction("Add row before",menu));
-    edit->addAction(new QAction("Add row after",menu));
+    edit->addAction(new QAction(QIcon("://Icons/row.png"),"Add row before",menu));
+    edit->addAction(new QAction(QIcon("://Icons/row.png"),"Add row after",menu));
     edit->addSeparator();
-    edit->addAction(new QAction("Add column before",menu));
-    edit->addAction(new QAction("Add column after",menu));
+    edit->addAction(new QAction(QIcon("://Icons/column.png"),"Add column before",menu));
+    edit->addAction(new QAction(QIcon("://Icons/column.png"),"Add column after",menu));
     edit->addSeparator();
-    edit->addAction(new QAction("Delete selected column",menu));
-    edit->addAction(new QAction("Delete selected row",menu));
+    edit->addAction(new QAction(QIcon("://Icons/delete-column.png"),"Delete selected column",menu));
+    edit->addAction(new QAction(QIcon("://Icons/delete-row.png"),"Delete selected row",menu));
 
     //View
     view=new QMenu("&View",menu);
     menu->addMenu(view);
     vector<QAction*>items=vector<QAction*>();
     QAction* item1=new QAction("Pie chart");
+    item1->setIcon(QIcon("://Icons/pie.png"));
     items.push_back(item1);
     QAction* item2=new QAction("Scatter chart");
+    item2->setIcon(QIcon("://Icons/scatter.png"));
     items.push_back(item2);
     QAction* item3=new QAction("Bar chart");
+    item3->setIcon(QIcon("://Icons/bar.png"));
     items.push_back(item3);
     QAction* item4=new QAction("StackedBar chart");
+    item4->setIcon(QIcon("://Icons/stkbar.png"));
     items.push_back(item4);
     QAction* item5=new QAction("Spline chart");
+    item5->setIcon(QIcon("://Icons/spline.png"));
     items.push_back(item5);
     QAction* item6=new QAction("Line chart");
+    item6->setIcon(QIcon("://Icons/line.png"));
     items.push_back(item6);
     QAction* item7=new QAction("Nested Pie chart");
+    item7->setIcon(QIcon("://Icons/pie.png"));
     items.push_back(item7);
 
 
@@ -160,6 +168,7 @@ void MainWindow::setTableView()
     tableView->setStyleSheet("QHeaderView::section {background-color:lightblue}");
     tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     tableView->verticalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+    //controller->setTableViewOnModel(tableView);
     layout()->addWidget(tableView);
 }
 

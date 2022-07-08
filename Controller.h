@@ -29,6 +29,7 @@ public:
     void setModel(Model* m);
     void setView(MainWindow* v);
     Model* getModel() const;
+    //void setTableViewOnModel(QTableView* Table);
 
 public slots:
     //Insert a new row before the selected one

@@ -8,6 +8,8 @@ void Controller::setView(MainWindow* v) {view = v;}
 
 Model* Controller::getModel() const{ return model; }
 
+//void Controller::setTableViewOnModel(QTableView* v){ model->setParent(v);}
+
 void Controller::insert_Row(u_int index){
     if(view!=nullptr && model!=nullptr ){
         bool ok;
