@@ -98,6 +98,7 @@ void MainWindow::addMenuBar(){
     file->addAction(new QAction(QIcon("://Icons/open.png"),"Open",file));
     file->addAction(new QAction(QIcon("://Icons/save.png"),"Save XML",file));
     file->addAction(new QAction(QIcon("://Icons/save.png"),"Save CSV",file));
+    file->addAction(new QAction(QIcon("://Icons/image.png"),"Save Image",file));
     file->addSeparator();
     file->addAction(new QAction(QIcon("://Icons/close.png"),"Exit",file));
 
@@ -138,7 +139,6 @@ void MainWindow::addMenuBar(){
     QAction* item7=new QAction("Nested Pie chart");
     item7->setIcon(QIcon("://Icons/pie.png"));
     items.push_back(item7);
-
 
     QActionGroup* myGroup= new QActionGroup(this);
     myGroup->setExclusive(true);
@@ -186,7 +186,10 @@ void MainWindow::setController(Controller* c){
     connect(file->actions().at(1),SIGNAL(triggered()),controller,SLOT(loadXML()));
     connect(file->actions().at(2),SIGNAL(triggered()),controller,SLOT(saveXML()));
     connect(file->actions().at(3),SIGNAL(triggered()),controller,SLOT(saveCSV()));
-    connect(file->actions().at(5),SIGNAL(triggered()),this,SLOT(close()));
+
+    connect(file->actions().at(4),SIGNAL(triggered()),this,SLOT(getGraphImage()));
+
+    connect(file->actions().at(6),SIGNAL(triggered()),this,SLOT(close()));
 
     //edit
     connect(edit->actions().at(0),SIGNAL(triggered()),controller,SLOT(insert_Row_Before_Selected()));//before
@@ -206,6 +209,8 @@ void MainWindow::setController(Controller* c){
     connect(view->actions().at(4),SIGNAL(triggered()),this,SLOT(setSplineChart()));
     connect(view->actions().at(5),SIGNAL(triggered()),this,SLOT(setLineChart()));
     connect(view->actions().at(6),SIGNAL(triggered()),this,SLOT(setNestedPieChart()));
+
+
     //credits
     connect(credits->actions().at(0),&QAction::triggered,[&](){
         QMessageBox msgBox;
@@ -254,4 +259,16 @@ void MainWindow::setScatterChart(){
     delete chart;
     chart=new ScatterChart();
     refreshGui();
+}
+void MainWindow::getGraphImage(){
+    QPixmap p = chartView->grab();
+    QOpenGLWidget *glWidget  = chartView->findChild<QOpenGLWidget*>();
+    if(glWidget){
+        QPainter painter(&p);
+        QPoint d = glWidget->mapToGlobal(QPoint())-chartView->mapToGlobal(QPoint());
+        painter.setCompositionMode(QPainter::CompositionMode_SourceAtop);
+        painter.drawImage(d, glWidget->grabFramebuffer());
+        painter.end();
+    }
+    p.save(QFileDialog::getSaveFileName(this, "Save Image","../ChartsApp/Projects", "PNG (*.png)"), "PNG");
 }

@@ -71,6 +71,7 @@ public:
 
 private slots:
     //set a chart tipe
+     void getGraphImage();
      void setPieChart();
      void setBarChart();
      void setLineChart();

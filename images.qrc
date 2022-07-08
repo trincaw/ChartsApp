@@ -15,5 +15,6 @@
         <file>Icons/delete-column.png</file>
         <file>Icons/delete-row.png</file>
         <file>Icons/row.png</file>
+        <file>Icons/image.png</file>
     </qresource>
 </RCC>
