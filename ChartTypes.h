@@ -1,10 +1,8 @@
 #ifndef CHARTTYPES_H
 #define CHARTTYPES_H
 #include <QChart>
-
 #include <vector>
 #include <string>
-
 #include "Chart.h"
 
 using QtCharts::QChart;

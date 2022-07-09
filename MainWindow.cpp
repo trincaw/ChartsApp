@@ -228,9 +228,6 @@ void MainWindow::setPieChart(){
     delete chart;
     chart=new PieChart();
     refreshGui();
-    QMessageBox msgBox;
-    msgBox.setText("Pie Chart take only first row");
-    msgBox.exec();
 }
 void MainWindow::setNestedPieChart(){
     delete chart;

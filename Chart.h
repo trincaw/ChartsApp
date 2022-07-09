@@ -3,7 +3,6 @@
 
 #include <QtCharts>
 #include "Model.h"
-#include <QtGui/qrgb.h>
 
 class Chart
 {

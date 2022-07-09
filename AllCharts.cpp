@@ -26,9 +26,20 @@ QChart* StackedBarChart::generateChart(){
         //chart->addAxis(axisX, Qt::AlignBottom);
         //chart->addAxis(axisY, Qt::AlignLeft);
 
+        colourChart();
         return chart;
     }
-void StackedBarChart::colourChart(){};
+void StackedBarChart::colourChart(){
+    model->clearMapping();
+    QString seriesColorHex = "#000000";
+    QList<QBarSet *> barsets = series->barSets();
+    for (int i = 0; i < series->count(); i++) {
+        for (int j = 0; j < barsets.count(); j++) {
+            seriesColorHex = "#" + QString::number(barsets.at(i)->brush().color().rgb(), 16).right(6).toUpper();
+            model->addMapping(seriesColorHex, QRect(j, i, 1, 1));
+        }
+    }
+};
 StackedBarChart::~StackedBarChart(){delete series;}
 QChart* BarChart::generateChart(){
         chart = new QChart();
@@ -78,16 +89,20 @@ QChart* PieChart::generateChart(){
         series->setPieSize(0.6);
         chart->addSeries(series);
 
-        model->clearMapping();
-        QString seriesColorHex = "#000000";
-        QList<QPieSlice *> slices = series->slices();
-        for (u_int j = 0; j <  model->getTable()->getColumnCount(); j++) {
-            seriesColorHex = "#" + QString::number(slices.at(j)->brush().color().rgb(), 16).right(6).toUpper();
-            model->addMapping(seriesColorHex, QRect(j, 0, slices.count(), 1));
-        }
+        colourChart();
         return chart;
+
     }
-void PieChart::colourChart(){};
+void PieChart::colourChart(){
+    model->clearMapping();
+    QString seriesColorHex = "#000000";
+    QList<QPieSlice *> slices = series->slices();
+    for (u_int j = 0; j <  model->getTable()->getColumnCount(); j++) {
+        seriesColorHex = "#" + QString::number(slices.at(j)->brush().color().rgb(), 16).right(6).toUpper();
+        model->addMapping(seriesColorHex, QRect(j, 0, 1, 1));
+    }
+
+};
 PieChart::~PieChart(){if(!series){delete series;}}
 QChart* LineChart::generateChart(){
         chart = new QChart();
@@ -95,19 +110,31 @@ QChart* LineChart::generateChart(){
         int nameIndex = 0;
         series=vector<QLineSeries*>();
         for (u_int i(0); i < model->getTable()->getRowCount(); i++) {
-            QLineSeries* serie = new QLineSeries(chart);
+            QLineSeries* serie = new QLineSeries();
             for (u_int j=0;j < model->getTable()->getColumnCount();j++){
                 serie->append(j+1,model->getTable()->getTable().at(i).at(j));
+
             }
+
             serie->setName(QString::fromUtf8(model->getTable()->getRowsNames().at(nameIndex).c_str()));
             nameIndex++;
             chart->addSeries(serie);
             series.push_back(serie);
         }
         chart->createDefaultAxes();
+        colourChart();
         return chart;
     }
-void LineChart::colourChart(){};
+void LineChart::colourChart(){
+    model->clearMapping();
+    QString seriesColorHex = "#000000";
+    for (u_int i = 0; i < series.size(); i++) {
+        for (int j = 0; j < series.at(i)->count(); j++) {
+        seriesColorHex = "#" + QString::number(series.at(i)->color().rgb(), 16).right(6).toUpper();
+        model->addMapping(seriesColorHex, QRect(j, i, series.at(i)->count(), 1));
+        }
+    }
+};
 LineChart::~LineChart(){for (auto s : series){delete s;}series.clear();}
 QChart* SplineChart::generateChart(){
         chart = new QChart();
@@ -124,9 +151,19 @@ QChart* SplineChart::generateChart(){
             series.push_back(serie);
         }
         chart->createDefaultAxes();
+        colourChart();
         return chart;
     }
-void SplineChart::colourChart(){};
+void SplineChart::colourChart(){
+    model->clearMapping();
+    QString seriesColorHex = "#000000";
+    for (u_int i = 0; i < series.size(); i++) {
+        for (int j = 0; j < series.at(i)->count(); j++) {
+        seriesColorHex = "#" + QString::number(series.at(i)->color().rgb(), 16).right(6).toUpper();
+        model->addMapping(seriesColorHex, QRect(j, i, series.at(i)->count(), 1));
+        }
+    }
+};
 SplineChart::~SplineChart(){for (auto s : series){delete s;}series.clear();}
 QChart* ScatterChart::generateChart(){
         chart = new QChart();
@@ -143,9 +180,19 @@ QChart* ScatterChart::generateChart(){
             series.push_back(serie);
         }
         chart->createDefaultAxes();
+        colourChart();
         return chart;
     }
-void ScatterChart::colourChart(){};
+void ScatterChart::colourChart(){
+    model->clearMapping();
+    QString seriesColorHex = "#000000";
+    for (u_int i = 0; i < series.size(); i++) {
+        for (int j = 0; j < series.at(i)->count(); j++) {
+        seriesColorHex = "#" + QString::number(series.at(i)->color().rgb(), 16).right(6).toUpper();
+        model->addMapping(seriesColorHex, QRect(j, i, series.at(i)->count(), 1));
+        }
+    }
+};
 ScatterChart::~ScatterChart(){for (auto s : series){delete s;}series.clear();}
 QChart* NestedPieChart::generateChart(){
         chart = new QChart();
@@ -167,7 +214,28 @@ QChart* NestedPieChart::generateChart(){
                 donuts.push_back(donut);
             }
             chart->legend()->setVisible(false);
+
+            colourChart();
             return chart;
     }
-void NestedPieChart::colourChart(){};
+// model->clearMapping();
+// QString seriesColorHex = "#000000";
+// for (auto series : donuts) {
+//     QList<QPieSlice *> slices = series->slices();
+//     for (u_int j = 0; j <  model->getTable()->getColumnCount(); j++) {
+//         seriesColorHex = "#" + QString::number(slices.at(j)->brush().color().rgb(), 16).right(6).toUpper();
+//         model->addMapping(seriesColorHex, QRect(j, 0, 1, 1));
+//     }
+// }
+void NestedPieChart::colourChart(){
+    model->clearMapping();
+    QString seriesColorHex = "#000000";
+    for (auto series : donuts) {
+        QList<QPieSlice *> slices = series->slices();
+        for (u_int j = 0; j <  model->getTable()->getColumnCount(); j++) {
+            seriesColorHex = "#" + QString::number(slices.at(j)->brush().color().rgb(), 16).right(6).toUpper();
+            model->addMapping(seriesColorHex, QRect(j, 0, 1, 1));
+        }
+    }
+};
 NestedPieChart::~NestedPieChart(){for (auto s : donuts){if(!s){delete s;}}donuts.clear();}
