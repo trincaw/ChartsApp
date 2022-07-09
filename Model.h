@@ -9,7 +9,7 @@
 #include <QtXml>
 #include <iostream>
 #include <fstream>
-
+#include <QColor>
 
 
 #include "TableData.h"
@@ -18,11 +18,13 @@ typedef unsigned int u_int;
 using std::vector;
 using std::string;
 
+
 class Model : public QAbstractTableModel
 {
     Q_OBJECT
 private:
     TableData *table=nullptr;
+    QHash<QString, QRect> m_mapping;
 public:
     Model(QObject *parent = 0);
     TableData* getTable();
@@ -35,6 +37,8 @@ public:
     virtual bool setData(const QModelIndex &index, const QVariant &value, int role = Qt::EditRole);
     virtual Qt::ItemFlags flags(const QModelIndex &index) const;
     virtual QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const;
+    void addMapping(QString color, QRect area);
+    void clearMapping() { m_mapping.clear(); }
 
     //basic operation on the table
     void addRow(u_int index, string label);

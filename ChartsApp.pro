@@ -3,6 +3,7 @@ QT += xml
 win32:RC_ICONS += ChartApp.ico
 
 SOURCES += \
+    AllCharts.cpp \
     ChartView.cpp \
     Controller.cpp \
     MainWindow.cpp \

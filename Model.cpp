@@ -16,8 +16,15 @@ QVariant Model::data(const QModelIndex &index, int role) const{
     if (role == Qt::DisplayRole){
         qreal temp = table->getTable().at(index.row()).at(index.column());
         return temp;
+    }else if (role == Qt::BackgroundRole) {
+    for (const QRect &rect : m_mapping) {
+        if (rect.contains(index.column(), index.row()))
+            return QColor(m_mapping.key(rect));
     }
-    return QVariant();
+    // cell not mapped return white color
+    return QColor(Qt::white);
+}
+return QVariant();
 }
 bool Model::setData(const QModelIndex &index, const QVariant &value, int role){
     if (role == Qt::EditRole){
@@ -40,6 +47,10 @@ QVariant Model::headerData(int section, Qt::Orientation orientation, int role) c
             return QString::fromStdString(table->getColumnsNames().at(section));
     }
     return QString();
+}
+void Model::addMapping(QString color, QRect area)
+{
+    m_mapping.insertMulti(color, area);
 }
 void Model::addRow(u_int i, std::string label){
     vector<double> v(table->getColumnCount(),0);
