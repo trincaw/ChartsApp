@@ -1,5 +1,6 @@
 #include "AllCharts.h"
 
+
 QChart* StackedBarChart::generateChart(){
         chart = new QChart();
 
@@ -28,6 +29,7 @@ QChart* StackedBarChart::generateChart(){
         return chart;
     }
 void StackedBarChart::colourChart(){};
+StackedBarChart::~StackedBarChart(){delete series;}
 QChart* BarChart::generateChart(){
         chart = new QChart();
 
@@ -63,10 +65,11 @@ void BarChart::colourChart(){
         }
     }
 };
+BarChart::~BarChart(){delete series;}
 QChart* PieChart::generateChart(){
         chart = new QChart();
 
-         series = new QPieSeries(chart);
+        series = new QPieSeries(chart);
 
         for (u_int i(0); i < model->getTable()->getColumnCount(); i++) {
             QPieSlice *slice = series->append(QString::fromStdString(model->getTable()->getColumnsNames().at(i)),model->getTable()->getTable().at(0).at(i));
@@ -85,6 +88,7 @@ QChart* PieChart::generateChart(){
         return chart;
     }
 void PieChart::colourChart(){};
+PieChart::~PieChart(){if(!series){delete series;}}
 QChart* LineChart::generateChart(){
         chart = new QChart();
 
@@ -104,6 +108,7 @@ QChart* LineChart::generateChart(){
         return chart;
     }
 void LineChart::colourChart(){};
+LineChart::~LineChart(){for (auto s : series){delete s;}series.clear();}
 QChart* SplineChart::generateChart(){
         chart = new QChart();
 
@@ -122,6 +127,7 @@ QChart* SplineChart::generateChart(){
         return chart;
     }
 void SplineChart::colourChart(){};
+SplineChart::~SplineChart(){for (auto s : series){delete s;}series.clear();}
 QChart* ScatterChart::generateChart(){
         chart = new QChart();
 
@@ -140,6 +146,7 @@ QChart* ScatterChart::generateChart(){
         return chart;
     }
 void ScatterChart::colourChart(){};
+ScatterChart::~ScatterChart(){for (auto s : series){delete s;}series.clear();}
 QChart* NestedPieChart::generateChart(){
         chart = new QChart();
         qreal minSize = 0.1;
@@ -163,3 +170,4 @@ QChart* NestedPieChart::generateChart(){
             return chart;
     }
 void NestedPieChart::colourChart(){};
+NestedPieChart::~NestedPieChart(){for (auto s : donuts){if(!s){delete s;}}donuts.clear();}
