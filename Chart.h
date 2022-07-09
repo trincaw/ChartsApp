@@ -14,7 +14,7 @@ public:
     void setTableData(Model* model){this->model=model;};
     virtual ~Chart()=default;
     virtual QChart* generateChart()=0;
-    virtual void colorChart()=0;
+    virtual void colourChart()=0;
 };
 
 #endif // CHART_H

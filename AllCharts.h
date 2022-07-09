@@ -9,51 +9,51 @@ using std::vector;
 class StackedBarChart:public BarredChart{
 private:
 QStackedBarSeries *series;
+    void colourChart();
 public:
     QChart* generateChart();
-    void colorChart();
 };
 class BarChart:public BarredChart{
 private:
     QBarSeries *series = new QBarSeries(chart);
+    void colourChart();
 public:
     QChart* generateChart();
-    void colorChart();
 };
 class PieChart:public RoundChart{
 private:
     QPieSeries *series;
+    void colourChart();
 public:
     QChart* generateChart();
-    void colorChart();
 };
 class LineChart:public ContinuousChart{
 private:
     vector<QLineSeries*> series;
+    void colourChart();
 public:
     QChart* generateChart();
-    void colorChart();
 };
 class SplineChart:public ContinuousChart{
 private:
     vector<QSplineSeries*> series;
+    void colourChart();
 public:
     QChart* generateChart();
-    void colorChart();
 };
 class ScatterChart:public ContinuousChart{
 private:
     vector<QScatterSeries*> series;
+    void colourChart();
 public:
     QChart* generateChart();
-    void colorChart();
 };
 class NestedPieChart:public RoundChart{
 private:
     vector<QPieSeries*> donuts;
+    void colourChart();
 public:
     QChart* generateChart();
-    void colorChart();
 };
 
 #endif // ALLCHARTS_H

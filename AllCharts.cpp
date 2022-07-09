@@ -27,7 +27,7 @@ QChart* StackedBarChart::generateChart(){
 
         return chart;
     }
-void StackedBarChart::colorChart(){};
+void StackedBarChart::colourChart(){};
 QChart* BarChart::generateChart(){
         chart = new QChart();
 
@@ -49,29 +49,20 @@ QChart* BarChart::generateChart(){
         chart->addAxis(axisX, Qt::AlignBottom);
         chart->addAxis(axisY, Qt::AlignLeft);
 
-
-
-        // get the color of the series and use it for showing the mapped area
-//          QList<QBarSet *> barsets = series->barSets();
-//          for (int i = 0; i < series->count(); i++) {
-//              for (int j = 0; j < barsets.count(); j++) {
-//              seriesColorHex = "#" + QString::number(barsets.at(i)->brush().color().rgb(), 16).right(6).toUpper();
-//              model->addMapping(seriesColorHex, QRect(j, i, barsets.at(i)->count(), 1));
-//              }
-//          }
-        model->clearMapping();
-        QString seriesColorHex = "#000000";
-        QList<QBarSet *> barsets = series->barSets();
-        for (int i = 0; i < series->count(); i++) {
-            for (int j = 0; j < barsets.count(); j++) {
-            seriesColorHex = "#" + QString::number(barsets.at(i)->brush().color().rgb(), 16).right(6).toUpper();
-            model->addMapping(seriesColorHex, QRect(j, i, barsets.at(i)->count(), 1));
-            }
-        }
-
+        colourChart();
         return chart;
 }
-void BarChart::colorChart(){};
+void BarChart::colourChart(){
+    model->clearMapping();
+    QString seriesColorHex = "#000000";
+    QList<QBarSet *> barsets = series->barSets();
+    for (int i = 0; i < series->count(); i++) {
+        for (int j = 0; j < barsets.count(); j++) {
+        seriesColorHex = "#" + QString::number(barsets.at(i)->brush().color().rgb(), 16).right(6).toUpper();
+        model->addMapping(seriesColorHex, QRect(j, i, barsets.at(i)->count(), 1));
+        }
+    }
+};
 QChart* PieChart::generateChart(){
         chart = new QChart();
 
@@ -93,7 +84,7 @@ QChart* PieChart::generateChart(){
         }
         return chart;
     }
-void PieChart::colorChart(){};
+void PieChart::colourChart(){};
 QChart* LineChart::generateChart(){
         chart = new QChart();
 
@@ -112,7 +103,7 @@ QChart* LineChart::generateChart(){
         chart->createDefaultAxes();
         return chart;
     }
-void LineChart::colorChart(){};
+void LineChart::colourChart(){};
 QChart* SplineChart::generateChart(){
         chart = new QChart();
 
@@ -130,7 +121,7 @@ QChart* SplineChart::generateChart(){
         chart->createDefaultAxes();
         return chart;
     }
-void SplineChart::colorChart(){};
+void SplineChart::colourChart(){};
 QChart* ScatterChart::generateChart(){
         chart = new QChart();
 
@@ -148,7 +139,7 @@ QChart* ScatterChart::generateChart(){
         chart->createDefaultAxes();
         return chart;
     }
-void ScatterChart::colorChart(){};
+void ScatterChart::colourChart(){};
 QChart* NestedPieChart::generateChart(){
         chart = new QChart();
         qreal minSize = 0.1;
@@ -171,4 +162,4 @@ QChart* NestedPieChart::generateChart(){
             chart->legend()->setVisible(false);
             return chart;
     }
-void NestedPieChart::colorChart(){};
+void NestedPieChart::colourChart(){};
