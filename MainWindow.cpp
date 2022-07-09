@@ -66,7 +66,9 @@ void MainWindow::refreshChartView(){
     chartView = new ChartView();
     chartsLayout->addWidget(chartView);
     }
-    chartView->setChart(chart->generateChart(controller->getModel()->getTable()));
+    chart->setTableData(*controller->getModel()->getTable());
+    if(auto c=chart->generateChart())
+    chartView->setChart(c);
 
     chartView->setRenderHint(QPainter::Antialiasing);
     chartView->setMinimumSize(640,480);
@@ -97,7 +99,7 @@ void MainWindow::addMenuBar(){
     file->addAction(new QAction(QIcon("://Icons/new.png"),"New",file));
     file->addAction(new QAction(QIcon("://Icons/open.png"),"Open",file));
     file->addAction(new QAction(QIcon("://Icons/save.png"),"Save XML",file));
-    file->addAction(new QAction(QIcon("://Icons/save.png"),"Save CSV",file));
+    file->addAction(new QAction(QIcon("://Icons/save.png"),"Export CSV",file));
     file->addAction(new QAction(QIcon("://Icons/image.png"),"Save Image",file));
     file->addSeparator();
     file->addAction(new QAction(QIcon("://Icons/close.png"),"Exit",file));

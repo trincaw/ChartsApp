@@ -22,7 +22,7 @@
 #include "AllCharts.h"
 #include "Model.h"
 #include "TableData.h"
-#include "chartview.h"
+#include "ChartView.h"
 
 #include <vector>
 using std::vector;

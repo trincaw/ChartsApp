@@ -7,10 +7,12 @@
 
 class Chart
 {
+protected:
+    TableData table;
 public:
-    //general virtual class for chart polymorphism
+    void setTableData(TableData table){this->table=table;};
     virtual ~Chart()=default;
-    virtual QChart* generateChart(TableData* table)=0;
+    virtual QChart* generateChart()=0;
 };
 
 #endif // CHART_H
