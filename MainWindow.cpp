@@ -67,7 +67,7 @@ void MainWindow::refreshChartView(){
     chartsLayout->addWidget(chartView);
     }
 
-    chart->setTableData(controller->getModel());
+    chart->setModel(controller->getModel());
     if(auto c=chart->generateChart())
     chartView->setChart(c);
 
