@@ -36,7 +36,7 @@ protected:
 };
 class ContinuousChart: public Chart{
 protected:
-    template <class T> vector<T*> toSeries(){
+    template <class T> vector<T*> toSeries() const{
     int nameIndex = 0;
     vector<T*> series=vector<T*>();
     for (u_int i(0); i < model->getTable()->getRowCount(); i++) {
