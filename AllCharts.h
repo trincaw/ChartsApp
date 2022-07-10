@@ -6,15 +6,6 @@
 #include <vector>
 using std::vector;
 
-class StackedBarChart:public BarredChart{
-private:
-    QStackedBarSeries *series;
-public:
-    void addColorMapping();
-    void removeColorMapping(){model->clearMapping();};
-    ~StackedBarChart();
-    QChart* generateChart();
-};
 class BarChart:public BarredChart{
 private:
     QBarSeries *series = new QBarSeries(chart);
@@ -24,6 +15,15 @@ public:
     ~BarChart();
     QChart* generateChart();
 };
+class StackedBarChart:public BarredChart{
+private:
+    QStackedBarSeries *series;
+public:
+    void addColorMapping();
+    void removeColorMapping(){model->clearMapping();};
+    ~StackedBarChart();
+    QChart* generateChart();
+};
 class PieChart:public RoundChart{
 private:
     QPieSeries *series;
@@ -31,6 +31,15 @@ public:
     void addColorMapping();
     void removeColorMapping(){model->clearMapping();};
     ~PieChart();
+    QChart* generateChart();
+};
+class NestedPieChart:public RoundChart{
+private:
+    vector<QPieSeries*> donuts;
+public:
+    void addColorMapping();
+    void removeColorMapping(){model->clearMapping();};
+    ~NestedPieChart();
     QChart* generateChart();
 };
 class LineChart:public ContinuousChart{
@@ -51,7 +60,7 @@ public:
     ~SplineChart();
     QChart* generateChart();
 };
-class ScatterChart:public ContinuousChart{
+class ScatterChart:public Chart{
 private:
     vector<QScatterSeries*> series;
 public:
@@ -60,14 +69,6 @@ public:
     ~ScatterChart();
     QChart* generateChart();
 };
-class NestedPieChart:public RoundChart{
-private:
-    vector<QPieSeries*> donuts;
-public:
-    void addColorMapping();
-    void removeColorMapping(){model->clearMapping();};
-    ~NestedPieChart();
-    QChart* generateChart();
-};
+
 
 #endif // ALLCHARTS_H
