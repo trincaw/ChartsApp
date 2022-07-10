@@ -18,5 +18,6 @@
         <file>Icons/image.png</file>
         <file>Icons/ChartApp.ico</file>
         <file>Icons/ChartApp.png</file>
+        <file>Icons/donut.png</file>
     </qresource>
 </RCC>

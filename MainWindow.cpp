@@ -148,7 +148,7 @@ void MainWindow::addMenuBar(){
     item7->setIcon(QIcon("://Icons/pie.png"));
     items.push_back(item7);
     QAction* item8=new QAction("Donut chart");
-    item8->setIcon(QIcon("://Icons/pie.png"));
+    item8->setIcon(QIcon("://Icons/donut.png"));
     items.push_back(item8);
 
 
