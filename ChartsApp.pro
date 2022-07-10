@@ -4,7 +4,6 @@ win32:RC_ICONS += ChartApp.ico
 
 SOURCES += \
     AllCharts.cpp \
-    ChartTypes.cpp \
     ChartView.cpp \
     Controller.cpp \
     MainWindow.cpp \

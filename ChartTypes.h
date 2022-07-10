@@ -40,7 +40,7 @@ protected:
     int nameIndex = 0;
     vector<T*> series=vector<T*>();
     for (u_int i(0); i < model->getTable()->getRowCount(); i++) {
-        QLineSeries* serie = new QLineSeries();
+        T* serie = new T();
         for (u_int j=0;j < model->getTable()->getColumnCount();j++){
             serie->append(j+1,model->getTable()->getTable().at(i).at(j));}
         serie->setName(QString::fromUtf8(model->getTable()->getRowsNames().at(nameIndex).c_str()));
