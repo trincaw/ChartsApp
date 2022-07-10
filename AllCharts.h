@@ -8,57 +8,64 @@ using std::vector;
 
 class StackedBarChart:public BarredChart{
 private:
-QStackedBarSeries *series;
-    void colourChart();
+    QStackedBarSeries *series;
 public:
+    void addColorMapping();
+    void removeColorMapping(){model->clearMapping();};
     ~StackedBarChart();
     QChart* generateChart();
 };
 class BarChart:public BarredChart{
 private:
     QBarSeries *series = new QBarSeries(chart);
-    void colourChart();
 public:
+    void addColorMapping();
+    void removeColorMapping(){model->clearMapping();};
     ~BarChart();
     QChart* generateChart();
 };
 class PieChart:public RoundChart{
 private:
     QPieSeries *series;
-    void colourChart();
 public:
+    void addColorMapping();
+    void removeColorMapping(){model->clearMapping();};
     ~PieChart();
     QChart* generateChart();
 };
 class LineChart:public ContinuousChart{
 private:
     vector<QLineSeries*> series;
-    void colourChart();
 public:
+    void addColorMapping();
+    void removeColorMapping(){model->clearMapping();};
     ~LineChart();
     QChart* generateChart();
 };
 class SplineChart:public ContinuousChart{
 private:
     vector<QSplineSeries*> series;
-    void colourChart();
 public:
+    void addColorMapping();
+    void removeColorMapping(){model->clearMapping();};
     ~SplineChart();
     QChart* generateChart();
 };
 class ScatterChart:public ContinuousChart{
 private:
     vector<QScatterSeries*> series;
-    void colourChart();
 public:
+    void addColorMapping();
+    void removeColorMapping(){model->clearMapping();};
     ~ScatterChart();
     QChart* generateChart();
 };
 class NestedPieChart:public RoundChart{
 private:
     vector<QPieSeries*> donuts;
-    void colourChart();
 public:
+    void addColorMapping();
+    void removeColorMapping(){model->clearMapping();};
     ~NestedPieChart();
     QChart* generateChart();
 };

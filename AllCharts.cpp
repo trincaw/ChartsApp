@@ -26,17 +26,17 @@ QChart* StackedBarChart::generateChart(){
         //chart->addAxis(axisX, Qt::AlignBottom);
         //chart->addAxis(axisY, Qt::AlignLeft);
 
-        colourChart();
+
         return chart;
     }
-void StackedBarChart::colourChart(){
+void StackedBarChart::addColorMapping(){
     model->clearMapping();
     QString seriesColorHex = "#000000";
     QList<QBarSet *> barsets = series->barSets();
     for (int i = 0; i < series->count(); i++) {
         for (int j = 0; j < barsets.count(); j++) {
-            seriesColorHex = "#" + QString::number(barsets.at(i)->brush().color().rgb(), 16).right(6).toUpper();
-            model->addMapping(seriesColorHex, QRect(j, i, 1, 1));
+        seriesColorHex = "#" + QString::number(barsets.at(i)->brush().color().rgb(), 16).right(6).toUpper();
+        model->addMapping(seriesColorHex, QRect(j, i, barsets.at(i)->count(), 1));
         }
     }
 };
@@ -62,10 +62,10 @@ QChart* BarChart::generateChart(){
         chart->addAxis(axisX, Qt::AlignBottom);
         chart->addAxis(axisY, Qt::AlignLeft);
 
-        colourChart();
+
         return chart;
 }
-void BarChart::colourChart(){
+void BarChart::addColorMapping(){
     model->clearMapping();
     QString seriesColorHex = "#000000";
     QList<QBarSet *> barsets = series->barSets();
@@ -89,11 +89,11 @@ QChart* PieChart::generateChart(){
         series->setPieSize(0.6);
         chart->addSeries(series);
 
-        colourChart();
+
         return chart;
 
     }
-void PieChart::colourChart(){
+void PieChart::addColorMapping(){
     model->clearMapping();
     QString seriesColorHex = "#000000";
     QList<QPieSlice *> slices = series->slices();
@@ -122,10 +122,10 @@ QChart* LineChart::generateChart(){
             series.push_back(serie);
         }
         chart->createDefaultAxes();
-        colourChart();
+
         return chart;
     }
-void LineChart::colourChart(){
+void LineChart::addColorMapping(){
     model->clearMapping();
     QString seriesColorHex = "#000000";
     for (u_int i = 0; i < series.size(); i++) {
@@ -151,10 +151,10 @@ QChart* SplineChart::generateChart(){
             series.push_back(serie);
         }
         chart->createDefaultAxes();
-        colourChart();
+
         return chart;
     }
-void SplineChart::colourChart(){
+void SplineChart::addColorMapping(){
     model->clearMapping();
     QString seriesColorHex = "#000000";
     for (u_int i = 0; i < series.size(); i++) {
@@ -180,10 +180,10 @@ QChart* ScatterChart::generateChart(){
             series.push_back(serie);
         }
         chart->createDefaultAxes();
-        colourChart();
+
         return chart;
     }
-void ScatterChart::colourChart(){
+void ScatterChart::addColorMapping(){
     model->clearMapping();
     QString seriesColorHex = "#000000";
     for (u_int i = 0; i < series.size(); i++) {
@@ -215,27 +215,21 @@ QChart* NestedPieChart::generateChart(){
             }
             chart->legend()->setVisible(false);
 
-            colourChart();
+
             return chart;
     }
-// model->clearMapping();
-// QString seriesColorHex = "#000000";
-// for (auto series : donuts) {
-//     QList<QPieSlice *> slices = series->slices();
-//     for (u_int j = 0; j <  model->getTable()->getColumnCount(); j++) {
-//         seriesColorHex = "#" + QString::number(slices.at(j)->brush().color().rgb(), 16).right(6).toUpper();
-//         model->addMapping(seriesColorHex, QRect(j, 0, 1, 1));
-//     }
-// }
-void NestedPieChart::colourChart(){
+void NestedPieChart::addColorMapping(){
     model->clearMapping();
     QString seriesColorHex = "#000000";
+    int i=0;
     for (auto series : donuts) {
+
         QList<QPieSlice *> slices = series->slices();
         for (u_int j = 0; j <  model->getTable()->getColumnCount(); j++) {
             seriesColorHex = "#" + QString::number(slices.at(j)->brush().color().rgb(), 16).right(6).toUpper();
-            model->addMapping(seriesColorHex, QRect(j, 0, 1, 1));
+            model->addMapping(seriesColorHex, QRect(j, i, 1, 1));
         }
+        i++;
     }
 };
 NestedPieChart::~NestedPieChart(){for (auto s : donuts){if(!s){delete s;}}donuts.clear();}

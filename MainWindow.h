@@ -50,6 +50,8 @@ private:
 
     QTableView* tableView= nullptr;
     ChartView* chartView= nullptr;
+
+    QAction* colorsItem;
 public:
     MainWindow(QWidget* parent=nullptr);
     ~MainWindow();
@@ -72,6 +74,7 @@ public:
 private slots:
     //set a chart tipe
      void getGraphImage();
+     void showColors();
      void setPieChart();
      void setBarChart();
      void setLineChart();

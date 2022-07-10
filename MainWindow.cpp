@@ -66,9 +66,15 @@ void MainWindow::refreshChartView(){
     chartView = new ChartView();
     chartsLayout->addWidget(chartView);
     }
+
     chart->setTableData(controller->getModel());
     if(auto c=chart->generateChart())
     chartView->setChart(c);
+
+    if(colorsItem!=nullptr && colorsItem->isChecked())
+        chart->addColorMapping();
+    else
+        chart->removeColorMapping();
 
     chartView->setRenderHint(QPainter::Antialiasing);
     chartView->setMinimumSize(640,480);
@@ -142,6 +148,8 @@ void MainWindow::addMenuBar(){
     item7->setIcon(QIcon("://Icons/pie.png"));
     items.push_back(item7);
 
+
+
     QActionGroup* myGroup= new QActionGroup(this);
     myGroup->setExclusive(true);
 
@@ -150,6 +158,12 @@ void MainWindow::addMenuBar(){
         view->addAction(item);
         myGroup->addAction(item);
     }
+
+    view->addSeparator();
+    colorsItem=new QAction("Show table colors");
+    colorsItem->setCheckable(true);
+    view->addAction(colorsItem);
+    colorsItem->setChecked(true);
 
     //Credits
     credits=new QMenu("&Credits",menu);
@@ -212,6 +226,8 @@ void MainWindow::setController(Controller* c){
     connect(view->actions().at(5),SIGNAL(triggered()),this,SLOT(setLineChart()));
     connect(view->actions().at(6),SIGNAL(triggered()),this,SLOT(setNestedPieChart()));
 
+    connect(view->actions().at(8),SIGNAL(triggered()),this,SLOT(showColors()));
+
 
     //credits
     connect(credits->actions().at(0),&QAction::triggered,[&](){
@@ -222,6 +238,9 @@ void MainWindow::setController(Controller* c){
     //update on edits
     connect(controller->getModel(),&QAbstractItemModel::dataChanged,[&](){refreshGui();});
 
+}
+void MainWindow::showColors(){
+    refreshGui();
 }
 //these functions create a graph of the required type
 void MainWindow::setPieChart(){
