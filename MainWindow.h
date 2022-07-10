@@ -82,6 +82,7 @@ private slots:
      void setScatterChart();
      void setNestedPieChart();
      void setStackedBarChart();
+     void setDonutChart();
 };
 
 #endif // MAINWINDOW_H

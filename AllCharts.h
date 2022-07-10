@@ -33,6 +33,15 @@ public:
     ~PieChart();
     QChart* generateChart();
 };
+class DonutChart:public RoundChart{
+private:
+    QPieSeries *series;
+public:
+    void addColorMapping();
+    void removeColorMapping(){model->clearMapping();};
+    ~DonutChart();
+    QChart* generateChart();
+};
 class LineChart:public ContinuousChart{
 private:
     vector<QLineSeries*> series;

@@ -119,12 +119,14 @@ void Model::LoadCSV(QString path) {
     while (!file.atEnd()) {
         line = file.readLine();
         splitted = line.split(',');
-        rowsNames.push_back(splitted[0].toStdString());
-        vector<double> riga;
-        for(int i = 1; i < splitted.count(); i++){
-            riga.push_back(splitted[i].toDouble());
+        if (splitted.count() > 1){
+            rowsNames.push_back(splitted[0].toStdString());
+            vector<double> riga;
+            for(int i = 1; i < splitted.count(); i++){
+                riga.push_back(splitted[i].toDouble());
+            }
+            tab.push_back(riga);
         }
-        tab.push_back(riga);
     }
     delete table;
     table = new TableData(tab,rowsNames,columnsNames);

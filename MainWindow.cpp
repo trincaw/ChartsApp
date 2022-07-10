@@ -147,6 +147,9 @@ void MainWindow::addMenuBar(){
     QAction* item7=new QAction("Nested Pie chart");
     item7->setIcon(QIcon("://Icons/pie.png"));
     items.push_back(item7);
+    QAction* item8=new QAction("Donut chart");
+    item8->setIcon(QIcon("://Icons/pie.png"));
+    items.push_back(item8);
 
 
 
@@ -225,8 +228,10 @@ void MainWindow::setController(Controller* c){
     connect(view->actions().at(4),SIGNAL(triggered()),this,SLOT(setSplineChart()));
     connect(view->actions().at(5),SIGNAL(triggered()),this,SLOT(setLineChart()));
     connect(view->actions().at(6),SIGNAL(triggered()),this,SLOT(setNestedPieChart()));
+    connect(view->actions().at(7),SIGNAL(triggered()),this,SLOT(setDonutChart()));
 
-    connect(view->actions().at(8),SIGNAL(triggered()),this,SLOT(showColors()));
+
+    connect(view->actions().at(9),SIGNAL(triggered()),this,SLOT(showColors()));
 
 
     //credits
@@ -276,6 +281,11 @@ void MainWindow::setSplineChart(){
 void MainWindow::setScatterChart(){
     delete chart;
     chart=new ScatterChart();
+    refreshGui();
+}
+void MainWindow::setDonutChart(){
+    delete chart;
+    chart=new DonutChart();
     refreshGui();
 }
 void MainWindow::getGraphImage(){

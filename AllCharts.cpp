@@ -13,16 +13,14 @@ QChart* StackedBarChart::generateChart(){
             }
         }
 
-        //QBarCategoryAxis *axisX = new QBarCategoryAxis();
-        //axisX->append(categories);
-        //QValueAxis *axisY = new QValueAxis();
-        //axisY->setRange(model->getTable()->getMinValue(),model->getTable()->getMaxValue());
+        QBarCategoryAxis *axisX = new QBarCategoryAxis();
+        axisX->append(categories);
+        QValueAxis *axisY = new QValueAxis();
+        axisY->setRange(model->getTable()->getMinValue(),model->getTable()->getMaxValue());
 
         chart->addSeries(series);
-        chart->createDefaultAxes();
-
-        //chart->addAxis(axisX, Qt::AlignBottom);
-        //chart->addAxis(axisY, Qt::AlignLeft);
+        chart->addAxis(axisX, Qt::AlignBottom);
+        chart->addAxis(axisY, Qt::AlignLeft);
 
 
         return chart;
@@ -39,6 +37,7 @@ void StackedBarChart::addColorMapping(){
     }
 };
 StackedBarChart::~StackedBarChart(){delete series;}
+
 QChart* BarChart::generateChart(){
         chart = new QChart();
 
@@ -73,6 +72,29 @@ void BarChart::addColorMapping(){
     }
 };
 BarChart::~BarChart(){delete series;}
+
+QChart* DonutChart::generateChart(){
+        chart = new QChart();
+
+        series = toSeries();
+        series->setPieSize(0.6);
+        series->setHoleSize(0.35);
+        chart->addSeries(series);
+        return chart;
+
+    }
+void DonutChart::addColorMapping(){
+    model->clearMapping();
+    QString seriesColorHex = "#000000";
+    QList<QPieSlice *> slices = series->slices();
+    for (u_int j = 0; j <  model->getTable()->getColumnCount(); j++) {
+        seriesColorHex = "#" + QString::number(slices.at(j)->brush().color().rgb(), 16).right(6).toUpper();
+        model->addMapping(seriesColorHex, QRect(j, 0, 1, 1));
+    }
+
+};
+DonutChart::~DonutChart(){if(!series){delete series;}}
+
 QChart* PieChart::generateChart(){
         chart = new QChart();
 
@@ -95,6 +117,7 @@ void PieChart::addColorMapping(){
 
 };
 PieChart::~PieChart(){if(!series){delete series;}}
+
 QChart* LineChart::generateChart(){
         chart = new QChart();
         series=toSeries<QLineSeries>();
@@ -112,6 +135,7 @@ void LineChart::addColorMapping(){
     }
 };
 LineChart::~LineChart(){for (auto s : series){delete s;}series.clear();}
+
 QChart* SplineChart::generateChart(){
         chart = new QChart();
 
@@ -131,6 +155,7 @@ void SplineChart::addColorMapping(){
     }
 };
 SplineChart::~SplineChart(){for (auto s : series){delete s;}series.clear();}
+
 QChart* ScatterChart::generateChart(){
         chart = new QChart();
         int nameIndex = 0;
@@ -159,6 +184,7 @@ void ScatterChart::addColorMapping(){
     }
 };
 ScatterChart::~ScatterChart(){for (auto s : series){delete s;}series.clear();}
+
 QChart* NestedPieChart::generateChart(){
         chart = new QChart();
         qreal minSize = 0.1;
