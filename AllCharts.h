@@ -8,7 +8,7 @@ using std::vector;
 
 class BarChart:public BarredChart{
 private:
-    QBarSeries *series = new QBarSeries(chart);
+    QBarSeries *series;
 public:
     void addColorMapping();
     void removeColorMapping(){model->clearMapping();};
@@ -31,15 +31,6 @@ public:
     void addColorMapping();
     void removeColorMapping(){model->clearMapping();};
     ~PieChart();
-    QChart* generateChart();
-};
-class NestedPieChart:public RoundChart{
-private:
-    vector<QPieSeries*> donuts;
-public:
-    void addColorMapping();
-    void removeColorMapping(){model->clearMapping();};
-    ~NestedPieChart();
     QChart* generateChart();
 };
 class LineChart:public ContinuousChart{
@@ -69,6 +60,14 @@ public:
     ~ScatterChart();
     QChart* generateChart();
 };
-
+class NestedPieChart:public Chart{
+private:
+    vector<QPieSeries*> donuts;
+public:
+    void addColorMapping();
+    void removeColorMapping(){model->clearMapping();};
+    ~NestedPieChart();
+    QChart* generateChart();
+};
 
 #endif // ALLCHARTS_H

@@ -4,15 +4,13 @@
 QChart* StackedBarChart::generateChart(){
         chart = new QChart();
 
-        series = new QStackedBarSeries(chart);
+        series = toSeries<QStackedBarSeries,QBarSet>();
+
         QStringList categories;
         for (u_int i(0); i < model->getTable()->getRowCount(); i++) {
-            QBarSet *set = new QBarSet(QString::fromUtf8(model->getTable()->getRowsNames().at(i).c_str()));
             for (u_int j=0;j < model->getTable()->getColumnCount();++j){
-                *set << model->getTable()->getTable().at(i).at(j);
                 categories.append(model->getTable()->getColumnsNames().at(j).c_str());
             }
-            series->append(set);
         }
 
         //QBarCategoryAxis *axisX = new QBarCategoryAxis();
@@ -44,16 +42,15 @@ StackedBarChart::~StackedBarChart(){delete series;}
 QChart* BarChart::generateChart(){
         chart = new QChart();
 
-        series = new QBarSeries(chart);
+        series = toSeries<QBarSeries,QBarSet>();
+
         QStringList categories;
         for (u_int i(0); i < model->getTable()->getRowCount(); i++) {
-            QBarSet *set = new QBarSet(QString::fromUtf8(model->getTable()->getRowsNames().at(i).c_str()));
             for (u_int j=0;j < model->getTable()->getColumnCount();++j){
-                *set << model->getTable()->getTable().at(i).at(j);
                 categories.append(model->getTable()->getColumnsNames().at(j).c_str());
             }
-            series->append(set);
         }
+
         QBarCategoryAxis *axisX = new QBarCategoryAxis();
         axisX->append(categories);
         QValueAxis *axisY = new QValueAxis();
@@ -61,7 +58,6 @@ QChart* BarChart::generateChart(){
         chart->addSeries(series);
         chart->addAxis(axisX, Qt::AlignBottom);
         chart->addAxis(axisY, Qt::AlignLeft);
-
 
         return chart;
 }
@@ -80,12 +76,7 @@ BarChart::~BarChart(){delete series;}
 QChart* PieChart::generateChart(){
         chart = new QChart();
 
-        series = new QPieSeries(chart);
-
-        for (u_int i(0); i < model->getTable()->getColumnCount(); i++) {
-            QPieSlice *slice = series->append(QString::fromStdString(model->getTable()->getColumnsNames().at(i)),model->getTable()->getTable().at(0).at(i));
-            slice->setLabelVisible();
-        }
+        series = toSeries();
         series->setPieSize(0.6);
         chart->addSeries(series);
 
@@ -106,23 +97,8 @@ void PieChart::addColorMapping(){
 PieChart::~PieChart(){if(!series){delete series;}}
 QChart* LineChart::generateChart(){
         chart = new QChart();
-
-        int nameIndex = 0;
-        series=vector<QLineSeries*>();
-        for (u_int i(0); i < model->getTable()->getRowCount(); i++) {
-            QLineSeries* serie = new QLineSeries();
-            for (u_int j=0;j < model->getTable()->getColumnCount();j++){
-                serie->append(j+1,model->getTable()->getTable().at(i).at(j));
-
-            }
-
-            serie->setName(QString::fromUtf8(model->getTable()->getRowsNames().at(nameIndex).c_str()));
-            nameIndex++;
-            chart->addSeries(serie);
-            series.push_back(serie);
-        }
+        series=toSeries<QLineSeries>();
         chart->createDefaultAxes();
-
         return chart;
     }
 void LineChart::addColorMapping(){
@@ -139,17 +115,7 @@ LineChart::~LineChart(){for (auto s : series){delete s;}series.clear();}
 QChart* SplineChart::generateChart(){
         chart = new QChart();
 
-        int nameIndex = 0;
-        for (u_int i(0); i < model->getTable()->getRowCount(); i++) {
-            QSplineSeries* serie = new QSplineSeries(chart);
-            for (u_int j=0;j < model->getTable()->getColumnCount();j++){
-                serie->append(j+1,model->getTable()->getTable().at(i).at(j));
-            }
-            serie->setName(QString::fromUtf8(model->getTable()->getRowsNames().at(nameIndex).c_str()));
-            nameIndex++;
-            chart->addSeries(serie);
-            series.push_back(serie);
-        }
+        series=toSeries<QSplineSeries>();
         chart->createDefaultAxes();
 
         return chart;
@@ -167,7 +133,6 @@ void SplineChart::addColorMapping(){
 SplineChart::~SplineChart(){for (auto s : series){delete s;}series.clear();}
 QChart* ScatterChart::generateChart(){
         chart = new QChart();
-
         int nameIndex = 0;
         for (u_int i(0); i < model->getTable()->getRowCount(); i++) {
             QScatterSeries* serie = new QScatterSeries(chart);
