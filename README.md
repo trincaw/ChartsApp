@@ -1,7 +1,7 @@
 <h1 align="center">ChartsApp</h1>
+<p align="center"> ChartApp® is an open-source data management tool and chart plotter.</p>
 <h3 align="center"><img src="https://i.imgur.com/cDGc8FR.jpeg" alt="logo" height="100px"></h3>
 
-<p align="center"> ChartApp® is an open-source data management tool and chart plotter.</p>
 
 ## Description
 
