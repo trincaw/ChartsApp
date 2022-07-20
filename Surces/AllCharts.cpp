@@ -1,4 +1,4 @@
-#include "AllCharts.h"
+#include "Headers/AllCharts.h"
 
 
 QChart* StackedBarChart::generateChart(){

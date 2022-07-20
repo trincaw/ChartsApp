@@ -3,23 +3,23 @@ QT += xml
 win32:RC_ICONS += ChartApp.ico
 
 SOURCES += \
-    AllCharts.cpp \
-    ChartView.cpp \
-    Controller.cpp \
-    MainWindow.cpp \
-    Model.cpp \
-    TableData.cpp \
-    main.cpp
+    Surces/AllCharts.cpp \
+    Surces/ChartView.cpp \
+    Surces/Controller.cpp \
+    Surces/MainWindow.cpp \
+    Surces/Model.cpp \
+    Surces/TableData.cpp \
+    main.cpp \
 
 HEADERS += \
-    Chart.h \
-    AllCharts.h \
-    ChartTypes.h \
-    ChartView.h \
-    Controller.h \
-    MainWindow.h \
-    Model.h \
-    TableData.h
+    Headers/Chart.h \
+    Headers/AllCharts.h \
+    Headers/ChartTypes.h \
+    Headers/ChartView.h \
+    Headers/Controller.h \
+    Headers/MainWindow.h \
+    Headers/Model.h \
+    Headers/TableData.h
 
 RESOURCES += \
     images.qrc

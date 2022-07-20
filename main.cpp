@@ -1,7 +1,7 @@
 #include <QtWidgets/QApplication>
-#include "MainWindow.h"
-#include "Controller.h"
-#include "Model.h"
+#include "Headers/MainWindow.h"
+#include "Headers/Controller.h"
+#include "Headers/Model.h"
 
 int main(int argc, char *argv[])
 {

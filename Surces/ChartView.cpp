@@ -1,4 +1,4 @@
-#include "ChartView.h"
+#include "Headers/ChartView.h"
 #include <QtGui/QMouseEvent>
 
 ChartView::ChartView() : QChartView(){

@@ -1,5 +1,5 @@
-#include <MainWindow.h>
-#include <Controller.h>
+#include <Headers/MainWindow.h>
+#include <Headers/Controller.h>
 
 #include <iostream>
 

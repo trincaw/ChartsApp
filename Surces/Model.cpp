@@ -1,4 +1,4 @@
-#include "Model.h"
+#include "Headers/Model.h"
 
 Model::Model(QObject *parent) : QAbstractTableModel(parent){
     createNewTable();
