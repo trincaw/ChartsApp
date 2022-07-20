@@ -1,4 +1,5 @@
 <h3 align="center"><img src="https://i.imgur.com/cDGc8FR.jpeg" alt="logo" height="100px"></h3>
+<h1 align="center">ChartsApp</h1>
 
 ChartApp® is an open-source column-oriented database management system that allows generating analytical data reports in real-time.
 
