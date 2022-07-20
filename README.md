@@ -35,3 +35,10 @@ Functionality of zoom (+,-) and movement in the graph (arrows).
 * Table coloring
 
 The ability to color the table to improve the visual impact and intuitiveness of editing.
+
+## Compilation
+
+qmake 
+make 
+./ChartApp
+
