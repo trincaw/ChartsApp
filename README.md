@@ -37,8 +37,8 @@ Functionality of zoom (+,-) and movement in the graph (arrows).
 The ability to color the table to improve the visual impact and intuitiveness of editing.
 
 ## Compilation
-
+```console
 qmake 
 make 
 ./ChartApp
-
+```
