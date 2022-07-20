@@ -8,34 +8,30 @@ ChartApp® is an open-source data management tool and chart plotter.
 ChartsApp is a professional desktop application for plot charts. ChartsApp's purpose is to be easy to use, stable, light and accurate. ChartsApp is based on free and open source software, providing the basic tools that users have come to expect from a modern charting application. The software offers features such as editing datasets, plotting graphs and saving the changes made.
 
 ## Features
+* Data edit
+
+Provide a table that display and let you edit data.
+
+* Chart plotting
+
+Provide a live editable chart, with more than 7 different type of charts.
+
 * XML
 
-XML refers to the management of saving graphics and loading them.
+The ability to save data in XML file.
 
 * PNG
 
-The export of the chart in png.
+The ability to export of the chart in png.
 
-CSV ~ Marco Bernardi
+* CSV 
 
-The export of the chart in csv.
+The ability to export of the chart in csv.
 
-Zoom ~ Marco Bernardi
+* Zoom 
 
-Functionality of zoom and movement in the graph.
+Functionality of zoom (+,-) and movement in the graph (arrows).
 
-Gui update ~ Marco Bernardi
+* Table coloring
 
-Added icons and graphic effects.
-
-DountChart ~ Nicolò Trinca ~ Marco Bernardi added
-
-New chart added.
-
-Graphic hierarchy update ~ Nicolò Trinca
-
-Restructuring of the hierarchy.
-
-Table coloring added ~ Nicolò Trinca
-
-The ability to color the table has now been added to improve the visual impact and intuitiveness of editing.
+The ability to color the table to improve the visual impact and intuitiveness of editing.
