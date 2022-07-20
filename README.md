@@ -1,5 +1,5 @@
 <h1 align="center">ChartsApp</h1>
-<p align="center"> ChartApp® is an open-source data management tool and chart plotter.</p>
+<p align="center"> ChartsApp® is an open-source data management tool and chart plotter.</p>
 <h3 align="center"><img src="https://i.imgur.com/cDGc8FR.jpeg" alt="logo" height="100px"></h3>
 
 
@@ -40,5 +40,5 @@ The ability to color the table to improve the visual impact and intuitiveness of
 ```console
 qmake 
 make 
-./ChartApp
+./ChartsApp
 ```
