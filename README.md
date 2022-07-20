@@ -1,7 +1,6 @@
-![alt text](https://i.imgur.com/cDGc8FR.jpeg)
-[![ClickHouse — open source distributed column-oriented DBMS](https://i.imgur.com/cDGc8FR.jpeg)](https://github.com/trincaw/ChartsApp)
+[![ChartApp — open source chart maker](https://i.imgur.com/cDGc8FR.jpeg)](https://github.com/trincaw/ChartsApp)
 
-ClickHouse® is an open-source column-oriented database management system that allows generating analytical data reports in real-time.
+ChartApp® is an open-source column-oriented database management system that allows generating analytical data reports in real-time.
 
 ## Useful Links
 
