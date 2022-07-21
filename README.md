@@ -36,6 +36,14 @@ Functionality of zoom (+,-) and movement in the graph (arrows).
 
 The ability to color the table to improve the visual impact and intuitiveness of editing.
 
+## Build
+
+|              | Build                |
+|-------------:|----------------------|
+| OS           | Arch Linux (rolling) 64bit  |
+| Utils        | QMake 3.1            |
+| Versione Qt  | Qt 5.15.5            |
+
 ## Compilation
 ```console
 qmake 
