@@ -93,7 +93,7 @@ void DonutChart::addColorMapping(){
     }
 
 };
-DonutChart::~DonutChart(){if(!series){delete series;}}
+DonutChart::~DonutChart(){}
 
 QChart* PieChart::generateChart(){
         chart = new QChart();
@@ -116,7 +116,7 @@ void PieChart::addColorMapping(){
     }
 
 };
-PieChart::~PieChart(){if(!series){delete series;}}
+PieChart::~PieChart(){}
 
 QChart* LineChart::generateChart(){
         chart = new QChart();
@@ -223,4 +223,4 @@ void NestedPieChart::addColorMapping(){
         i++;
     }
 };
-NestedPieChart::~NestedPieChart(){for (auto s : donuts){if(!s){delete s;}}donuts.clear();}
+NestedPieChart::~NestedPieChart(){}
