@@ -7,6 +7,8 @@
 
 ChartsApp is a professional desktop application for plot charts. ChartsApp's purpose is to be easy to use, stable, light and accurate. ChartsApp is based on free and open source software, providing the basic tools that users have come to expect from a modern charting application. The software offers features such as editing datasets, plotting graphs and saving the changes made.
 
+Non copiare il progetto al fine scolastico
+
 ## Features
 * Data edit
 
