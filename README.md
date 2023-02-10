@@ -45,7 +45,7 @@ The ability to color the table to improve the visual impact and intuitiveness of
 | Versione Qt  | Qt 5.15.5            |
 
 ## Compilation
-```console
+```sh
 qmake 
 make 
 ./ChartsApp
