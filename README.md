@@ -46,7 +46,13 @@ The ability to color the table to improve the visual impact and intuitiveness of
 
 ## Compilation
 ```sh
-qmake 
-make 
+qmake
+```
+```sh
+make
+```
+```sh
 ./ChartsApp
 ```
+ 
+
