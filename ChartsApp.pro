@@ -3,12 +3,12 @@ QT += xml
 win32:RC_ICONS += ChartApp.ico
 
 SOURCES += \
-    Surces/AllCharts.cpp \
-    Surces/ChartView.cpp \
-    Surces/Controller.cpp \
-    Surces/MainWindow.cpp \
-    Surces/Model.cpp \
-    Surces/TableData.cpp \
+    Sources/AllCharts.cpp \
+    Sources/ChartView.cpp \
+    Sources/Controller.cpp \
+    Sources/MainWindow.cpp \
+    Sources/Model.cpp \
+    Sources/TableData.cpp \
     main.cpp \
 
 HEADERS += \
